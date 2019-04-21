@@ -60,16 +60,23 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("inventoryin_id,purchase_id,product_id,inventoryin_qty,manufacturer_date")] InventoryIn inventoryIn)
+        public async Task<IActionResult> Create([Bind("inventoryin_id,purchase_id,product_id,purchase_type_id,inventoryin_qty,manufacturer_date")]InventoryIn inventoryIn)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(inventoryIn);
+                var row = new PActivity{
+                    purchase_type_id =   inventoryIn.purchase_type_id,
+                    purchase_id      =   inventoryIn.purchase_id,
+                    activity_date    =   DateTime.Now 
+                };
+                _context.PActivities.Add(row);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", inventoryIn.product_id);
             ViewData["purchase_id"] = new SelectList(_context.PurchaseOrders, "purchase_id", "purchase_id", inventoryIn.purchase_id);
+            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_name");
             return View(inventoryIn);
         }
 
