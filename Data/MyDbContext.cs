@@ -11,6 +11,7 @@ namespace sproject.Data{
         public DbSet<Inventory> Inventories {get; set;}
         public DbSet<ProductInfo> ProductInfos {get; set;}
         public DbSet<PurchaseOrder> PurchaseOrders {get; set;}
+        public DbSet<PurchaseItem> PurchaseItems {get; set;}
         public DbSet<SupplierInfo> SupplierInfos {get; set;}
         public DbSet<SupplierPerformance> SupplierPerformances {get; set;}
         //public DbSet<InventoryQty> InventoryQties {get; set;}

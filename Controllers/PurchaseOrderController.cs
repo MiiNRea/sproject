@@ -22,7 +22,7 @@ namespace sproject.Controllers
         // GET: PurchaseOrder
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.PurchaseOrders.Include(p => p.productInfo).Include(p => p.purchaseorder_type).Include(p => p.supplierInfo);
+            var myDbContext = _context.PurchaseOrders;
             return View(await myDbContext.ToListAsync());
         }
 
@@ -35,9 +35,9 @@ namespace sproject.Controllers
             }
 
             var purchaseOrder = await _context.PurchaseOrders
-                .Include(p => p.productInfo)
-                .Include(p => p.purchaseorder_type)
-                .Include(p => p.supplierInfo)
+                // .Include(p => p.productInfo)
+                // .Include(p => p.purchaseorder_type)
+                // .Include(p => p.supplierInfo)
                 .FirstOrDefaultAsync(m => m.purchase_id == id);
             if (purchaseOrder == null)
             {
@@ -66,12 +66,12 @@ namespace sproject.Controllers
             if (ModelState.IsValid)
             {
                 purchaseOrder.purchase_date = DateTime.Now;
-                purchaseOrder.purchase_type_id = 1;
+                //purchaseOrder.purchase_type_id = 1;
                 _context.Add(purchaseOrder);
                 //create activity object
                 //**** */
                 var row = new PActivity{
-                    purchase_type_id =   purchaseOrder.purchase_type_id,
+                    //purchase_type_id =   purchaseOrder.purchase_type_id,
                     purchase_id      =   purchaseOrder.purchase_id,
                     activity_date    =   DateTime.Now 
                 };
@@ -79,9 +79,9 @@ namespace sproject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", purchaseOrder.product_id);
-            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id", purchaseOrder.purchase_type_id);
-            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name", purchaseOrder.supplier_id);
+            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
+            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id");
+            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name");
             return View(purchaseOrder);
         }
 
@@ -98,9 +98,9 @@ namespace sproject.Controllers
             {
                 return NotFound();
             }
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", purchaseOrder.product_id);
-            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id", purchaseOrder.purchase_type_id);
-            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name", purchaseOrder.supplier_id);
+            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
+            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id");
+            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name");
             return View(purchaseOrder);
         }
 
@@ -136,9 +136,9 @@ namespace sproject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", purchaseOrder.product_id);
-            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id", purchaseOrder.purchase_type_id);
-            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name", purchaseOrder.supplier_id);
+            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
+            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id");
+            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name");
             return View(purchaseOrder);
         }
 
@@ -151,9 +151,9 @@ namespace sproject.Controllers
             }
 
             var purchaseOrder = await _context.PurchaseOrders
-                .Include(p => p.productInfo)
-                .Include(p => p.purchaseorder_type)
-                .Include(p => p.supplierInfo)
+                // .Include(p => p.productInfo)
+                // .Include(p => p.purchaseorder_type)
+                // .Include(p => p.supplierInfo)
                 .FirstOrDefaultAsync(m => m.purchase_id == id);
             if (purchaseOrder == null)
             {

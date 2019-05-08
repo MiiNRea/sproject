@@ -9,8 +9,8 @@ using sproject.Data;
 namespace sproject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("25620415031906_c5")]
-    partial class c5
+    [Migration("25620508105614_c")]
+    partial class c
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,28 @@ namespace sproject.Migrations
                     b.HasIndex("product_id");
 
                     b.ToTable("Inventories");
+                });
+
+            modelBuilder.Entity("sproject.Models.InventoryIn", b =>
+                {
+                    b.Property<int>("inventoryin_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("inventoryin_qty");
+
+                    b.Property<DateTime>("manufacturer_date");
+
+                    b.Property<int>("product_id");
+
+                    b.Property<int>("purchase_id");
+
+                    b.HasKey("inventoryin_id");
+
+                    b.HasIndex("product_id");
+
+                    b.HasIndex("purchase_id");
+
+                    b.ToTable("InventoryIn");
                 });
 
             modelBuilder.Entity("sproject.Models.PActivity", b =>
@@ -72,32 +94,42 @@ namespace sproject.Migrations
                     b.ToTable("ProductInfos");
                 });
 
-            modelBuilder.Entity("sproject.Models.PurchaseOrder", b =>
+            modelBuilder.Entity("sproject.Models.PurchaseItem", b =>
                 {
-                    b.Property<int>("purchase_id")
+                    b.Property<int>("purchaseItem_id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("product_id");
 
                     b.Property<double>("purchase_cost");
 
-                    b.Property<DateTime>("purchase_date");
-
-                    b.Property<int>("purchase_item");
-
-                    b.Property<int>("purchase_lot");
+                    b.Property<int>("purchase_id");
 
                     b.Property<int>("purchase_type_id");
 
                     b.Property<int>("supplier_id");
 
-                    b.HasKey("purchase_id");
+                    b.HasKey("purchaseItem_id");
 
                     b.HasIndex("product_id");
+
+                    b.HasIndex("purchase_id");
 
                     b.HasIndex("purchase_type_id");
 
                     b.HasIndex("supplier_id");
+
+                    b.ToTable("PurchaseItems");
+                });
+
+            modelBuilder.Entity("sproject.Models.PurchaseOrder", b =>
+                {
+                    b.Property<int>("purchase_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("purchase_date");
+
+                    b.HasKey("purchase_id");
 
                     b.ToTable("PurchaseOrders");
                 });
@@ -181,6 +213,19 @@ namespace sproject.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("sproject.Models.InventoryIn", b =>
+                {
+                    b.HasOne("sproject.Models.ProductInfo", "productinfo")
+                        .WithMany()
+                        .HasForeignKey("product_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.PurchaseOrder", "purchaseorder")
+                        .WithMany()
+                        .HasForeignKey("purchase_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("sproject.Models.PActivity", b =>
                 {
                     b.HasOne("sproject.Models.PurchaseOrder", "purchaseorder")
@@ -194,11 +239,16 @@ namespace sproject.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("sproject.Models.PurchaseOrder", b =>
+            modelBuilder.Entity("sproject.Models.PurchaseItem", b =>
                 {
                     b.HasOne("sproject.Models.ProductInfo", "productInfo")
                         .WithMany()
                         .HasForeignKey("product_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.PurchaseOrder")
+                        .WithMany("purchase_items")
+                        .HasForeignKey("purchase_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("sproject.Models.PurchaseOrderType", "purchaseorder_type")

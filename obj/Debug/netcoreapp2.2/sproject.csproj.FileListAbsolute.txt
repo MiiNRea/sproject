@@ -48,11 +48,6 @@ c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOr
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrderType\Details.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrderType\Edit.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrderType\Index.g.cshtml.cs
-C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrder\Create.g.cshtml.cs
-C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrder\Delete.g.cshtml.cs
-C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrder\Details.g.cshtml.cs
-C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrder\Edit.g.cshtml.cs
-C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrder\Index.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\InventoryIn\Create.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\InventoryIn\Delete.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\InventoryIn\Details.g.cshtml.cs

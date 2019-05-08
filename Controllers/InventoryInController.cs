@@ -48,9 +48,17 @@ namespace sproject.Controllers
 
         // GET: InventoryIn/Create
         public IActionResult Create()
-        {
+        { 
+            //query1: order id with status = completed from activity table
+            var result1 = _context.PActivities
+            .Where(x=>x.purchase_type_id == 3)
+            .Select(x=>x.purchase_id)  //select purchase id from Purchase
+            .ToArray();
+            //query2: purchase order id from the purchase table where the ids are not
+            //in the query1
+            var result2 = _context.PurchaseOrders.Where(x=>! result1.Contains(x.purchase_id));
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
-            ViewData["purchase_id"] = new SelectList(_context.PurchaseOrders, "purchase_id", "purchase_id");
+            ViewData["purchase_id"] = new SelectList(result2, "purchase_id", "purchase_id");
             ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_name");
             return View();
         }
@@ -60,24 +68,30 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("inventoryin_id,purchase_id,product_id,purchase_type_id,inventoryin_qty,manufacturer_date")]InventoryIn inventoryIn)
+        public async Task<IActionResult> Create(InventoryInView inventoryInView)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(inventoryIn);
+                var obj = new InventoryIn{	
+                    purchase_id	        = inventoryInView.purchase_id,
+                    product_id	        = inventoryInView.product_id,
+                    inventoryin_qty	    = inventoryInView.inventoryin_qty,
+                    manufacturer_date   = inventoryInView.manufacturer_date,
+                };
+                _context.InventoryIn.Add(obj);
                 var row = new PActivity{
-                    purchase_type_id =   inventoryIn.purchase_type_id,
-                    purchase_id      =   inventoryIn.purchase_id,
+                    purchase_type_id =   inventoryInView.purchase_type_id,
+                    purchase_id      =   inventoryInView.purchase_id,
                     activity_date    =   DateTime.Now 
                 };
                 _context.PActivities.Add(row);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", inventoryIn.product_id);
-            ViewData["purchase_id"] = new SelectList(_context.PurchaseOrders, "purchase_id", "purchase_id", inventoryIn.purchase_id);
+            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", inventoryInView.product_id);
+            ViewData["purchase_id"] = new SelectList(_context.PurchaseOrders, "purchase_id", "purchase_id", inventoryInView.purchase_id);
             ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_name");
-            return View(inventoryIn);
+            return View();
         }
 
         // GET: InventoryIn/Edit/5

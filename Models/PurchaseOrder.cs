@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace sproject.Models{
@@ -10,18 +11,9 @@ namespace sproject.Models{
         [DataType(DataType.Date)]
         public DateTime purchase_date {get; set;}
         
-        public int purchase_item {get; set;}
+        public List<PurchaseItem> purchase_items {get; set;}
 
-        [Required]
-        public double purchase_cost {get; set;} //total
 
-        public PurchaseOrderType purchaseorder_type {get; set;}
-        public int purchase_type_id {get; set;} //partner,supplier
-        
-        public ProductInfo productInfo {get; set;}//FK
-        public int product_id {get; set;}
-        
-        public SupplierInfo supplierInfo {get; set;}//FK
-        public int supplier_id {get; set;}
+        //public int lotid
     }
 }
