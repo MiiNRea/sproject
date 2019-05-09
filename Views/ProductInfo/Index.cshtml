@@ -1,5 +1,4 @@
 @model IEnumerable<sproject.Models.ProductInfo>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -15,6 +14,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.product_size)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.supplierInfo)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +31,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.product_size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supplierInfo.supplier_name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.product_id">Edit</a> |

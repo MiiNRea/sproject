@@ -2759,11 +2759,6 @@
   "RootNamespace": "sproject",
   "Documents": [
     {
-      "FilePath": "Views\\PurchaseOrder\\Details.cshtml",
-      "TargetPath": "Views\\PurchaseOrder\\Details.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
@@ -2774,28 +2769,13 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\PurchaseOrder\\Index.cshtml",
-      "TargetPath": "Views\\PurchaseOrder\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "Views\\InventoryIn\\Index.cshtml",
       "TargetPath": "Views\\InventoryIn\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\PurchaseOrder\\Delete.cshtml",
-      "TargetPath": "Views\\PurchaseOrder\\Delete.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "Views\\SupplierType\\Delete.cshtml",
       "TargetPath": "Views\\SupplierType\\Delete.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\PurchaseOrder\\Edit.cshtml",
-      "TargetPath": "Views\\PurchaseOrder\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2941,11 +2921,6 @@
     {
       "FilePath": "Views\\InventoryIn\\Create.cshtml",
       "TargetPath": "Views\\InventoryIn\\Create.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\PurchaseOrder\\Create.cshtml",
-      "TargetPath": "Views\\PurchaseOrder\\Create.cshtml",
       "FileKind": "mvc"
     }
   ]

@@ -87,7 +87,11 @@ namespace sproject.Migrations
                     b.Property<string>("product_size")
                         .IsRequired();
 
+                    b.Property<int>("supplier_id");
+
                     b.HasKey("product_id");
+
+                    b.HasIndex("supplier_id");
 
                     b.ToTable("ProductInfos");
                 });
@@ -149,8 +153,6 @@ namespace sproject.Migrations
                     b.Property<int>("supplier_id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("product_id");
-
                     b.Property<string>("supplier_address");
 
                     b.Property<string>("supplier_name")
@@ -163,8 +165,6 @@ namespace sproject.Migrations
                     b.Property<int>("supplier_type_id");
 
                     b.HasKey("supplier_id");
-
-                    b.HasIndex("product_id");
 
                     b.HasIndex("supplier_type_id");
 
@@ -237,6 +237,14 @@ namespace sproject.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("sproject.Models.ProductInfo", b =>
+                {
+                    b.HasOne("sproject.Models.SupplierInfo", "supplierInfo")
+                        .WithMany()
+                        .HasForeignKey("supplier_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("sproject.Models.PurchaseItem", b =>
                 {
                     b.HasOne("sproject.Models.ProductInfo", "productInfo")
@@ -262,11 +270,6 @@ namespace sproject.Migrations
 
             modelBuilder.Entity("sproject.Models.SupplierInfo", b =>
                 {
-                    b.HasOne("sproject.Models.ProductInfo", "productInfo")
-                        .WithMany()
-                        .HasForeignKey("product_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("sproject.Models.SupplierType", "supplier_type")
                         .WithMany()
                         .HasForeignKey("supplier_type_id")

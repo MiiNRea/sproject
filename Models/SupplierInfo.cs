@@ -18,7 +18,7 @@ namespace sproject.Models{
         public SupplierType supplier_type {get; set;}
         public int supplier_type_id {get; set;} //partner,supplier
 
-        public ProductInfo productInfo {get; set;} //FK
-        public int product_id {get; set;}
+        // public ProductInfo productInfo {get; set;} //FK
+        // public int product_id {get; set;}
     }
 }

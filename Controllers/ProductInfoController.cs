@@ -22,7 +22,8 @@ namespace sproject.Controllers
         // GET: ProductInfo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ProductInfos.ToListAsync());
+            var myDbContext = _context.ProductInfos.Include(p => p.supplierInfo);
+            return View(await myDbContext.ToListAsync());
         }
 
         // GET: ProductInfo/Details/5
@@ -34,6 +35,7 @@ namespace sproject.Controllers
             }
 
             var productInfo = await _context.ProductInfos
+                .Include(p => p.supplierInfo)
                 .FirstOrDefaultAsync(m => m.product_id == id);
             if (productInfo == null)
             {
@@ -46,6 +48,7 @@ namespace sproject.Controllers
         // GET: ProductInfo/Create
         public IActionResult Create()
         {
+            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("product_id,product_name,product_series,product_size")] ProductInfo productInfo)
+        public async Task<IActionResult> Create([Bind("product_id,product_name,product_series,product_size,supplier_id")] ProductInfo productInfo)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace sproject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name", productInfo.supplier_id);
             return View(productInfo);
         }
 
@@ -78,6 +82,7 @@ namespace sproject.Controllers
             {
                 return NotFound();
             }
+            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name", productInfo.supplier_id);
             return View(productInfo);
         }
 
@@ -86,7 +91,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("product_id,product_name,product_series,product_size")] ProductInfo productInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("product_id,product_name,product_series,product_size,supplier_id")] ProductInfo productInfo)
         {
             if (id != productInfo.product_id)
             {
@@ -113,6 +118,7 @@ namespace sproject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name", productInfo.supplier_id);
             return View(productInfo);
         }
 
@@ -125,6 +131,7 @@ namespace sproject.Controllers
             }
 
             var productInfo = await _context.ProductInfos
+                .Include(p => p.supplierInfo)
                 .FirstOrDefaultAsync(m => m.product_id == id);
             if (productInfo == null)
             {

@@ -22,9 +22,7 @@ namespace sproject.Controllers
         // GET: SupplierInfo
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.SupplierInfos
-            .Include(s => s.productInfo)
-            .Include(s => s.supplier_type);
+            var myDbContext = _context.SupplierInfos.Include(s => s.supplier_type);
             return View(await myDbContext.ToListAsync());
         }
 
@@ -37,7 +35,6 @@ namespace sproject.Controllers
             }
 
             var supplierInfo = await _context.SupplierInfos
-                .Include(s => s.productInfo)
                 .Include(s => s.supplier_type)
                 .FirstOrDefaultAsync(m => m.supplier_id == id);
             if (supplierInfo == null)
@@ -51,8 +48,7 @@ namespace sproject.Controllers
         // GET: SupplierInfo/Create
         public IActionResult Create()
         {
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id");
             return View();
         }
 
@@ -61,16 +57,15 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( SupplierInfo supplierInfo)
+        public async Task<IActionResult> Create([Bind("supplier_id,supplier_name,supplier_person,supplier_phone,supplier_address,supplier_type_id")] SupplierInfo supplierInfo)
         {
-            //return Json(supplierInfo);
-             
+            if (ModelState.IsValid)
+            {
                 _context.Add(supplierInfo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", supplierInfo.product_id);
+            }
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id", supplierInfo.supplier_type_id);
             return View(supplierInfo);
         }
 
@@ -87,8 +82,7 @@ namespace sproject.Controllers
             {
                 return NotFound();
             }
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", supplierInfo.product_id);
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id", supplierInfo.supplier_type_id);
             return View(supplierInfo);
         }
 
@@ -97,7 +91,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("supplier_id,supplier_name,supplier_person,supplier_phone,supplier_address,supplier_type_id,product_id")] SupplierInfo supplierInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("supplier_id,supplier_name,supplier_person,supplier_phone,supplier_address,supplier_type_id")] SupplierInfo supplierInfo)
         {
             if (id != supplierInfo.supplier_id)
             {
@@ -124,7 +118,6 @@ namespace sproject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", supplierInfo.product_id);
             ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id", supplierInfo.supplier_type_id);
             return View(supplierInfo);
         }
@@ -138,7 +131,6 @@ namespace sproject.Controllers
             }
 
             var supplierInfo = await _context.SupplierInfos
-                .Include(s => s.productInfo)
                 .Include(s => s.supplier_type)
                 .FirstOrDefaultAsync(m => m.supplier_id == id);
             if (supplierInfo == null)

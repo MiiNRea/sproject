@@ -13,5 +13,8 @@ namespace sproject.Models{
         
         [Required]
         public string product_size {get; set;}
+
+        public SupplierInfo supplierInfo {get; set;} //FK
+        public int supplier_id {get; set;}
     }
 }

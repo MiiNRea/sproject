@@ -4,25 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace sproject.Migrations
 {
-    public partial class c : Migration
+    public partial class c1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "ProductInfos",
-                columns: table => new
-                {
-                    product_id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    product_name = table.Column<string>(nullable: false),
-                    product_series = table.Column<string>(nullable: false),
-                    product_size = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductInfos", x => x.product_id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "PurchaseOrders",
                 columns: table => new
@@ -60,53 +45,6 @@ namespace sproject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SupplierTypes", x => x.supplier_type_id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Inventories",
-                columns: table => new
-                {
-                    inventory_id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    product_id = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inventories", x => x.inventory_id);
-                    table.ForeignKey(
-                        name: "FK_Inventories_ProductInfos_product_id",
-                        column: x => x.product_id,
-                        principalTable: "ProductInfos",
-                        principalColumn: "product_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InventoryIn",
-                columns: table => new
-                {
-                    inventoryin_id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    purchase_id = table.Column<int>(nullable: false),
-                    product_id = table.Column<int>(nullable: false),
-                    inventoryin_qty = table.Column<int>(nullable: false),
-                    manufacturer_date = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InventoryIn", x => x.inventoryin_id);
-                    table.ForeignKey(
-                        name: "FK_InventoryIn_ProductInfos_product_id",
-                        column: x => x.product_id,
-                        principalTable: "ProductInfos",
-                        principalColumn: "product_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InventoryIn_PurchaseOrders_purchase_id",
-                        column: x => x.purchase_id,
-                        principalTable: "PurchaseOrders",
-                        principalColumn: "purchase_id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,23 +106,85 @@ namespace sproject.Migrations
                     supplier_person = table.Column<string>(nullable: true),
                     supplier_phone = table.Column<string>(nullable: true),
                     supplier_address = table.Column<string>(nullable: true),
-                    supplier_type_id = table.Column<int>(nullable: false),
-                    product_id = table.Column<int>(nullable: false)
+                    supplier_type_id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SupplierInfos", x => x.supplier_id);
                     table.ForeignKey(
-                        name: "FK_SupplierInfos_ProductInfos_product_id",
+                        name: "FK_SupplierInfos_SupplierTypes_supplier_type_id",
+                        column: x => x.supplier_type_id,
+                        principalTable: "SupplierTypes",
+                        principalColumn: "supplier_type_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductInfos",
+                columns: table => new
+                {
+                    product_id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    product_name = table.Column<string>(nullable: false),
+                    product_series = table.Column<string>(nullable: false),
+                    product_size = table.Column<string>(nullable: false),
+                    supplier_id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductInfos", x => x.product_id);
+                    table.ForeignKey(
+                        name: "FK_ProductInfos_SupplierInfos_supplier_id",
+                        column: x => x.supplier_id,
+                        principalTable: "SupplierInfos",
+                        principalColumn: "supplier_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Inventories",
+                columns: table => new
+                {
+                    inventory_id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    product_id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventories", x => x.inventory_id);
+                    table.ForeignKey(
+                        name: "FK_Inventories_ProductInfos_product_id",
+                        column: x => x.product_id,
+                        principalTable: "ProductInfos",
+                        principalColumn: "product_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryIn",
+                columns: table => new
+                {
+                    inventoryin_id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    purchase_id = table.Column<int>(nullable: false),
+                    product_id = table.Column<int>(nullable: false),
+                    inventoryin_qty = table.Column<int>(nullable: false),
+                    manufacturer_date = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryIn", x => x.inventoryin_id);
+                    table.ForeignKey(
+                        name: "FK_InventoryIn_ProductInfos_product_id",
                         column: x => x.product_id,
                         principalTable: "ProductInfos",
                         principalColumn: "product_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SupplierInfos_SupplierTypes_supplier_type_id",
-                        column: x => x.supplier_type_id,
-                        principalTable: "SupplierTypes",
-                        principalColumn: "supplier_type_id",
+                        name: "FK_InventoryIn_PurchaseOrders_purchase_id",
+                        column: x => x.purchase_id,
+                        principalTable: "PurchaseOrders",
+                        principalColumn: "purchase_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -255,6 +255,11 @@ namespace sproject.Migrations
                 column: "purchase_type_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductInfos_supplier_id",
+                table: "ProductInfos",
+                column: "supplier_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PurchaseItems_product_id",
                 table: "PurchaseItems",
                 column: "product_id");
@@ -273,11 +278,6 @@ namespace sproject.Migrations
                 name: "IX_PurchaseItems_supplier_id",
                 table: "PurchaseItems",
                 column: "supplier_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierInfos_product_id",
-                table: "SupplierInfos",
-                column: "product_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SupplierInfos_supplier_type_id",
@@ -308,16 +308,16 @@ namespace sproject.Migrations
                 name: "SupplierPerformances");
 
             migrationBuilder.DropTable(
-                name: "PurchaseOrderTypes");
+                name: "ProductInfos");
 
             migrationBuilder.DropTable(
-                name: "SupplierInfos");
+                name: "PurchaseOrderTypes");
 
             migrationBuilder.DropTable(
                 name: "PurchaseOrders");
 
             migrationBuilder.DropTable(
-                name: "ProductInfos");
+                name: "SupplierInfos");
 
             migrationBuilder.DropTable(
                 name: "SupplierTypes");

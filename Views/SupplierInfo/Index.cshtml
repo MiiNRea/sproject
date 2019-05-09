@@ -19,10 +19,7 @@
                 @Html.DisplayNameFor(model => model.supplier_address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.supplier_type.supplier_type_name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.productInfo.product_name)
+                @Html.DisplayNameFor(model => model.supplier_type)
             </th>
             <th></th>
         </tr>
@@ -43,10 +40,7 @@
                 @Html.DisplayFor(modelItem => item.supplier_address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.supplier_type.supplier_type_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.productInfo.product_name)
+                @Html.DisplayFor(modelItem => item.supplier_type.supplier_type_id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.supplier_id">Edit</a> |
