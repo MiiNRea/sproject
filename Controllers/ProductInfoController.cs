@@ -25,6 +25,21 @@ namespace sproject.Controllers
             var myDbContext = _context.ProductInfos.Include(p => p.supplierInfo);
             return View(await myDbContext.ToListAsync());
         }
+        public async Task<IActionResult> Products()
+        {
+            var result = await _context.ProductInfos
+             .Select(x => new
+             {
+                 product_id = x.product_id,
+                 product_name = x.product_name,
+                 product_series = x.product_series,
+                 product_size = x.product_size,
+                 supplier_id = x.supplierInfo.supplier_id,
+                 supplier_name = x.supplierInfo.supplier_name
+             })
+             .ToListAsync();
+             return Json(result);
+        }
 
         // GET: ProductInfo/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -77,7 +92,9 @@ namespace sproject.Controllers
                 return NotFound();
             }
 
-            var productInfo = await _context.ProductInfos.FindAsync(id);
+            var productInfo = await _context.ProductInfos
+            .Include(x=>x.supplierInfo)
+            .FirstOrDefaultAsync(x=>x.product_id == id);
             if (productInfo == null)
             {
                 return NotFound();
@@ -156,5 +173,6 @@ namespace sproject.Controllers
         {
             return _context.ProductInfos.Any(e => e.product_id == id);
         }
+
     }
 }

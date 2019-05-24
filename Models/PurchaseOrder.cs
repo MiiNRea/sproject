@@ -12,8 +12,6 @@ namespace sproject.Models{
         public DateTime purchase_date {get; set;}
         
         public List<PurchaseItem> purchase_items {get; set;}
-
-
         //public int lotid
     }
 }

@@ -5,7 +5,7 @@ namespace sproject.Models{
         [Key]
         public int purchaseItem_id {get; set;}
         
-        [Required]
+   
         public double purchase_cost {get; set;} //total
 
         public PurchaseOrderType purchaseorder_type {get; set;}
@@ -14,6 +14,8 @@ namespace sproject.Models{
         public ProductInfo productInfo {get; set;}//FK
         public int product_id {get; set;}
 
+        public int qty {get; set;}
+        
         //reverse NP
         public int purchase_id {get; set;}//PK
         public SupplierInfo supplierInfo {get; set;}//FK

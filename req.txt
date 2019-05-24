@@ -1,0 +1,13 @@
+1. select product_name then show list of supplier  
+2. Show product id (read only) after supplier had selected 
+3. show product id and product info
+
+dotnet aspnet-codegenerator controller -name PurchaseOrderController -actions -m PurchaseOrder -dc MyDbContext -outDir Controllers
+
+New req 24/5 mint
+purchaseorder screen
+prepopulate list of supplier name when the screen is loanded 
+update productinfo when user select supplier name in the supplier combo box
+
+productinfo
+example for data table foe search

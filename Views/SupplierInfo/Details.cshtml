@@ -5,38 +5,106 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.supplier_name)
+            Supplier name
+            <!-- @Html.DisplayNameFor(model => model.supplier_name) -->
+
         </dt>
+    
+
+   <input id="sup1" value="@Model.supplier_id" hidden/></input>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.supplier_name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.supplier_person)
+            Contact person
+            <!-- @Html.DisplayNameFor(model => model.supplier_person) -->
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.supplier_person)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.supplier_phone)
+            Phone number
+            <!-- @Html.DisplayNameFor(model => model.supplier_phone) -->
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.supplier_phone)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.supplier_address)
+            Address
+            <!-- @Html.DisplayNameFor(model => model.supplier_address) -->
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.supplier_address)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.supplier_type)
+            Type
+            <!-- @Html.DisplayNameFor(model => model.supplier_type) -->
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.supplier_type.supplier_type_id)
+            @Html.DisplayFor(model => model.supplier_type.supplier_type_name)
         </dd>
     </dl>
+</div>
+<div>
+<table class="table" id="table1">
+    <tr>
+        <th>Product sell</th>
+        <th>Series</th>
+        <th>Size</th>
+    </tr>
+</table>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.supplier_id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+@section Scripts{
+    <script>
+        var list = [];
+        var tbl = $('#table1');
+        $(document).ready(tb);
+
+        function tb(){
+            $.get("/productinfo/products", product_data_arrived);
+        }
+
+        function product_data_arrived (data){
+            console.log("product table",data);
+            list = data;
+            var supplier_id = $('#sup1').val();
+            var found = list.filter(function(x){
+                return x.supplier_id == supplier_id;
+            });
+           console.log(found);
+            /*-- var product_id = found.product_id;
+            var product_name = found.product_name;
+            var product_series = found.product_series;
+            var product_size = found.product_size;
+
+            var row = {
+                product_id : found.product_id,
+                product_name : found.product_name,
+                product_series : found.product_series,
+                product_size : found.product_size,
+            }; --*/
+
+        table(found);
+        }
+        function table(list){
+            for (var i = 0; i < list.length; i++) {
+            var row = tr(td(list[i].product_name) + td(list[i].product_series)+ td(list[i].product_size));
+            tbl.append(row);
+            }
+        }
+
+        function tr(data) {
+         return '<tr>' + data + '</tr>';
+     }
+
+     function td(data) {
+         return '<td>' + data + '</td>';
+     }
+    </script>
+}

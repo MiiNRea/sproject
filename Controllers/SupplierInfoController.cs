@@ -26,8 +26,7 @@ namespace sproject.Controllers
             return View(await myDbContext.ToListAsync());
         }
 
-        // GET: SupplierInfo/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> SDetails(int? id)
         {
             if (id == null)
             {
@@ -45,10 +44,30 @@ namespace sproject.Controllers
             return View(supplierInfo);
         }
 
+        // GET: SupplierInfo/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var supplierInfo = await _context.SupplierInfos
+                .Include(s => s.supplier_type)
+                .FirstOrDefaultAsync(m => m.supplier_id == id);
+               
+            if (supplierInfo == null)
+            {
+                return NotFound();
+            }
+
+            return View(supplierInfo);
+        }
+
         // GET: SupplierInfo/Create
         public IActionResult Create()
         {
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id");
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
             return View();
         }
 
@@ -57,15 +76,19 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("supplier_id,supplier_name,supplier_person,supplier_phone,supplier_address,supplier_type_id")] SupplierInfo supplierInfo)
+         
+        public async Task<IActionResult> Create( SupplierInfo supplierInfo)
         {
+            //no need to validate this variable 
+            ModelState.Clear();
+
             if (ModelState.IsValid)
             {
                 _context.Add(supplierInfo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id", supplierInfo.supplier_type_id);
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
             return View(supplierInfo);
         }
 
@@ -82,7 +105,7 @@ namespace sproject.Controllers
             {
                 return NotFound();
             }
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id", supplierInfo.supplier_type_id);
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
             return View(supplierInfo);
         }
 
@@ -118,7 +141,7 @@ namespace sproject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_id", supplierInfo.supplier_type_id);
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
             return View(supplierInfo);
         }
 

@@ -1,0 +1,46 @@
+@model sproject.Models.SupplierInfo
+
+<div>
+    <h4>SupplierInfo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Supplier name
+            <!-- @Html.DisplayNameFor(model => model.supplier_name) -->
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.supplier_name)
+        </dd>
+        <dt class = "col-sm-2">
+            Contact person
+            <!-- @Html.DisplayNameFor(model => model.supplier_person) -->
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.supplier_person)
+        </dd>
+        <dt class = "col-sm-2">
+            Phone number
+            <!-- @Html.DisplayNameFor(model => model.supplier_phone) -->
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.supplier_phone)
+        </dd>
+        <dt class = "col-sm-2">
+            Address
+            <!-- @Html.DisplayNameFor(model => model.supplier_address) -->
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.supplier_address)
+        </dd>
+        <dt class = "col-sm-2">
+            Type
+            <!-- @Html.DisplayNameFor(model => model.supplier_type) -->
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.supplier_type.supplier_type_name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="ProductInfo" asp-action="Index">Back to List</a>
+</div>

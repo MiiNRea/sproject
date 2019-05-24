@@ -7,19 +7,24 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.supplier_name)
+                Supplier name
+                <!-- @Html.DisplayNameFor(model => model.supplier_name) -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.supplier_person)
+                Contact person
+                <!-- @Html.DisplayNameFor(model => model.supplier_person) -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.supplier_phone)
+                Phone number
+                <!-- @Html.DisplayNameFor(model => model.supplier_phone) -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.supplier_address)
+                Address
+                <!-- @Html.DisplayNameFor(model => model.supplier_address) -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.supplier_type)
+                Type
+                <!-- @Html.DisplayNameFor(model => model.supplier_type.supplier_type_name) -->
             </th>
             <th></th>
         </tr>
@@ -40,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.supplier_address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.supplier_type.supplier_type_id)
+                @Html.DisplayFor(modelItem => item.supplier_type.supplier_type_name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.supplier_id">Edit</a> |

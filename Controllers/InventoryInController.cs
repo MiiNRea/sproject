@@ -57,6 +57,13 @@ namespace sproject.Controllers
             //query2: purchase order id from the purchase table where the ids are not
             //in the query1
             var result2 = _context.PurchaseOrders.Where(x=>! result1.Contains(x.purchase_id));
+
+            // var p = _context.PurchaseItems
+            // .Where(x => x.purchase_id != 0)
+            // .Select(x => x.purchase_id)
+            // .ToArray();
+            // var result3 = _context.PurchaseItems.Where(x => p.Contains(x.product_id));
+
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
             ViewData["purchase_id"] = new SelectList(result2, "purchase_id", "purchase_id");
             ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_name");

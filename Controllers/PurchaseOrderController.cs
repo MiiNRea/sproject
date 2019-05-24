@@ -22,8 +22,7 @@ namespace sproject.Controllers
         // GET: PurchaseOrder
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.PurchaseOrders;
-            return View(await myDbContext.ToListAsync());
+            return View("Index",await _context.PurchaseOrders.ToListAsync());
         }
 
         // GET: PurchaseOrder/Details/5
@@ -35,9 +34,7 @@ namespace sproject.Controllers
             }
 
             var purchaseOrder = await _context.PurchaseOrders
-                // .Include(p => p.productInfo)
-                // .Include(p => p.purchaseorder_type)
-                // .Include(p => p.supplierInfo)
+                .Include(x=>x.purchase_items)
                 .FirstOrDefaultAsync(m => m.purchase_id == id);
             if (purchaseOrder == null)
             {
@@ -50,39 +47,63 @@ namespace sproject.Controllers
         // GET: PurchaseOrder/Create
         public IActionResult Create()
         {
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
-            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id");
-            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name");
-            return View();
+          return View();
         }
 
         // POST: PurchaseOrder/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("purchase_id,purchase_date,purchase_item,purchase_cost,purchase_type_id,product_id,supplier_id")] PurchaseOrder purchaseOrder)
+        //public async Task<IActionResult> Create(CartItem[] items)
+        public async Task<IActionResult> Create(Cart cart)
         {
-            if (ModelState.IsValid)
-            {
-                purchaseOrder.purchase_date = DateTime.Now;
-                //purchaseOrder.purchase_type_id = 1;
-                _context.Add(purchaseOrder);
-                //create activity object
-                //**** */
-                var row = new PActivity{
+        
+            List<CartItem> items = cart.items;
+            
+            if(items !=null && items.Count >0){
+                //step1: create purchase order object
+                PurchaseOrder new_order = new PurchaseOrder();
+                new_order.purchase_date = DateTime.Now;
+
+                _context.Add(new_order);
+               await _context.SaveChangesAsync();  //this call creates a new object with purchase id
+
+                List<PurchaseItem> list1 = new List<PurchaseItem>();
+
+                //loop throught each item in the items list
+                foreach (CartItem item in items)
+                {
+                    //create a new object with the structure based on Model>CartItem.cs 
+                    var new_purchase_item = new PurchaseItem
+                    {
+                       purchase_id      = new_order.purchase_id,
+                       supplier_id      = item.supplier_id,
+                       product_id       = item.id,
+                       purchase_type_id = 1,
+                       purchase_cost    = item.total,
+                       qty              = item.qty
+                    };
+                    list1.Add(new_purchase_item);
+                }//end loop
+                //assign cartitem list 
+                new_order.purchase_items = list1;
+                await _context.SaveChangesAsync(); //save cart first
+
+                var new_activity = new PActivity
+                {
                     //purchase_type_id =   purchaseOrder.purchase_type_id,
-                    purchase_id      =   purchaseOrder.purchase_id,
-                    activity_date    =   DateTime.Now 
+                    purchase_id = new_order.purchase_id,
+                    purchase_type_id = 1,
+                    activity_date = DateTime.Now
                 };
-                _context.PActivities.Add(row);
+                _context.Add(new_activity);
+
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
-            ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_id");
-            ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name");
-            return View(purchaseOrder);
+                return Json(new {
+                    newUrl = "/purchaseorder/index"
+                });
+            }               
+            return View();
         }
 
         // GET: PurchaseOrder/Edit/5
@@ -109,8 +130,9 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("purchase_id,purchase_date,purchase_item,purchase_cost,purchase_type_id,product_id,supplier_id")] PurchaseOrder purchaseOrder)
+        public async Task<IActionResult> Edit(int id, [Bind("purchase_id,purchase_date")] PurchaseOrder purchaseOrder)
         {
+
             if (id != purchaseOrder.purchase_id)
             {
                 return NotFound();
@@ -151,9 +173,6 @@ namespace sproject.Controllers
             }
 
             var purchaseOrder = await _context.PurchaseOrders
-                // .Include(p => p.productInfo)
-                // .Include(p => p.purchaseorder_type)
-                // .Include(p => p.supplierInfo)
                 .FirstOrDefaultAsync(m => m.purchase_id == id);
             if (purchaseOrder == null)
             {

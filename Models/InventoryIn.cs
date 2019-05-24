@@ -19,7 +19,5 @@ namespace sproject.Models {
     public int product_id {get; set;}
     public int inventoryin_qty {get; set;}
     public DateTime manufacturer_date {get; set;}
-
-    
     }
 }
