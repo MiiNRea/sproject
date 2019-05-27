@@ -15,3 +15,4 @@ example for data table foe search
 New req 27/5 mint
 find solution in inventory and backorder
 wait for search data table video clip
+in prochaseOrder I had fixed but for product info table its not work for second selection

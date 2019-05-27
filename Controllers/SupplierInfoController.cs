@@ -183,5 +183,9 @@ namespace sproject.Controllers
         {
             return _context.SupplierInfos.Any(e => e.supplier_id == id);
         }
+
+        public IActionResult Suppliers(){
+            return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id}).ToList());
+        }
     }
 }

@@ -219,7 +219,14 @@
          $.each(unique_product_names, function (key, item) {
              cmb_product_names.append('<option value=' + item + '>' + item + '</option>');
          });
-
+        if(list.length>0){
+             var id = list[0].product_id;
+            
+             var url = "/supplierInfo/suppliers?id="+id;
+             console.log(url);
+            $.get(url, cb_product_names_change);
+         }
+         $.get("/productInfo/products", cb_show_productinfo);
          txt_qty.val("1");
     } //ef
 
@@ -240,6 +247,7 @@
              $.each(founds, function (key, item) {
                  cmb_supplier_names.append('<option value=' + item.supplier_id + '>' + item.supplier_name + '</option>');
              }); 
+             
         }
     }
 
@@ -274,6 +282,7 @@
              var row2 = tr(td(show[j].id)+td(show[j].product_name) + td(show[j].product_series)+ td(show[j].product_size));
              tbl_table2.append(row2)
         }
+        
     }    
  </script>
  }

@@ -42,7 +42,7 @@ namespace sproject.Controllers
                     purchaseItems = x.purchase_items.Select(y => new PurchaseItemDetailView{
                                         product_name = y.productInfo.product_name,
                                         product_qty  = y.qty,
-                                        total = y.purchase_cost
+                                        total = y.purchase_cost,
                     }).ToList()    
                 })
                 .FirstOrDefaultAsync();
@@ -180,7 +180,7 @@ namespace sproject.Controllers
             {
                 return NotFound();
             }
-
+            
             var purchaseOrder = await _context.PurchaseOrders
                 .FirstOrDefaultAsync(m => m.purchase_id == id);
             if (purchaseOrder == null)
@@ -206,6 +206,8 @@ namespace sproject.Controllers
         {
             return _context.PurchaseOrders.Any(e => e.purchase_id == id);
         }
+
+
 
         public IActionResult purchases(){
             return Json(_context.PurchaseOrders.Select(x=> new { purchase_id= x.purchase_id}).ToList());

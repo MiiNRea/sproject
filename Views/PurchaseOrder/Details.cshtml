@@ -48,7 +48,7 @@
 </table>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.purchase_id">Edit</a> |
+    <!-- <a asp-action="Edit" asp-route-id="@Model.purchase_id">Edit</a> | -->
     <a asp-action="Index">Back to List</a>
     
 </div>
@@ -57,14 +57,12 @@
 @section Scripts{
     <script>
         var list = [];
-        var ppid = $('#pid');
-        var txt = $('#ttt');
         var tab = $('#tb1')
         
         $(document).ready(cv);
 
         function cv(){
-            $.get("/purchasritem/purchaseitems", pd);
+            $.get("/purchaseitem/purchaseitems", pd);
             $.get("/productinfo/products", pr);
         }
 

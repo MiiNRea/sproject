@@ -71,10 +71,8 @@
              var url = "/purchaseOrder/purchaseitems?id="+id;
              console.log(url);
             $.get(url, get_product_item);     
-                 
-
          }
-        }
+    }
 
         function get_product_item(data){
             var items = data.purchaseItems;
