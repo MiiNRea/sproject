@@ -93,6 +93,7 @@ namespace sproject.Controllers
         }
 
         // GET: SupplierInfo/Edit/5
+      
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,7 +101,10 @@ namespace sproject.Controllers
                 return NotFound();
             }
 
-            var supplierInfo = await _context.SupplierInfos.FindAsync(id);
+            var supplierInfo = await _context.SupplierInfos
+            .Include(x=>x.supplier_type)
+            .FirstOrDefaultAsync(x=>x.supplier_id == id);
+            
             if (supplierInfo == null)
             {
                 return NotFound();

@@ -27,18 +27,19 @@
                 <input asp-for="supplier_address" class="form-control" />
                 <span asp-validation-for="supplier_address" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="supplier_type_id" class="control-label">Type</label>
-                <select asp-for="supplier_type_id" class="form-control" asp-items="ViewBag.supplier_type_id"></select>
-                <span asp-validation-for="supplier_type_id" class="text-danger"></span>
+         
+                <div class="form-group">
+                <label asp-for="supplier_type_id" class="control-label">Supplier Type</label>
+                <input  hidden asp-for="supplier_type_id" class="form-control"/>
+                <input readonly class="form-control" value="@Model.supplier_type.supplier_type_name"/>
+            
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>

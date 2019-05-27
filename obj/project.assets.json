@@ -13553,11 +13553,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MiiNRea\\Desktop\\sproject1\\sproject.csproj",
+      "projectUniqueName": "c:\\Users\\MiiNRea\\Desktop\\sproject\\sproject.csproj",
       "projectName": "sproject",
-      "projectPath": "C:\\Users\\MiiNRea\\Desktop\\sproject1\\sproject.csproj",
+      "projectPath": "c:\\Users\\MiiNRea\\Desktop\\sproject\\sproject.csproj",
       "packagesPath": "C:\\Users\\MiiNRea\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MiiNRea\\Desktop\\sproject1\\obj\\",
+      "outputPath": "c:\\Users\\MiiNRea\\Desktop\\sproject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

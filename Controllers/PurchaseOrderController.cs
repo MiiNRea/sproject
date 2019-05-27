@@ -34,13 +34,22 @@ namespace sproject.Controllers
             }
 
             var purchaseOrder = await _context.PurchaseOrders
-                .Include(x=>x.purchase_items)
-                .FirstOrDefaultAsync(m => m.purchase_id == id);
+                
+                .Where(m => m.purchase_id == id)
+                .Select(x=> new PurchaseDetailView{
+                    purchase_id = x.purchase_id,
+                    purchase_date = x.purchase_date,
+                    purchaseItems = x.purchase_items.Select(y => new PurchaseItemDetailView{
+                                        product_name = y.productInfo.product_name,
+                                        product_qty  = y.qty,
+                                        total = y.purchase_cost
+                    }).ToList()    
+                })
+                .FirstOrDefaultAsync();
             if (purchaseOrder == null)
             {
                 return NotFound();
             }
-
             return View(purchaseOrder);
         }
 
@@ -196,6 +205,25 @@ namespace sproject.Controllers
         private bool PurchaseOrderExists(int id)
         {
             return _context.PurchaseOrders.Any(e => e.purchase_id == id);
+        }
+
+        public IActionResult purchases(){
+            return Json(_context.PurchaseOrders.Select(x=> new { purchase_id= x.purchase_id}).ToList());
+        }
+
+        public async Task<IActionResult> purchaseItems(int id){
+
+               var result = await _context.PurchaseOrders
+               .Where(x=>x.purchase_id == id)
+               .Select(x=> new ProductView{
+                   purchase_id = x.purchase_id,
+                   purchaseItems = x.purchase_items.Select(y=>new PurchaseItemView{
+                       product_id =  y.product_id,
+                       product_name = y.productInfo.product_name               
+                   }).ToList()
+               })
+               .FirstAsync();            
+               return Json(result);
         }
     }
 }

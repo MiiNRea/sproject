@@ -5,24 +5,27 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
             <div class="form-group">
-                <label asp-for="purchase_id" class="control-label"></label>
-                <select asp-for="purchase_id" class ="form-control" asp-items="ViewBag.purchase_id"></select>
+             <label class="control-label">Purchase id</label>
+             <select id="purchase_id" ></select>
             </div>
+
             <div class="form-group">
-                <label asp-for="product_id" class="control-label"></label>
-                <select asp-for="product_id" class ="form-control" asp-items="ViewBag.product_id"></select>
+             <label class="control-label">Product name</label>
+             <select id="product_name" ></select>
             </div>
+
             <div class="form-group">
                 <label asp-for="inventoryin_qty" class="control-label"></label>
                 <input asp-for="inventoryin_qty" class="form-control" />
                 <span asp-validation-for="inventoryin_qty" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label asp-for="manufacturer_date" class="control-label"></label>
                 <input asp-for="manufacturer_date" class="form-control" />
                 <span asp-validation-for="manufacturer_date" class="text-danger"></span>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label  class="control-label">Purchase Status</label>
                 <select asp-for="purchase_type_id" class ="form-control" asp-items="ViewBag.purchase_type_id"></select>
@@ -37,3 +40,65 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+@section Scripts{
+    <script>
+        var cmb_product = $('#product_name');
+        var cmb_purchase_id =$('#purchase_id');
+        var list = [];
+
+        $(document).ready(cc);
+
+        function cc(){
+            cmb_purchase_id.click(f1);
+            $.get("/purchaseOrder/purchases", get_purchase_id);
+        }
+
+        function get_purchase_id(data){
+        console.log('yes');
+         list = data; //update list with data from server
+
+         //find unique product name
+        // var purchase_id_u = [...new Set(list.map(x => x.purchase_id))];
+
+         $.each(list, function (key, item) {
+             cmb_purchase_id.append('<option value=' + item.purchase_id + '>' + item.purchase_id + '</option>');
+         });
+         if(list.length>0){
+             var id = list[0].purchase_id;
+            
+             var url = "/purchaseOrder/purchaseitems?id="+id;
+             console.log(url);
+            $.get(url, get_product_item);     
+                 
+
+         }
+        }
+
+        function get_product_item(data){
+            var items = data.purchaseItems;
+            console.log(data);
+              cmb_product.empty();
+             for(var i=0;i< items.length;i++) {
+                 var tag = '<option value=' + items[i].product_name + '>' + items[i].product_name + '</option>';
+                 console.log(tag);
+                 cmb_product.append(tag);
+             }
+        }
+
+        function f1(){
+            //get selection value
+            var purchase_id = cmb_purchase_id.val();
+            var url = "/purchaseOrder/purchaseitems?id="+purchase_id;
+            $.get(url, get_product_item);
+         //search object in the list by product_id
+         /*-- var founds = list.filter((a) => {
+             return a.purchase_id == purchase_id
+         }); --*/
+         //update product price in txt price textbox
+         
+         
+        }
+    </script>
+}

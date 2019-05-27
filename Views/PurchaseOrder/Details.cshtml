@@ -1,4 +1,4 @@
-@model sproject.Models.PurchaseOrder
+@model sproject.Models.PurchaseDetailView
 <div>
     <h4>PurchaseOrder</h4>
     <hr />
@@ -16,31 +16,95 @@
         </dd>
     </dl>
 
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.purchase_id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
 <hr>
-<table>
+
+<table class="table" id = "tb1">
     <tr>
         <th>
-            id
+            Product Name
+        </th>
+        <th>
+            Cost
         </th>
         <th>
             qty
         </th>
+        
     </tr>
-    @foreach (var item in @Model.purchase_items)
+    @foreach (var item in @Model.purchaseItems)
     {
         <tr>
             <td>
-                @item.product_id
+                @item.product_name
             </td>
             <td>
-                @item.qty
+                @item.product_qty
+            </td>
+            <td>
+                @item.total
             </td>
         </tr>
     }
 </table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.purchase_id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+    
+</div>
+
+
+@section Scripts{
+    <script>
+        var list = [];
+        var ppid = $('#pid');
+        var txt = $('#ttt');
+        var tab = $('#tb1')
+        
+        $(document).ready(cv);
+
+        function cv(){
+            $.get("/purchasritem/purchaseitems", pd);
+            $.get("/productinfo/products", pr);
+        }
+
+        function pd(data){
+            list = data;
+            var found = list.filter(function(x){
+                return x.purchase_id == purchase_id;
+                table(found);
+            });
+            console.log(product_id);
+            console.log("found",found);
+            table(found);
+        }
+
+        function pr(data){
+            list = data;
+            var product_id = $('#pid').val();
+            var found = list.filter(function(x){
+                return x.product_id == product_id;
+                table(found);
+            });
+            console.log(product_id);
+            console.log("found",found);
+            table(found);
+        }
+
+        function table(found){
+            for (var i = 0; i < found.length; i++) {
+            var row = tr(td(found[i].product_name) + td(found[i].product_series)+ td(found[i].product_size));
+            }
+            tab.append(row);
+        }
+
+        function tr(data) {
+         return '<tr>' + data + '</tr>';
+     }
+
+     function td(data) {
+         return '<td>' + data + '</td>';
+     }
+
+    </script>
+}

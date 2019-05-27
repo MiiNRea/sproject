@@ -1,0 +1,24 @@
+@model sproject.Models.CustomerInfo
+
+<div>
+    <h4>CustomerInfo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.customer_name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.customer_name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.customer_phone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.customer_phone)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.customerInfo_id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

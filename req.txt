@@ -11,3 +11,7 @@ update productinfo when user select supplier name in the supplier combo box
 
 productinfo
 example for data table foe search
+
+New req 27/5 mint
+find solution in inventory and backorder
+wait for search data table video clip

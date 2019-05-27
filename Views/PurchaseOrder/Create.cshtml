@@ -4,17 +4,17 @@
      <div class="col-md-6">
          <div class="form-group">
              <label class="control-label">product </label>
-             <select id="product_names" ></select>
+             <select class="form-group" id="product_names" ></select>
          </div>
          <div class="form-group">
              <label class="control-label">supplier </label>
-             <select id="supplier_names" ></select>
+             <select class="form-group" id="supplier_names" ></select>
          </div>
         <h5>Product info</h5>
          <table class="table" id="table2">
              <tr>
-                 <th>id</th>
-                 <th>name</th>
+                 <th>Product id</th>
+                 <th>Product name</th>
                  <th>series</th>
                  <th>size</th>
              </tr>
@@ -31,7 +31,7 @@
              Price    <input class="form-control" id="txt_price" />
          </div>
          <div class="form-group">
-             Quantity <input id="txt_qty"></input>
+             Quantity <input class="form-control" id="txt_qty"></input>
              <button id="cmd_inc">+</button>
              <button id="cmd_dec">-</button>
          </div>
@@ -41,9 +41,9 @@
 
          <table class="table" id="table1">
              <tr>
-                 <th>id</th>
-                 <th>name</th>
-                 <th>supplier</th>
+                 <th>Product id</th>
+                 <th>Product name</th>
+                 <th>Supplier name</th>
                  <th>qty</th>
                  <th>price</th>
                  <th>total</th>
@@ -171,6 +171,7 @@
          var row = {
              id     : found.product_id,
              supplier_id: found.supplier_id,
+             supplier_name : found.supplier_name,
              name   : found.product_name,
              price  : price,
              qty    : qty,
@@ -197,7 +198,7 @@
          tbl_table1.find("tr:gt(0)").remove();
          var total = 0;
          for (var i = 0; i < cart.length; i++) {
-             var row = tr(td(cart[i].id)+td(cart[i].name) + td(cart[i].supplier_id)+ td(cart[i].qty) + td(cart[i].price) + td(cart[i].total) + td(button(cart[i]
+             var row = tr(td(cart[i].id)+td(cart[i].name) + td(cart[i].supplier_name)+ td(cart[i].qty) + td(cart[i].price) + td(cart[i].total) + td(button(cart[i]
                  .id, "remove")));
              tbl_table1.append(row);
              total += cart[i].price * cart[i].qty;

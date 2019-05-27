@@ -47,22 +47,21 @@ namespace sproject.Controllers
         }
 
         // GET: InventoryIn/Create
+        
+
         public IActionResult Create()
         { 
             //query1: order id with status = completed from activity table
+
             var result1 = _context.PActivities
             .Where(x=>x.purchase_type_id == 3)
             .Select(x=>x.purchase_id)  //select purchase id from Purchase
             .ToArray();
+
             //query2: purchase order id from the purchase table where the ids are not
             //in the query1
-            var result2 = _context.PurchaseOrders.Where(x=>! result1.Contains(x.purchase_id));
 
-            // var p = _context.PurchaseItems
-            // .Where(x => x.purchase_id != 0)
-            // .Select(x => x.purchase_id)
-            // .ToArray();
-            // var result3 = _context.PurchaseItems.Where(x => p.Contains(x.product_id));
+            var result2 = _context.PurchaseOrders.Where(x=>! result1.Contains(x.purchase_id));
 
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
             ViewData["purchase_id"] = new SelectList(result2, "purchase_id", "purchase_id");
@@ -82,10 +81,12 @@ namespace sproject.Controllers
                 var obj = new InventoryIn{	
                     purchase_id	        = inventoryInView.purchase_id,
                     product_id	        = inventoryInView.product_id,
-                    inventoryin_qty	    = inventoryInView.inventoryin_qty,
-                    manufacturer_date   = inventoryInView.manufacturer_date,
+                    inventoryin_qty	    = inventoryInView.inventoryin_qty,    
+                    manufacturer_week   = inventoryInView.manufacturer_week,
+                    manufacturer_year   = inventoryInView.manufacturer_year,               
                 };
                 _context.InventoryIn.Add(obj);
+                
                 var row = new PActivity{
                     purchase_type_id =   inventoryInView.purchase_type_id,
                     purchase_id      =   inventoryInView.purchase_id,
