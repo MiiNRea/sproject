@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace sproject.Models{
     public class CustomerInfo{
         [Key]
-        public int customerInfo_id {get; set;}
+        public int customerinfo_id {get; set;}
 
         [Required]
         public string customer_name {get; set;}

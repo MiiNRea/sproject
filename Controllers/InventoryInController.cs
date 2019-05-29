@@ -55,14 +55,14 @@ namespace sproject.Controllers
 
             var result1 = _context.PActivities
             .Where(x=>x.purchase_type_id == 3)
-            .Select(x=>x.purchase_id)  //select purchase id from Purchase
+            .Select(x=>x.purchaseItem_id)  //select purchase id from Purchase
             .ToArray();
 
             //query2: purchase order id from the purchase table where the ids are not
             //in the query1
 
             var result2 = _context.PurchaseOrders.Where(x=>! result1.Contains(x.purchase_id));
-
+            
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
             ViewData["purchase_id"] = new SelectList(result2, "purchase_id", "purchase_id");
             ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_name");
@@ -89,13 +89,36 @@ namespace sproject.Controllers
                 
                 var row = new PActivity{
                     purchase_type_id =   inventoryInView.purchase_type_id,
-                    purchase_id      =   inventoryInView.purchase_id,
+                    purchaseItem_id  =   inventoryInView.purchaseItem_id,
                     activity_date    =   DateTime.Now 
                 };
                 _context.PActivities.Add(row);
+
+
+                //     var po = _context.PurchaseOrders.Where(x=>x.purchase_id == d1)
+		//              .FirstOrDefault();
+		//         DateTime today = DateTime.Now;
+        //         TimeSpan timeDiff = today - po.purchase_date;
+        //         int num_day = timeDiff.TotalDays;
+        //         int kpi = 0;
+		//         if(num_day >5){
+        //             kip = 1;
+		//         }
+		
+		// //use kip to update performance table
+		//     var new_kpi = new {
+		//         leadTime = kpi,
+		// 	    deliver_date = today,
+		// 	    //supplier
+		//     };
+		//     _context.SupplierPerformances.Add(new_kip);
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+       
+
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", inventoryInView.product_id);
             ViewData["purchase_id"] = new SelectList(_context.PurchaseOrders, "purchase_id", "purchase_id", inventoryInView.purchase_id);
             ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_name");
@@ -192,5 +215,6 @@ namespace sproject.Controllers
         {
             return _context.InventoryIns.Any(e => e.inventoryin_id == id);
         }
+
     }
 }

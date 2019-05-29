@@ -18,9 +18,11 @@ namespace sproject.Models {
     public ProductInfo productinfo {get; set;}//FK
     public int product_id {get; set;}
     public int inventoryin_qty {get; set;}
-    public DateTime manufacturer_week {get; set;}
-    public DateTime manufacturer_year {get; set;}
-    
-    // public DateTime manufacturer_date {get; set;}
+    public int manufacturer_week {get; set;}
+    public int manufacturer_year {get; set;}
+
+    public PurchaseItem purchaseItems {get; set;}
+    public int purchaseItem_id {get;set;}    
+    //public DateTime manufacturer_date {get; set;}
     }
 }

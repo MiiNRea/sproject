@@ -17,9 +17,29 @@ namespace sproject.Migrations
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("sproject.Models.BackOrder", b =>
+                {
+                    b.Property<int>("backOrder_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Product_id");
+
+                    b.Property<DateTime>("backOrderDate");
+
+                    b.Property<int>("purchaseItem_id");
+
+                    b.HasKey("backOrder_id");
+
+                    b.HasIndex("Product_id");
+
+                    b.HasIndex("purchaseItem_id");
+
+                    b.ToTable("BackOrder");
+                });
+
             modelBuilder.Entity("sproject.Models.CustomerInfo", b =>
                 {
-                    b.Property<int>("customerInfo_id")
+                    b.Property<int>("customerinfo_id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("customer_name")
@@ -28,9 +48,33 @@ namespace sproject.Migrations
                     b.Property<string>("customer_phone")
                         .IsRequired();
 
-                    b.HasKey("customerInfo_id");
+                    b.HasKey("customerinfo_id");
 
                     b.ToTable("CustomerInfos");
+                });
+
+            modelBuilder.Entity("sproject.Models.CustomerOrder", b =>
+                {
+                    b.Property<int>("customerorder_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("customerinfo_id");
+
+                    b.Property<DateTime>("customerorder_date");
+
+                    b.Property<double>("customerorder_price");
+
+                    b.Property<int>("customerorder_qty");
+
+                    b.Property<int>("product_id");
+
+                    b.HasKey("customerorder_id");
+
+                    b.HasIndex("customerinfo_id");
+
+                    b.HasIndex("product_id");
+
+                    b.ToTable("CustomerOrders");
                 });
 
             modelBuilder.Entity("sproject.Models.Inventory", b =>
@@ -54,17 +98,21 @@ namespace sproject.Migrations
 
                     b.Property<int>("inventoryin_qty");
 
-                    b.Property<DateTime>("manufacturer_week");
+                    b.Property<int>("manufacturer_week");
 
-                    b.Property<DateTime>("manufacturer_year");
+                    b.Property<int>("manufacturer_year");
 
                     b.Property<int>("product_id");
+
+                    b.Property<int>("purchaseItem_id");
 
                     b.Property<int>("purchase_id");
 
                     b.HasKey("inventoryin_id");
 
                     b.HasIndex("product_id");
+
+                    b.HasIndex("purchaseItem_id");
 
                     b.HasIndex("purchase_id");
 
@@ -78,13 +126,13 @@ namespace sproject.Migrations
 
                     b.Property<DateTime>("activity_date");
 
-                    b.Property<int>("purchase_id");
+                    b.Property<int>("purchaseItem_id");
 
                     b.Property<int>("purchase_type_id");
 
                     b.HasKey("activity_id");
 
-                    b.HasIndex("purchase_id");
+                    b.HasIndex("purchaseItem_id");
 
                     b.HasIndex("purchase_type_id");
 
@@ -196,17 +244,27 @@ namespace sproject.Migrations
                     b.Property<int>("SupplierPerformance_id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("backorder");
+                    b.Property<int>("backOrder_id");
 
                     b.Property<DateTime>("deliver_date");
 
                     b.Property<int>("leadTime");
 
+                    b.Property<int>("purchaseItem_id");
+
                     b.Property<int>("purchase_id");
+
+                    b.Property<int>("supplier_id");
 
                     b.HasKey("SupplierPerformance_id");
 
+                    b.HasIndex("backOrder_id");
+
+                    b.HasIndex("purchaseItem_id");
+
                     b.HasIndex("purchase_id");
+
+                    b.HasIndex("supplier_id");
 
                     b.ToTable("SupplierPerformances");
                 });
@@ -221,6 +279,32 @@ namespace sproject.Migrations
                     b.HasKey("supplier_type_id");
 
                     b.ToTable("SupplierTypes");
+                });
+
+            modelBuilder.Entity("sproject.Models.BackOrder", b =>
+                {
+                    b.HasOne("sproject.Models.ProductInfo", "productInfo")
+                        .WithMany()
+                        .HasForeignKey("Product_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.PurchaseItem", "purchaseItem")
+                        .WithMany()
+                        .HasForeignKey("purchaseItem_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("sproject.Models.CustomerOrder", b =>
+                {
+                    b.HasOne("sproject.Models.CustomerInfo", "customerInfo")
+                        .WithMany()
+                        .HasForeignKey("customerinfo_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.ProductInfo", "productInfo")
+                        .WithMany()
+                        .HasForeignKey("product_id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("sproject.Models.Inventory", b =>
@@ -238,6 +322,11 @@ namespace sproject.Migrations
                         .HasForeignKey("product_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("sproject.Models.PurchaseItem", "purchaseItems")
+                        .WithMany()
+                        .HasForeignKey("purchaseItem_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("sproject.Models.PurchaseOrder", "purchaseorder")
                         .WithMany()
                         .HasForeignKey("purchase_id")
@@ -246,9 +335,9 @@ namespace sproject.Migrations
 
             modelBuilder.Entity("sproject.Models.PActivity", b =>
                 {
-                    b.HasOne("sproject.Models.PurchaseOrder", "purchaseorder")
+                    b.HasOne("sproject.Models.PurchaseItem", "purchaseItem")
                         .WithMany()
-                        .HasForeignKey("purchase_id")
+                        .HasForeignKey("purchaseItem_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("sproject.Models.PurchaseOrderType", "purchaseordertype")
@@ -298,9 +387,24 @@ namespace sproject.Migrations
 
             modelBuilder.Entity("sproject.Models.SupplierPerformance", b =>
                 {
+                    b.HasOne("sproject.Models.BackOrder", "backOrder")
+                        .WithMany()
+                        .HasForeignKey("backOrder_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.PurchaseItem", "purchaseItem")
+                        .WithMany()
+                        .HasForeignKey("purchaseItem_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("sproject.Models.PurchaseOrder", "purchaseOrder")
                         .WithMany()
                         .HasForeignKey("purchase_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.SupplierInfo", "supplierInfo")
+                        .WithMany()
+                        .HasForeignKey("supplier_id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

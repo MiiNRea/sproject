@@ -40,7 +40,9 @@ namespace sproject.Controllers
                     purchase_id = x.purchase_id,
                     purchase_date = x.purchase_date,
                     purchaseItems = x.purchase_items.Select(y => new PurchaseItemDetailView{
+                                        supplier_name = y.supplierInfo.supplier_name,
                                         product_name = y.productInfo.product_name,
+                                        status = y.purchaseorder_type.Purchase_type_name,
                                         product_qty  = y.qty,
                                         total = y.purchase_cost,
                     }).ToList()    
@@ -97,15 +99,18 @@ namespace sproject.Controllers
                 //assign cartitem list 
                 new_order.purchase_items = list1;
                 await _context.SaveChangesAsync(); //save cart first
-
-                var new_activity = new PActivity
+                foreach( PurchaseItem purchase_item in new_order.purchase_items){
+                    var new_activity = new PActivity
                 {
                     //purchase_type_id =   purchaseOrder.purchase_type_id,
-                    purchase_id = new_order.purchase_id,
+                    //purchase_id = new_order.purchase_id,
                     purchase_type_id = 1,
-                    activity_date = DateTime.Now
-                };
-                _context.Add(new_activity);
+                    activity_date = DateTime.Now,
+                    purchaseItem_id = purchase_item.purchaseItem_id
+                    };
+                    _context.Add(new_activity);
+                }
+                
 
                 await _context.SaveChangesAsync();
                 return Json(new {
@@ -180,9 +185,23 @@ namespace sproject.Controllers
             {
                 return NotFound();
             }
-            
             var purchaseOrder = await _context.PurchaseOrders
-                .FirstOrDefaultAsync(m => m.purchase_id == id);
+                
+                .Where(m => m.purchase_id == id)
+                .Select(x=> new PDV{
+                    purchase_id = x.purchase_id,
+                    purchase_date = x.purchase_date,
+                    purchaseItems = x.purchase_items.Select(y => new PurchaseItemDetailView{
+                                        supplier_name = y.supplierInfo.supplier_name,
+                                        product_name = y.productInfo.product_name,
+                                        status = y.purchaseorder_type.Purchase_type_name,
+                                        product_qty  = y.qty,
+                                        total = y.purchase_cost,
+                    }).ToList()    
+                })
+                .FirstOrDefaultAsync();
+            // var purchaseOrder = await _context.PurchaseOrders
+            //     .FirstOrDefaultAsync(m => m.purchase_id == id);
             if (purchaseOrder == null)
             {
                 return NotFound();
@@ -227,5 +246,16 @@ namespace sproject.Controllers
                .FirstAsync();            
                return Json(result);
         }
+
+        public IActionResult getpurchaseitem(int d1, int d2){
+
+        var po = _context.PurchaseOrders.Where(x=>x.purchase_id == d1)
+		            .FirstOrDefault();
+		var purchase_item = po.purchase_items.Where(x=>x.productInfo.product_id == d2)
+					.FirstOrDefault();
+		var purchase_item_id = purchase_item.purchaseItem_id;
+                    //.FirstOrDefault();
+        return Json(new {purchase_item_id = purchase_item_id});		
+        }        
     }
 }

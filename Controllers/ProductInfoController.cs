@@ -41,6 +41,12 @@ namespace sproject.Controllers
              return Json(result);
         }
 
+        public IActionResult productid(){
+            return Json(_context.PurchaseOrders.Select(x=> new { purchase_id= x.purchase_id}).ToList());
+        }
+
+
+
         // GET: ProductInfo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -174,6 +180,7 @@ namespace sproject.Controllers
         {
             return _context.ProductInfos.Any(e => e.product_id == id);
         }
+
 
     }
 }

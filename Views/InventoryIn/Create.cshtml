@@ -16,16 +16,39 @@
              <select id="product_name" ></select>
             </div>
 
+            <!-- <div class="form-group">
+             <label class="control-label">Puchase item</label>
+             <select id="purchase_item" ></select>
+            </div> -->
+
+            <div class="form-group">
+             <label class="control-label">Purchase item</label>
+             <input  class="form-control" id="purchase_item"/ >
+            </div>
+
             <div class="form-group">
                 <label asp-for="inventoryin_qty" class="control-label"></label>
                 <input asp-for="inventoryin_qty" class="form-control" />
                 <span asp-validation-for="inventoryin_qty" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="manufacturer_week" class="control-label"></label>
+                <input asp-for="manufacturer_week" class="form-control" />
+                <span asp-validation-for="manufacturer_week" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="manufacturer_year" class="control-label"></label>
+                <input asp-for="manufacturer_year" class="form-control" />
+                <span asp-validation-for="manufacturer_year" class="text-danger"></span>
+            </div>
+
             <!-- <div class="form-group">
                 <label asp-for="manufacturer_date" class="control-label"></label>
                 <input asp-for="manufacturer_date" class="form-control" />
                 <span asp-validation-for="manufacturer_date" class="text-danger"></span>
             </div> -->
+
             <div class="form-group">
                 <label  class="control-label">Purchase Status</label>
                 <select asp-for="purchase_type_id" class ="form-control" asp-items="ViewBag.purchase_type_id"></select>
@@ -46,21 +69,20 @@
     <script>
         var cmb_product = $('#product_name');
         var cmb_purchase_id =$('#purchase_id');
+        var txt_purchase_item =$('#purchase_item')
         var list = [];
 
         $(document).ready(cc);
 
         function cc(){
             cmb_purchase_id.click(f1);
+            //cmb_product.click(f2);
             $.get("/purchaseOrder/purchases", get_purchase_id);
         }
 
         function get_purchase_id(data){
-        console.log('yes');
+        //console.log('yes');
          list = data; //update list with data from server
-
-         //find unique product name
-        // var purchase_id_u = [...new Set(list.map(x => x.purchase_id))];
 
          $.each(list, function (key, item) {
              cmb_purchase_id.append('<option value=' + item.purchase_id + '>' + item.purchase_id + '</option>');
@@ -79,10 +101,10 @@
             console.log(data);
               cmb_product.empty();
              for(var i=0;i< items.length;i++) {
-                 var tag = '<option value=' + items[i].product_name + '>' + items[i].product_name + '</option>';
+                 var tag = '<option value=' + items[i].product_id + '>' + items[i].product_name + '</option>';
                  console.log(tag);
                  cmb_product.append(tag);
-             }
+             }                
         }
 
         function f1(){
@@ -93,10 +115,25 @@
          //search object in the list by product_id
          /*-- var founds = list.filter((a) => {
              return a.purchase_id == purchase_id
-         }); --*/
-         //update product price in txt price textbox
-         
-         
+         }); --*/    
         }
+        
+   
+        function f2(){
+            var purchase_id = $('#cmb_purchase_id').val();
+            var product_id1 =$('#cmb_product').val();
+            console.log(product_id1);
+            //var url = "/product/products?id="+product_id;
+            //console.log(url);
+            //var url = "/purchaseOrder/purchaseitems";  
+            var product_id = $('');
+            var url = "/purchaseOrder/getpurchaseitem?d1="+purchase_id +"&d2="+product_id;
+            
+            $.get(url,done);
+            }
+
+            function done(res){
+            $('#txt_purchase_item').val(res.purchase_item_id);          
+}
     </script>
 }

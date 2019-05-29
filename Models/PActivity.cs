@@ -9,8 +9,8 @@ namespace sproject.Models{
         public PurchaseOrderType purchaseordertype {get; set;}//FK
         public int purchase_type_id {get; set;}
 
-        public PurchaseOrder purchaseorder {get; set;}//FK
-        public int purchase_id {get; set;}
+        public PurchaseItem purchaseItem {get; set;}//FK
+        public int purchaseItem_id {get; set;}
 
         public DateTime activity_date {get; set;}
     }

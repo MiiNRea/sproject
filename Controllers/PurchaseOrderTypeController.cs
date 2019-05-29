@@ -149,5 +149,9 @@ namespace sproject.Controllers
         {
             return _context.PurchaseOrderTypes.Any(e => e.Purchase_type_id == id);
         }
+
+        public IActionResult purchaseOrderStatuss(){
+            return Json(_context.PurchaseOrderTypes.Select(x=> new {Purchase_type_id= x.Purchase_type_id}).ToList());
+        }
     }
 }

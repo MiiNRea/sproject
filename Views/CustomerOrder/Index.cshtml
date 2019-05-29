@@ -1,0 +1,53 @@
+@model IEnumerable<sproject.Models.CustomerOrder>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.customerorder_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerorder_qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerorder_price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerInfo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerorder_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerorder_qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerorder_price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.productInfo.product_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerInfo.customer_name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.customerorder_id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.customerorder_id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.customerorder_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

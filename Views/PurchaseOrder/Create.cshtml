@@ -1,4 +1,4 @@
- <h4>PurchaseOrder</h4>
+ <h4>Create New Purchase Order</h4>
  <hr />
  <div class="row">
      <div class="col-md-6">
@@ -210,7 +210,7 @@
 
      //product data arrived from server
      function product_data_arrived(data) {
-         console.log('yes');
+         console.log('yes'); 
          list = data; //update list with data from server
 
          //find unique product name
@@ -247,7 +247,9 @@
              $.each(founds, function (key, item) {
                  cmb_supplier_names.append('<option value=' + item.supplier_id + '>' + item.supplier_name + '</option>');
              }); 
+             //update table with supplier in the combobo->cmb_supplier_names
              
+             cb_show_productinfo();
         }
     }
 
@@ -272,12 +274,14 @@
              product_series : found2.product_series,
              product_size : found2.product_size
          };
+        show = []; //clear show list
         show.push(row2);
         showtable();
     }
         function showtable(){
          //remove all rows except the header row
          tbl_table2.find("tr:gt(0)").remove();
+         //tbl_table2.empty();
          for(var j = 0; j < show.length; j++) {
              var row2 = tr(td(show[j].id)+td(show[j].product_name) + td(show[j].product_series)+ td(show[j].product_size));
              tbl_table2.append(row2)

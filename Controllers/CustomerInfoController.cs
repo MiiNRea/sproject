@@ -34,7 +34,7 @@ namespace sproject.Controllers
             }
 
             var customerInfo = await _context.CustomerInfos
-                .FirstOrDefaultAsync(m => m.customerInfo_id == id);
+                .FirstOrDefaultAsync(m => m.customerinfo_id == id);
             if (customerInfo == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("customerInfo_id,customer_name,customer_phone")] CustomerInfo customerInfo)
+        public async Task<IActionResult> Create([Bind("customerinfo_id,customer_name,customer_phone")] CustomerInfo customerInfo)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("customerInfo_id,customer_name,customer_phone")] CustomerInfo customerInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("customerinfo_id,customer_name,customer_phone")] CustomerInfo customerInfo)
         {
-            if (id != customerInfo.customerInfo_id)
+            if (id != customerInfo.customerinfo_id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace sproject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerInfoExists(customerInfo.customerInfo_id))
+                    if (!CustomerInfoExists(customerInfo.customerinfo_id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace sproject.Controllers
             }
 
             var customerInfo = await _context.CustomerInfos
-                .FirstOrDefaultAsync(m => m.customerInfo_id == id);
+                .FirstOrDefaultAsync(m => m.customerinfo_id == id);
             if (customerInfo == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace sproject.Controllers
 
         private bool CustomerInfoExists(int id)
         {
-            return _context.CustomerInfos.Any(e => e.customerInfo_id == id);
+            return _context.CustomerInfos.Any(e => e.customerinfo_id == id);
         }
     }
 }

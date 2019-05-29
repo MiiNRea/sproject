@@ -1,6 +1,6 @@
 @model IEnumerable<sproject.Models.PurchaseOrder>
  
-
+<h4>Purchase Orders</h4>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -8,10 +8,12 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.purchase_id)
+                Purchase id
+                <!-- @Html.DisplayNameFor(model => model.purchase_id) -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.purchase_date)
+                Purchase date
+                <!-- @Html.DisplayNameFor(model => model.purchase_date) -->
             </th>
         </tr>
     </thead>
@@ -33,3 +35,4 @@
 }
     </tbody>
 </table>
+

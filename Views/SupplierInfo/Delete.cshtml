@@ -2,7 +2,8 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>SupplierInfo</h4>
+    <h4>For Delete Supplier Informations</h4>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -41,10 +42,70 @@
             @Html.DisplayFor(model => model.supplier_type.supplier_type_name)
         </dd class>
     </dl>
-    
+    <table class="table" id="table1">
+    <tr>
+        <th>Product sell</th>
+        <th>Series</th>
+        <th>Size</th>
+    </tr>
+</table>
+
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="supplier_id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+
+
+
+
+
+@section Scripts{
+    <script>
+        var list = [];
+        var tbl = $('#table1');
+        $(document).ready(tb);
+
+        function tb(){
+            $.get("/productinfo/products", product_data_arrived);
+        }
+
+        function product_data_arrived (data){
+            console.log("product table",data);
+            list = data;
+            var supplier_id = (@Html.DisplayFor(model => model.supplier_id));
+            var found = list.filter(function(x){
+                return x.supplier_id == supplier_id;
+            });
+           console.log(found);
+            /*var product_id = found.product_id;
+            var product_name = found.product_name;
+            var product_series = found.product_series;
+            var product_size = found.product_size;
+
+            var row = {
+                product_id : found.product_id,
+                product_name : found.product_name,
+                product_series : found.product_series,
+                product_size : found.product_size,
+            };*/
+
+        table(found);
+        }
+        function table(list){
+            for (var i = 0; i < list.length; i++) {
+            var row = tr(td(list[i].product_name) + td(list[i].product_series)+ td(list[i].product_size));
+            tbl.append(row);
+            }
+        }
+        function tr(data) {
+         return '<tr>' + data + '</tr>';
+     }
+
+     function td(data) {
+         return '<td>' + data + '</td>';
+     }
+    </script>
+}

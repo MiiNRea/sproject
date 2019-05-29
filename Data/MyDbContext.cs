@@ -21,6 +21,7 @@ namespace sproject.Data{
         public DbSet<PActivity> PActivities {get; set;}
         public DbSet<sproject.Models.InventoryIn> InventoryIn {get; set;}
 
+        public DbSet<CustomerOrder> CustomerOrders {get; set;}
         public DbSet<CustomerInfo> CustomerInfos {get; set;}
     }
 }   
