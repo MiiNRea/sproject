@@ -14,8 +14,10 @@ namespace sproject.Models {
     //  P2 lot3 6
     public PurchaseOrder purchaseorder {get; set;}
     public int purchase_id {get; set;}
+    
     public ProductInfo productinfo {get; set;}//FK
     public int product_id {get; set;}
+
     public int inventoryin_qty {get; set;}
     
     public int manufacturer_week {get; set;}

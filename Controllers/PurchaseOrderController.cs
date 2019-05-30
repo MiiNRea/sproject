@@ -44,6 +44,7 @@ namespace sproject.Controllers
                                         product_name = y.productInfo.product_name,
                                         status = y.purchaseorder_type.Purchase_type_name,
                                         product_qty  = y.qty,
+                                        selling_price = y.selling_price,
                                         total = y.purchase_cost,
                     }).ToList()    
                 })
@@ -92,6 +93,7 @@ namespace sproject.Controllers
                        product_id       = item.id,
                        purchase_type_id = 1,
                        purchase_cost    = item.total,
+                       selling_price    = item.selling_price,
                        qty              = item.qty
                     };
                     list1.Add(new_purchase_item);
@@ -196,6 +198,7 @@ namespace sproject.Controllers
                                         product_name = y.productInfo.product_name,
                                         status = y.purchaseorder_type.Purchase_type_name,
                                         product_qty  = y.qty,
+                                        selling_price = y.selling_price,
                                         total = y.purchase_cost,
                     }).ToList()    
                 })

@@ -78,6 +78,8 @@
             cmb_purchase_id.click(f1);
             //cmb_product.click(f2);
             $.get("/purchaseOrder/purchases", get_purchase_id);
+            $.get("/purchaseOrder/purchases", get_d1);
+
         }
 
         function get_purchase_id(data){
@@ -92,7 +94,7 @@
             
              var url = "/purchaseOrder/purchaseitems?id="+id;
              console.log(url);
-            $.get(url, get_product_item);     
+            $.get(url, get_product_item);   
          }
     }
 
@@ -102,7 +104,7 @@
               cmb_product.empty();
              for(var i=0;i< items.length;i++) {
                  var tag = '<option value=' + items[i].product_id + '>' + items[i].product_name + '</option>';
-                 console.log(tag);
+                 //console.log(tag);
                  cmb_product.append(tag);
              }                
         }
@@ -111,7 +113,7 @@
             //get selection value
             var purchase_id = cmb_purchase_id.val();
             var url = "/purchaseOrder/purchaseitems?id="+purchase_id;
-            $.get(url, get_product_item);
+            //$.get(url, get_product_item);
          //search object in the list by product_id
          /*-- var founds = list.filter((a) => {
              return a.purchase_id == purchase_id
@@ -119,9 +121,10 @@
         }
         
    
-        function f2(){
+        function f2(data){
             var purchase_id = $('#cmb_purchase_id').val();
             var product_id1 =$('#cmb_product').val();
+            console.log(purchase_id);
             console.log(product_id1);
             //var url = "/product/products?id="+product_id;
             //console.log(url);

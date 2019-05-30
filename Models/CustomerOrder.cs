@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace sproject.Models{
@@ -8,8 +9,8 @@ namespace sproject.Models{
         public int customerorder_id {get; set;}        
         public DateTime customerorder_date {get;set;}     
         public int customerorder_qty {get; set;}
-        public double customerorder_price {get;set;}
         
+        //public List<PurchaseItem> purchase_items {get; set;}
         public ProductInfo productInfo {get; set;}//
         public int product_id {get; set;}
 

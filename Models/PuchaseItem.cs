@@ -16,6 +16,7 @@ namespace sproject.Models{
 
         public int qty {get; set;}
         
+        public double selling_price {get; set;}
         //reverse NP
         public int purchase_id {get; set;}//PK
         public SupplierInfo supplierInfo {get; set;}//FK

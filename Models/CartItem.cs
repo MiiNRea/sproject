@@ -9,6 +9,7 @@ namespace sproject.Models{
         public string   name        {get;set;}
         public double   price       {get;set;}
         public int      qty         {get;set;}
+        public double selling_price {get; set;}
         public double   total       {get;set;}    
         
     }//ec
