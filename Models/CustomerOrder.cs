@@ -16,5 +16,7 @@ namespace sproject.Models{
 
         public CustomerInfo customerInfo {get; set;}//
         public int customerinfo_id {get; set;}
+
+        public int warranty_time {get; set;}
     }
 }

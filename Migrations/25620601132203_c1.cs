@@ -114,7 +114,6 @@ namespace sproject.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     customerorder_date = table.Column<DateTime>(nullable: false),
                     customerorder_qty = table.Column<int>(nullable: false),
-                    customerorder_price = table.Column<double>(nullable: false),
                     product_id = table.Column<int>(nullable: false),
                     customerinfo_id = table.Column<int>(nullable: false)
                 },
@@ -164,6 +163,7 @@ namespace sproject.Migrations
                     purchase_type_id = table.Column<int>(nullable: false),
                     product_id = table.Column<int>(nullable: false),
                     qty = table.Column<int>(nullable: false),
+                    selling_price = table.Column<double>(nullable: false),
                     purchase_id = table.Column<int>(nullable: false),
                     supplier_id = table.Column<int>(nullable: false)
                 },
@@ -193,33 +193,6 @@ namespace sproject.Migrations
                         column: x => x.supplier_id,
                         principalTable: "SupplierInfos",
                         principalColumn: "supplier_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BackOrder",
-                columns: table => new
-                {
-                    backOrder_id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    backOrderDate = table.Column<DateTime>(nullable: false),
-                    purchaseItem_id = table.Column<int>(nullable: false),
-                    Product_id = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BackOrder", x => x.backOrder_id);
-                    table.ForeignKey(
-                        name: "FK_BackOrder_ProductInfos_Product_id",
-                        column: x => x.Product_id,
-                        principalTable: "ProductInfos",
-                        principalColumn: "product_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BackOrder_PurchaseItems_purchaseItem_id",
-                        column: x => x.purchaseItem_id,
-                        principalTable: "PurchaseItems",
-                        principalColumn: "purchaseItem_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -293,32 +266,19 @@ namespace sproject.Migrations
                     SupplierPerformance_id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     supplier_id = table.Column<int>(nullable: false),
-                    purchase_id = table.Column<int>(nullable: false),
                     purchaseItem_id = table.Column<int>(nullable: false),
                     deliver_date = table.Column<DateTime>(nullable: false),
                     leadTime = table.Column<int>(nullable: false),
-                    backOrder_id = table.Column<int>(nullable: false)
+                    backOrder = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SupplierPerformances", x => x.SupplierPerformance_id);
                     table.ForeignKey(
-                        name: "FK_SupplierPerformances_BackOrder_backOrder_id",
-                        column: x => x.backOrder_id,
-                        principalTable: "BackOrder",
-                        principalColumn: "backOrder_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_SupplierPerformances_PurchaseItems_purchaseItem_id",
                         column: x => x.purchaseItem_id,
                         principalTable: "PurchaseItems",
                         principalColumn: "purchaseItem_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SupplierPerformances_PurchaseOrders_purchase_id",
-                        column: x => x.purchase_id,
-                        principalTable: "PurchaseOrders",
-                        principalColumn: "purchase_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SupplierPerformances_SupplierInfos_supplier_id",
@@ -327,16 +287,6 @@ namespace sproject.Migrations
                         principalColumn: "supplier_id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BackOrder_Product_id",
-                table: "BackOrder",
-                column: "Product_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BackOrder_purchaseItem_id",
-                table: "BackOrder",
-                column: "purchaseItem_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerOrders_customerinfo_id",
@@ -409,19 +359,9 @@ namespace sproject.Migrations
                 column: "supplier_type_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SupplierPerformances_backOrder_id",
-                table: "SupplierPerformances",
-                column: "backOrder_id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SupplierPerformances_purchaseItem_id",
                 table: "SupplierPerformances",
                 column: "purchaseItem_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierPerformances_purchase_id",
-                table: "SupplierPerformances",
-                column: "purchase_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SupplierPerformances_supplier_id",
@@ -448,9 +388,6 @@ namespace sproject.Migrations
 
             migrationBuilder.DropTable(
                 name: "CustomerInfos");
-
-            migrationBuilder.DropTable(
-                name: "BackOrder");
 
             migrationBuilder.DropTable(
                 name: "PurchaseItems");

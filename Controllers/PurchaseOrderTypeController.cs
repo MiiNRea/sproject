@@ -153,5 +153,6 @@ namespace sproject.Controllers
         public IActionResult purchaseOrderStatuss(){
             return Json(_context.PurchaseOrderTypes.Select(x=> new {Purchase_type_id= x.Purchase_type_id}).ToList());
         }
+
     }
 }

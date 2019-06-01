@@ -13,7 +13,7 @@ namespace sproject.Models{
         //[Required]
         public string supplier_phone {get; set;}
         public string supplier_address {get; set;}
-
+        
         [Required]
         public SupplierType supplier_type {get; set;}
         public int supplier_type_id {get; set;} //partner,supplier

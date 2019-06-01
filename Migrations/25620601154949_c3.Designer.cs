@@ -9,7 +9,7 @@ using sproject.Data;
 namespace sproject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("25620530185916_c3")]
+    [Migration("25620601154949_c3")]
     partial class c3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,26 +18,6 @@ namespace sproject.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("sproject.Models.BackOrder", b =>
-                {
-                    b.Property<int>("backOrder_id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Product_id");
-
-                    b.Property<DateTime>("backOrderDate");
-
-                    b.Property<int>("purchaseItem_id");
-
-                    b.HasKey("backOrder_id");
-
-                    b.HasIndex("Product_id");
-
-                    b.HasIndex("purchaseItem_id");
-
-                    b.ToTable("BackOrder");
-                });
 
             modelBuilder.Entity("sproject.Models.CustomerInfo", b =>
                 {
@@ -81,6 +61,8 @@ namespace sproject.Migrations
                 {
                     b.Property<int>("inventory_id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("invento_qty");
 
                     b.Property<int>("product_id");
 
@@ -246,7 +228,7 @@ namespace sproject.Migrations
                     b.Property<int>("SupplierPerformance_id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("backOrder_id");
+                    b.Property<int>("backOrder");
 
                     b.Property<DateTime>("deliver_date");
 
@@ -254,17 +236,11 @@ namespace sproject.Migrations
 
                     b.Property<int>("purchaseItem_id");
 
-                    b.Property<int>("purchase_id");
-
                     b.Property<int>("supplier_id");
 
                     b.HasKey("SupplierPerformance_id");
 
-                    b.HasIndex("backOrder_id");
-
                     b.HasIndex("purchaseItem_id");
-
-                    b.HasIndex("purchase_id");
 
                     b.HasIndex("supplier_id");
 
@@ -281,19 +257,6 @@ namespace sproject.Migrations
                     b.HasKey("supplier_type_id");
 
                     b.ToTable("SupplierTypes");
-                });
-
-            modelBuilder.Entity("sproject.Models.BackOrder", b =>
-                {
-                    b.HasOne("sproject.Models.ProductInfo", "productInfo")
-                        .WithMany()
-                        .HasForeignKey("Product_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("sproject.Models.PurchaseItem", "purchaseItem")
-                        .WithMany()
-                        .HasForeignKey("purchaseItem_id")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("sproject.Models.CustomerOrder", b =>
@@ -389,19 +352,9 @@ namespace sproject.Migrations
 
             modelBuilder.Entity("sproject.Models.SupplierPerformance", b =>
                 {
-                    b.HasOne("sproject.Models.BackOrder", "backOrder")
-                        .WithMany()
-                        .HasForeignKey("backOrder_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("sproject.Models.PurchaseItem", "purchaseItem")
                         .WithMany()
                         .HasForeignKey("purchaseItem_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("sproject.Models.PurchaseOrder", "purchaseOrder")
-                        .WithMany()
-                        .HasForeignKey("purchase_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("sproject.Models.SupplierInfo", "supplierInfo")

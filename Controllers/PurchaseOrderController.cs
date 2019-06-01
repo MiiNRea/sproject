@@ -101,6 +101,7 @@ namespace sproject.Controllers
                 //assign cartitem list 
                 new_order.purchase_items = list1;
                 await _context.SaveChangesAsync(); //save cart first
+
                 foreach( PurchaseItem purchase_item in new_order.purchase_items){
                     var new_activity = new PActivity
                 {
@@ -249,16 +250,12 @@ namespace sproject.Controllers
                .FirstAsync();            
                return Json(result);
         }
-
+        [HttpGet]
         public IActionResult getpurchaseitem(int d1, int d2){
-
-        var po = _context.PurchaseOrders.Where(x=>x.purchase_id == d1)
-		            .FirstOrDefault();
-		var purchase_item = po.purchase_items.Where(x=>x.productInfo.product_id == d2)
-					.FirstOrDefault();
-		var purchase_item_id = purchase_item.purchaseItem_id;
-                    //.FirstOrDefault();
-        return Json(new {purchase_item_id = purchase_item_id});		
+               var purchaseitem =  _context.PurchaseItems.Where(x=>x.purchase_id == d1)
+                .Where(x=>x.product_id == d2)
+                .FirstOrDefault();
+        return Json(new {purchase_item_id = purchaseitem.purchaseItem_id, qty = purchaseitem.qty, supplier = purchaseitem.supplier_id, product_id = purchaseitem.product_id});		
         }        
     }
 }

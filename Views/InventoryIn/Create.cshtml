@@ -1,4 +1,4 @@
-@model sproject.Models.InventoryInView
+@model sproject.Models.InventoryInView 
 <h4>InventoryIn</h4>
 <hr />
 <div class="row">
@@ -13,8 +13,9 @@
 
             <div class="form-group">
              <label class="control-label">Product name</label>
-             <select id="product_name" ></select>
+             <select id="product_id" ></select>
             </div>
+            
 
             <!-- <div class="form-group">
              <label class="control-label">Puchase item</label>
@@ -23,13 +24,19 @@
 
             <div class="form-group">
              <label class="control-label">Purchase item</label>
-             <input  class="form-control" id="purchase_item"/ >
+             <input readonly class="form-control" id="purchase_item"/>
             </div>
 
             <div class="form-group">
-                <label asp-for="inventoryin_qty" class="control-label"></label>
-                <input asp-for="inventoryin_qty" class="form-control" />
-                <span asp-validation-for="inventoryin_qty" class="text-danger"></span>
+             <label class="control-label">Purchase_qty</label>
+             <input readonly class="form-control" id="qty"/>
+            </div>
+
+            <div class="form-group">
+             <input hidden class="form-control" id="supplier"/>
+            </div>
+            <div class="form-group">
+             <input hidden class="form-control" id="pid"/>
             </div>
 
             <div class="form-group">
@@ -43,16 +50,11 @@
                 <span asp-validation-for="manufacturer_year" class="text-danger"></span>
             </div>
 
-            <!-- <div class="form-group">
-                <label asp-for="manufacturer_date" class="control-label"></label>
-                <input asp-for="manufacturer_date" class="form-control" />
-                <span asp-validation-for="manufacturer_date" class="text-danger"></span>
-            </div> -->
-
             <div class="form-group">
                 <label  class="control-label">Purchase Status</label>
-                <select asp-for="purchase_type_id" class ="form-control" asp-items="ViewBag.purchase_type_id"></select>
+                <select id ="ptid" asp-for="purchase_type_id" class ="form-control" asp-items="ViewBag.purchase_type_id"></select>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -67,19 +69,31 @@
 
 @section Scripts{
     <script>
-        var cmb_product = $('#product_name');
+        var cmb_product = $('#product_id');
         var cmb_purchase_id =$('#purchase_id');
-        var txt_purchase_item =$('#purchase_item')
+        var txt_purchase_item =$('#purchase_item');
+        var txt_purchase_qty = $('#qty');
+        var txt_purchase_sup = $('#supplier');
+        var txt_purchase_pid = $('#pid');
+        var cmb_ptid          = $('#ptid');
         var list = [];
+        var d1 = ('');
+        var d2 = ('');
+        var listtid =[];
 
         $(document).ready(cc);
 
         function cc(){
-            cmb_purchase_id.click(f1);
-            //cmb_product.click(f2);
+            cmb_purchase_id.change(f1);
+            cmb_product.click(f2);
             $.get("/purchaseOrder/purchases", get_purchase_id);
-            $.get("/purchaseOrder/purchases", get_d1);
+            cmb_ptid.change(purchase_tid);
+        }
 
+        function purchase_tid(data){
+            listtid = data;
+            var purchaseType = parseInt(cmb_ptid.val());
+            console.log(purchaseType);
         }
 
         function get_purchase_id(data){
@@ -105,38 +119,42 @@
              for(var i=0;i< items.length;i++) {
                  var tag = '<option value=' + items[i].product_id + '>' + items[i].product_name + '</option>';
                  //console.log(tag);
-                 cmb_product.append(tag);
-             }                
+                 cmb_product.append(tag);                
+             }       
         }
 
         function f1(){
             //get selection value
             var purchase_id = cmb_purchase_id.val();
             var url = "/purchaseOrder/purchaseitems?id="+purchase_id;
-            //$.get(url, get_product_item);
+            $.get(url, get_product_item);
+            //d2 = purchase_id;
+            //console.log(d2);
          //search object in the list by product_id
          /*-- var founds = list.filter((a) => {
              return a.purchase_id == purchase_id
          }); --*/    
         }
         
-   
+            //d2 = purchase_id
+            //d1 = product_id
         function f2(data){
-            var purchase_id = $('#cmb_purchase_id').val();
-            var product_id1 =$('#cmb_product').val();
-            console.log(purchase_id);
-            console.log(product_id1);
-            //var url = "/product/products?id="+product_id;
-            //console.log(url);
-            //var url = "/purchaseOrder/purchaseitems";  
-            var product_id = $('');
+            var purchase_id = cmb_purchase_id.val();
+            //var purchase_id = parseInt(d2);
+            var product_id = parseInt(cmb_product.val());
+    
             var url = "/purchaseOrder/getpurchaseitem?d1="+purchase_id +"&d2="+product_id;
-            
+           console.log('pp1:',url);
             $.get(url,done);
             }
 
             function done(res){
-            $('#txt_purchase_item').val(res.purchase_item_id);          
+                console.log("pp:",res);
+            txt_purchase_item.val(res.purchase_item_id);  
+            txt_purchase_qty.val(res.qty);  
+            txt_purchase_sup.val(res.supplier);
+            txt_purchase_pid.val(res.product_id);
+
 }
     </script>
 }

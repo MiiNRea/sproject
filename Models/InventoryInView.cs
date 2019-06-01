@@ -27,5 +27,8 @@ namespace sproject.Models {
     public int purchaseItem_id {get; set;}
 
     public int purchase_type_id {get; set;}
+
+    public SupplierInfo supplierInfo {get; set;}
+    public int supplier_id {get; set;}
     }
 }

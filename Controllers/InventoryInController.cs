@@ -76,14 +76,18 @@ namespace sproject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InventoryInView inventoryInView)
         {
+            //กรณีที่เป็น Complete
+            //if (inventoryInView.purchase_type_id == 3)
             if (ModelState.IsValid)
             {
+                if (inventoryInView.purchase_type_id == 3){
                 var obj = new InventoryIn{	
                     purchase_id	        = inventoryInView.purchase_id,
                     product_id	        = inventoryInView.product_id,
                     inventoryin_qty	    = inventoryInView.inventoryin_qty,    
                     manufacturer_week   = inventoryInView.manufacturer_week,
-                    manufacturer_year   = inventoryInView.manufacturer_year,               
+                    manufacturer_year   = inventoryInView.manufacturer_year,
+                    purchaseItem_id     = inventoryInView.purchaseItem_id,              
                 };
                 _context.InventoryIn.Add(obj);
                 
@@ -92,32 +96,52 @@ namespace sproject.Controllers
                     purchaseItem_id  =   inventoryInView.purchaseItem_id,
                     activity_date    =   DateTime.Now 
                 };
-                _context.PActivities.Add(row);
-
-
-                //     var po = _context.PurchaseOrders.Where(x=>x.purchase_id == d1)
+                _context.PActivities.Add(row);               
+            }
+                
+            //กรณีที่เป็น LeadTime
+		//     var po = _context.purchaseorders.where(x=>x.purhcase_id== d1)
 		//              .FirstOrDefault();
 		//         DateTime today = DateTime.Now;
         //         TimeSpan timeDiff = today - po.purchase_date;
         //         int num_day = timeDiff.TotalDays;
         //         int kpi = 0;
 		//         if(num_day >5){
-        //             kip = 1;
+        //         kip = 1;
 		//         }
 		
-		// //use kip to update performance table
-		//     var new_kpi = new {
+		// use kip to update performance table
+		//         var new_kpi = new {
 		//         leadTime = kpi,
 		// 	    deliver_date = today,
-		// 	    //supplier
+		// 	    supplier_id = inventoryInView.supplier_id,
+        //         purchaseItem_id = inventoryInView.purchaseItem_id,
+        //         backOrder = 0
 		//     };
-		//     _context.SupplierPerformances.Add(new_kip);
-                
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+		//     _context.supplierperfomrances.Add(new_kip);
 
-       
+
+                
+            //     await _context.SaveChangesAsync();
+            //     return RedirectToAction(nameof(Index));           
+            // }
+
+
+            //กรณีที่เป็น BackOrder
+            if(inventoryInView.purchase_type_id == 2){
+                    var bo = new SupplierPerformance{
+                        supplier_id = inventoryInView.supplier_id,
+                        purchaseItem_id = inventoryInView.purchaseItem_id,
+                        deliver_date = DateTime.Now,
+                        leadTime = 0,
+                        backOrder = 1
+                    };
+                    _context.SupplierPerformances.Add(bo);
+
+                    await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));  
+                }
+            }
 
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", inventoryInView.product_id);
             ViewData["purchase_id"] = new SelectList(_context.PurchaseOrders, "purchase_id", "purchase_id", inventoryInView.purchase_id);

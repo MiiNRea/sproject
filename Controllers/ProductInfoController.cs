@@ -84,9 +84,11 @@ namespace sproject.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(productInfo);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["supplier_id"] = new SelectList(_context.SupplierInfos, "supplier_id", "supplier_name", productInfo.supplier_id);
             return View(productInfo);
         }
