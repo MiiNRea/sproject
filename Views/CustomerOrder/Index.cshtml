@@ -1,5 +1,17 @@
 @model IEnumerable<sproject.Models.CustomerOrder>
 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -12,13 +24,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.customerorder_qty)
             </th>
-            
-            
             <th>
                 @Html.DisplayNameFor(model => model.productInfo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.customerInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.inventory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.warranty_time)
             </th>
             <th></th>
         </tr>
@@ -32,8 +48,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.customerorder_qty)
             </td>
-            
-
             <td>
                 @Html.DisplayFor(modelItem => item.productInfo.product_name)
             </td>
@@ -41,11 +55,19 @@
                 @Html.DisplayFor(modelItem => item.customerInfo.customer_name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.customerorder_id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.customerorder_id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.customerorder_id">Delete</a>
+                @Html.DisplayFor(modelItem => item.inventory.inventory_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.warranty_time)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.customerOrder_id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.customerOrder_id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.customerOrder_id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+</body>
+</html>

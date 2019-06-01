@@ -79,7 +79,7 @@ namespace sproject.Controllers
             //กรณีที่เป็น Complete
             //if (inventoryInView.purchase_type_id == 3)
             if (ModelState.IsValid)
-            {
+            { 
                 if (inventoryInView.purchase_type_id == 3){
                 var obj = new InventoryIn{	
                     purchase_id	        = inventoryInView.purchase_id,
@@ -137,6 +137,11 @@ namespace sproject.Controllers
                         backOrder = 1
                     };
                     _context.SupplierPerformances.Add(bo);
+
+                    var bol = new BackOrder{
+                        purchaseItem_id = inventoryInView.purchaseItem_id
+                    };
+                    _context.BackOrders.Add(bol);
 
                     await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));  

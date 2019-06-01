@@ -35,7 +35,8 @@ namespace sproject.Controllers
                  product_series = x.product_series,
                  product_size = x.product_size,
                  supplier_id = x.supplierInfo.supplier_id,
-                 supplier_name = x.supplierInfo.supplier_name
+                 supplier_name = x.supplierInfo.supplier_name,
+                 supplier_type_id = x.supplierInfo.supplier_type_id
              })
              .ToListAsync();
              return Json(result);
@@ -183,6 +184,11 @@ namespace sproject.Controllers
             return _context.ProductInfos.Any(e => e.product_id == id);
         }
 
-
+        public IActionResult productget(){
+            // var supplierinfo = _context.SupplierInfos.Where(x=>x.supplier_type_id == 2)
+            // .FirstOrDefault();
+            return Json(_context.ProductInfos.Select(x=> new {product_id = x.product_id, x.supplier_id}).ToList());
+        
+        }
     }
 }

@@ -17,6 +17,42 @@ namespace sproject.Migrations
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("sproject.Models.BackOrder", b =>
+                {
+                    b.Property<int>("backOrder_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("purchaseItem_id");
+
+                    b.HasKey("backOrder_id");
+
+                    b.HasIndex("purchaseItem_id");
+
+                    b.ToTable("BackOrders");
+                });
+
+            modelBuilder.Entity("sproject.Models.Borrow", b =>
+                {
+                    b.Property<int>("borrow_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("borrow_date");
+
+                    b.Property<int>("borrow_qty");
+
+                    b.Property<int>("product_id");
+
+                    b.Property<int>("supplier_id");
+
+                    b.HasKey("borrow_id");
+
+                    b.HasIndex("product_id");
+
+                    b.HasIndex("supplier_id");
+
+                    b.ToTable("Borrows");
+                });
+
             modelBuilder.Entity("sproject.Models.CustomerInfo", b =>
                 {
                     b.Property<int>("customerinfo_id")
@@ -35,7 +71,7 @@ namespace sproject.Migrations
 
             modelBuilder.Entity("sproject.Models.CustomerOrder", b =>
                 {
-                    b.Property<int>("customerorder_id")
+                    b.Property<int>("customerOrder_id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("customerinfo_id");
@@ -44,11 +80,17 @@ namespace sproject.Migrations
 
                     b.Property<int>("customerorder_qty");
 
+                    b.Property<int>("inventory_id");
+
                     b.Property<int>("product_id");
 
-                    b.HasKey("customerorder_id");
+                    b.Property<int>("warranty_time");
+
+                    b.HasKey("customerOrder_id");
 
                     b.HasIndex("customerinfo_id");
+
+                    b.HasIndex("inventory_id");
 
                     b.HasIndex("product_id");
 
@@ -257,11 +299,55 @@ namespace sproject.Migrations
                     b.ToTable("SupplierTypes");
                 });
 
+            modelBuilder.Entity("sproject.Models.Warranty", b =>
+                {
+                    b.Property<int>("warranty_id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("claim_date");
+
+                    b.Property<int>("customerOrder_id");
+
+                    b.Property<string>("problem");
+
+                    b.HasKey("warranty_id");
+
+                    b.HasIndex("customerOrder_id");
+
+                    b.ToTable("Warranties");
+                });
+
+            modelBuilder.Entity("sproject.Models.BackOrder", b =>
+                {
+                    b.HasOne("sproject.Models.PurchaseItem", "purchaseItem")
+                        .WithMany()
+                        .HasForeignKey("purchaseItem_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("sproject.Models.Borrow", b =>
+                {
+                    b.HasOne("sproject.Models.ProductInfo", "productInfo")
+                        .WithMany()
+                        .HasForeignKey("product_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.SupplierInfo", "supplierInfo")
+                        .WithMany()
+                        .HasForeignKey("supplier_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("sproject.Models.CustomerOrder", b =>
                 {
                     b.HasOne("sproject.Models.CustomerInfo", "customerInfo")
                         .WithMany()
                         .HasForeignKey("customerinfo_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("sproject.Models.Inventory", "inventory")
+                        .WithMany()
+                        .HasForeignKey("inventory_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("sproject.Models.ProductInfo", "productInfo")
@@ -358,6 +444,14 @@ namespace sproject.Migrations
                     b.HasOne("sproject.Models.SupplierInfo", "supplierInfo")
                         .WithMany()
                         .HasForeignKey("supplier_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("sproject.Models.Warranty", b =>
+                {
+                    b.HasOne("sproject.Models.CustomerOrder", "customerOrder")
+                        .WithMany()
+                        .HasForeignKey("customerOrder_id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

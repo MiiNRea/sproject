@@ -1,7 +1,9 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace sproject.Models{
     public class Borrow{
+        [Key]
         public int borrow_id {get; set;}
         public SupplierInfo supplierInfo {get; set;} //show only partner
         public int supplier_id {get;set;}

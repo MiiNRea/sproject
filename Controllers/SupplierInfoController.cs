@@ -185,7 +185,12 @@ namespace sproject.Controllers
         }
 
         public IActionResult Suppliers(){
-            return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id}).ToList());
+            // var supplierinfo = _context.SupplierInfos.Where(x=>x.supplier_type_id == 2)
+            // .FirstOrDefault();
+            return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id, x.supplier_name, x.supplier_type_id}).ToList());
         }
+
+
+
     }
 }

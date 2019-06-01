@@ -22,7 +22,7 @@ namespace sproject.Controllers
         // GET: CustomerOrder
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.CustomerOrders.Include(c => c.customerInfo).Include(c => c.productInfo);
+            var myDbContext = _context.CustomerOrders.Include(c => c.customerInfo).Include(c => c.inventory).Include(c => c.productInfo);
             return View(await myDbContext.ToListAsync());
         }
 
@@ -36,8 +36,9 @@ namespace sproject.Controllers
 
             var customerOrder = await _context.CustomerOrders
                 .Include(c => c.customerInfo)
+                .Include(c => c.inventory)
                 .Include(c => c.productInfo)
-                .FirstOrDefaultAsync(m => m.customerorder_id == id);
+                .FirstOrDefaultAsync(m => m.customerOrder_id == id);
             if (customerOrder == null)
             {
                 return NotFound();
@@ -50,6 +51,7 @@ namespace sproject.Controllers
         public IActionResult Create()
         {
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name");
+            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id");
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
             return View();
         }
@@ -59,7 +61,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("customerorder_id,customerorder_date,customerorder_qty,customerorder_price,product_id,customerinfo_id")] CustomerOrder customerOrder)
+        public async Task<IActionResult> Create([Bind("customerOrder_id,customerorder_date,customerorder_qty,product_id,customerinfo_id,inventory_id,warranty_time")] CustomerOrder customerOrder)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +70,7 @@ namespace sproject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name", customerOrder.customerinfo_id);
+            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", customerOrder.product_id);
             return View(customerOrder);
         }
@@ -86,6 +89,7 @@ namespace sproject.Controllers
                 return NotFound();
             }
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name", customerOrder.customerinfo_id);
+            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", customerOrder.product_id);
             return View(customerOrder);
         }
@@ -95,9 +99,9 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("customerorder_id,customerorder_date,customerorder_qty,customerorder_price,product_id,customerinfo_id")] CustomerOrder customerOrder)
+        public async Task<IActionResult> Edit(int id, [Bind("customerOrder_id,customerorder_date,customerorder_qty,product_id,customerinfo_id,inventory_id,warranty_time")] CustomerOrder customerOrder)
         {
-            if (id != customerOrder.customerorder_id)
+            if (id != customerOrder.customerOrder_id)
             {
                 return NotFound();
             }
@@ -111,7 +115,7 @@ namespace sproject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerOrderExists(customerOrder.customerorder_id))
+                    if (!CustomerOrderExists(customerOrder.customerOrder_id))
                     {
                         return NotFound();
                     }
@@ -123,6 +127,7 @@ namespace sproject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name", customerOrder.customerinfo_id);
+            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", customerOrder.product_id);
             return View(customerOrder);
         }
@@ -137,8 +142,9 @@ namespace sproject.Controllers
 
             var customerOrder = await _context.CustomerOrders
                 .Include(c => c.customerInfo)
+                .Include(c => c.inventory)
                 .Include(c => c.productInfo)
-                .FirstOrDefaultAsync(m => m.customerorder_id == id);
+                .FirstOrDefaultAsync(m => m.customerOrder_id == id);
             if (customerOrder == null)
             {
                 return NotFound();
@@ -160,7 +166,7 @@ namespace sproject.Controllers
 
         private bool CustomerOrderExists(int id)
         {
-            return _context.CustomerOrders.Any(e => e.customerorder_id == id);
+            return _context.CustomerOrders.Any(e => e.customerOrder_id == id);
         }
     }
 }

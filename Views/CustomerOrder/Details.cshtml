@@ -1,5 +1,18 @@
 @model sproject.Models.CustomerOrder
 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
 <div>
     <h4>CustomerOrder</h4>
     <hr />
@@ -16,9 +29,6 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.customerorder_qty)
         </dd>
-        
-
-        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.productInfo)
         </dt>
@@ -31,9 +41,23 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.customerInfo.customer_name)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.inventory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.inventory.inventory_id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.warranty_time)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.warranty_time)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.customerorder_id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.customerOrder_id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+</body>
+</html>

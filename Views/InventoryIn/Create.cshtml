@@ -41,12 +41,12 @@
 
             <div class="form-group">
                 <label asp-for="manufacturer_week" class="control-label"></label>
-                <input asp-for="manufacturer_week" class="form-control" />
+                <input min = "1" asp-for="manufacturer_week" class="form-control" />
                 <span asp-validation-for="manufacturer_week" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="manufacturer_year" class="control-label"></label>
-                <input asp-for="manufacturer_year" class="form-control" />
+                <input min = "1" asp-for="manufacturer_year" class="form-control" />
                 <span asp-validation-for="manufacturer_year" class="text-danger"></span>
             </div>
 
@@ -128,8 +128,6 @@
             var purchase_id = cmb_purchase_id.val();
             var url = "/purchaseOrder/purchaseitems?id="+purchase_id;
             $.get(url, get_product_item);
-            //d2 = purchase_id;
-            //console.log(d2);
          //search object in the list by product_id
          /*-- var founds = list.filter((a) => {
              return a.purchase_id == purchase_id

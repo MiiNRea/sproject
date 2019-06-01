@@ -1,0 +1,95 @@
+@model sproject.Models.Borrow
+
+<h4>Borrow</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            
+            <div class="form-group">
+                <label asp-for="supplier_id" class="control-label"></label>
+                <select id = "supplier_id" asp-for="supplier_id" class ="form-control" asp-items="ViewBag.supplier_id"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="product_id" class="control-label"></label>
+                <select asp-for="product_id" class ="form-control" asp-items="ViewBag.product_id"></select>
+            </div>
+
+            <div class="form-group">
+             <label class="control-label">Partner name</label>
+             <select id="partner_name" ></select>
+            </div>
+
+            <div class="form-group">
+             <label class="control-label">Product name</label>
+             <select id="product_name" ></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="borrow_qty" class="control-label"></label>
+                <input asp-for="borrow_qty" class="form-control" />
+                <span asp-validation-for="borrow_qty" class="text-danger"></span>
+            </div>
+            <!-- <div class="form-group">
+                <label asp-for="borrow_date" class="control-label"></label>
+                <input asp-for="borrow_date" class="form-control" />
+                <span asp-validation-for="borrow_date" class="text-danger"></span>
+            </div> -->
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section  Scripts{
+    <script>
+        var cmb_product_name = $('#product_name');
+        var list = [];
+        var cmb_supplier_id = $('#partner_name');
+        var list2 = [];
+        $(document).ready(cc);
+                                           
+        function cc(){
+
+            $.get("/supplierInfo/suppliers", supplier_arrived);
+            cmb_supplier_id.click(get_list);
+            
+        }
+
+        function supplier_arrived(data){
+            console.log(data);
+            list = data;
+            //console.log(list);            
+            //cmb_supplier_id.empty();
+            for(var i=0;i<list.length;i++){
+                var tag = '<option value=' + list[i].supplier_id + '>' + list[i].supplier_name + '</option>';
+             cmb_supplier_id.append(tag);
+         }         
+         $.get("/productinfo/products",get_list)
+        }
+
+        function get_list(data){
+            //console.log(data);
+            var id = parseInt(cmb_supplier_id.val());
+            list2 = data;
+            
+            console.log(list2);
+            
+            for(var i=0;i<list2.length;i++) {
+                 var tag = '<option value=' + list2[i].product_id + '>' + list2[i].product_name + '</option>';
+                 console.log(tag);
+                 cmb_product_name.append(tag);                
+             }       
+        }              
+
+
+    </script>
+}

@@ -2804,6 +2804,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Borrow\\Index.cshtml",
+      "TargetPath": "Views\\Borrow\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\InventoryIn\\Edit.cshtml",
       "TargetPath": "Views\\InventoryIn\\Edit.cshtml",
       "FileKind": "mvc"
@@ -2874,6 +2879,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Borrow\\Details.cshtml",
+      "TargetPath": "Views\\Borrow\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\CustomerInfo\\Delete.cshtml",
       "TargetPath": "Views\\CustomerInfo\\Delete.cshtml",
       "FileKind": "mvc"
@@ -2881,6 +2891,11 @@
     {
       "FilePath": "Views\\SupplierInfo\\Details.cshtml",
       "TargetPath": "Views\\SupplierInfo\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Borrow\\Create.cshtml",
+      "TargetPath": "Views\\Borrow\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2979,6 +2994,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Borrow\\Delete.cshtml",
+      "TargetPath": "Views\\Borrow\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\CustomerOrder\\Create.cshtml",
       "TargetPath": "Views\\CustomerOrder\\Create.cshtml",
       "FileKind": "mvc"
@@ -2991,6 +3011,11 @@
     {
       "FilePath": "Views\\CustomerInfo\\Details.cshtml",
       "TargetPath": "Views\\CustomerInfo\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Borrow\\Edit.cshtml",
+      "TargetPath": "Views\\Borrow\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
