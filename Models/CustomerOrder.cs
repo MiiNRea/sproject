@@ -12,13 +12,14 @@ namespace sproject.Models{
         public ProductInfo productInfo {get; set;}//
         public int product_id {get; set;}
 
+        public Inventory inventory {get; set;}
+        public int inventory_id {get; set;}
+
         public CustomerInfo customerInfo {get; set;}//
         public int customerinfo_id {get; set;}
 
         public string phone_number {get; set;}
 
-        public Inventory inventory {get; set;}
-        public int inventory_id {get; set;}
         public int warranty_time {get; set;}
     }
 }

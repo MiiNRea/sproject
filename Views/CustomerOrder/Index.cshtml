@@ -16,10 +16,13 @@
                 @Html.DisplayNameFor(model => model.productInfo)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.inventory)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.customerInfo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.inventory)
+                @Html.DisplayNameFor(model => model.phone_number)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.warranty_time)
@@ -40,10 +43,13 @@
                 @Html.DisplayFor(modelItem => item.productInfo.product_name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.inventory.inventory_id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.customerInfo.customer_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.inventory.inventory_id)
+                @Html.DisplayFor(modelItem => item.phone_number)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.warranty_time)

@@ -1,0 +1,128 @@
+@model sproject.Models.PurchaseDetailView
+<div>
+    <h4>Receive Details</h4>
+    <hr />
+    </div>
+    <div>
+        <h5>Purchase ID : @Model.purchase_id</h5>
+    </div>
+
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Purchase date
+            <!-- @Html.DisplayNameFor(model => model.purchase_date) -->
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.purchase_date)
+        </dd>
+    </dl>
+
+<hr>
+
+<table class="table" id = "tb1">
+    <tr>
+        <th>
+            Product name
+        </th>
+        <th>
+            Supplier name
+        </th>
+        <th>
+            Quality
+        </th>
+        <th>
+            Cost
+        </th>
+        <th>
+            Selling price
+        </th>
+        <th>
+            Status
+        </th>
+        
+    </tr>
+    @foreach (var item in @Model.purchaseItems)
+    {
+        <tr>
+            <td>
+                @item.product_name
+            </td>
+            <td>
+                @item.supplier_name
+            </td>
+            <td>
+                @item.product_qty
+            </td>
+            <td>
+                @item.total
+            </td>
+            <td>
+                @item.selling_price
+            </td>
+            <td>
+                @item.status
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    <!-- <a asp-action="Edit" asp-route-id="@Model.purchase_id">Edit</a> | -->
+    
+    <a asp-controller="Inventoryin" asp-action="Index">Back to List</a>
+    
+</div>
+
+
+@section Scripts{
+    <script>
+        var list = [];
+        var tab = $('#tb1')
+        
+        $(document).ready(cv);
+
+        function cv(){
+            /*-- $.get("/purchaseitem/purchaseitems", pd); --*/
+            $.get("/productinfo/products", pr);
+        }
+
+        function pd(data){
+            list = data;
+            var found = list.filter(function(x){
+                return x.purchase_id == purchase_id;
+                table(found);
+            });
+            console.log(product_id);
+            console.log("found",found);
+            table(found);
+        }
+
+        function pr(data){
+            list = data;
+            var product_id = $('#pid').val();
+            var found = list.filter(function(x){
+                return x.product_id == product_id;
+                table(found);
+            });
+            console.log(product_id);
+            console.log("found",found);
+            table(found);
+        }
+
+        function table(found){
+            for (var i = 0; i < found.length; i++) {
+            var row = tr(td(found[i].product_name) + td(found[i].product_series)+ td(found[i].product_size));
+            }
+            tab.append(row);
+        }
+
+        function tr(data) {
+         return '<tr>' + data + '</tr>';
+     }
+
+     function td(data) {
+         return '<td>' + data + '</td>';
+     }
+
+    </script>
+}

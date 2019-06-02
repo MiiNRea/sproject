@@ -86,6 +86,14 @@ namespace sproject.Controllers
             {
                 _context.Add(productInfo);
 
+                var a = new Inventory{        
+                    product_id   = productInfo.product_id,            
+                    product_name = productInfo.product_name,
+                    invento_qty = 0
+                };
+                _context.Inventories.Add(a);
+                
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

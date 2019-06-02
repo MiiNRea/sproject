@@ -9,8 +9,8 @@ using sproject.Data;
 namespace sproject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("25620601165452_c2")]
-    partial class c2
+    [Migration("25620602175919_c1")]
+    partial class c1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace sproject.Migrations
                     b.Property<string>("customer_name")
                         .IsRequired();
 
-                    b.Property<string>("customer_phone")
+                    b.Property<string>("phone_number")
                         .IsRequired();
 
                     b.HasKey("customerinfo_id");
@@ -83,6 +83,8 @@ namespace sproject.Migrations
                     b.Property<int>("customerorder_qty");
 
                     b.Property<int>("inventory_id");
+
+                    b.Property<string>("phone_number");
 
                     b.Property<int>("product_id");
 
@@ -107,6 +109,8 @@ namespace sproject.Migrations
                     b.Property<int>("invento_qty");
 
                     b.Property<int>("product_id");
+
+                    b.Property<string>("product_name");
 
                     b.HasKey("inventory_id");
 

@@ -22,7 +22,8 @@ namespace sproject.Controllers
         // GET: InventoryIn
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.InventoryIns.Include(i => i.productinfo).Include(i => i.purchaseorder);
+            var myDbContext = _context.InventoryIns.Include(i => i.productinfo)
+            .Include(i => i.purchaseorder);
             return View(await myDbContext.ToListAsync());
         }
 
@@ -103,6 +104,11 @@ namespace sproject.Controllers
                     var found = await _context.PurchaseItems.FirstOrDefaultAsync(x=>x.purchaseItem_id == inventoryInView.purchaseItem_id);
                     found.purchase_type_id =3;
                     _context.PurchaseItems.Update(found);
+
+                    var found2 = await _context.Inventories
+                    .FirstOrDefaultAsync(x=>x.product_id == inventoryInView.product_id);
+                    found2.invento_qty += inventoryInView.inventoryin_qty;
+                    _context.Inventories.Update(found2);
                     
                     var po = _context.PurchaseOrders
                     .Where(x=>x.purchase_id == inventoryInView.purchase_id)

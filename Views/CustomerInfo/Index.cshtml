@@ -1,4 +1,5 @@
 @model IEnumerable<sproject.Models.CustomerInfo>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -9,7 +10,7 @@
                 @Html.DisplayNameFor(model => model.customer_name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.customer_phone)
+                @Html.DisplayNameFor(model => model.phone_number)
             </th>
             <th></th>
         </tr>
@@ -21,7 +22,7 @@
                 @Html.DisplayFor(modelItem => item.customer_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.customer_phone)
+                @Html.DisplayFor(modelItem => item.phone_number)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.customerinfo_id">Edit</a> |

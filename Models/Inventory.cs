@@ -9,6 +9,8 @@ namespace sproject.Models{
         public ProductInfo productInfo {get; set;}//FK
         public int product_id {get; set;} 
 
+        public string product_name {get; set;}
+
         public int invento_qty {get; set;}
    
     }

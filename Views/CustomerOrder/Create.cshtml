@@ -6,47 +6,48 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+            <!-- <div class="form-group">
+                <label asp-for="customerorder_date" class="control-label"></label>
+                <input asp-for="customerorder_date" class="form-control" />
+                <span asp-validation-for="customerorder_date" class="text-danger"></span>
+            </div> -->
+            <!-- <div class="form-group">
+                <label asp-for="customerorder_qty" class="control-label"></label>
+                <input asp-for="customerorder_qty" class="form-control" />
+                <span asp-validation-for="customerorder_qty" class="text-danger"></span>
+            </div> -->
+            <!-- <div class="form-group">
+                <label asp-for="product_id" class="control-label"></label>
+                <select asp-for="product_id" class ="form-control" asp-items="ViewBag.product_id"></select>
+            </div> -->
+            <!-- <div class="form-group">
+                <label asp-for="inventory_id" class="control-label"></label>
+                <select asp-for="inventory_id" class ="form-control" asp-items="ViewBag.inventory_id"></select>
+            </div> -->
+
             <div class="form-group">
                 <label asp-for="customerorder_qty" class="control-label"></label>
                 <input asp-for="customerorder_qty" class="form-control" />
                 <span asp-validation-for="customerorder_qty" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="product_id" class="control-label"></label>
-                <select asp-for="product_id" class ="form-control" asp-items="ViewBag.product_id"></select>
-            </div>
 
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label asp-for="customerinfo_id" class="control-label"></label>
                 <select asp-for="customerinfo_id" class ="form-control" asp-items="ViewBag.customerinfo_id"></select>
-            </div> -->
-
-            
-
-            <div class="form-group">
-             <label class="control-label">Phone number</label>
-             <input asp-for="phone_number" id="phone_number"/>
-             <button id = "cmb_phonesearch">Search</button>
-            </div>  
-
-            <!-- <div class="form-group">
-             <label class="control-label">Customer name</label>
-             <input asp-for="customer_id" id="phone_number"/>
-            </div> -->
-
-            <div class="form-group">
-                <label asp-for="inventory_id" class="control-label"></label>
-                <select asp-for="inventory_id" class ="form-control" asp-items="ViewBag.inventory_id"></select>
             </div>
 
+            <div class="form-group">
+                <label asp-for="phone_number" class="control-label"></label>
+                <input asp-for="phone_number" class="form-control" />
+                <span asp-validation-for="phone_number" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <label asp-for="warranty_time" class="control-label"></label>
                 <input asp-for="warranty_time" class="form-control" />
                 <span asp-validation-for="warranty_time" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -57,22 +58,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-@section Scripts{
-    <script>
-        $(document).ready(setup);
-        function setup(){
-            $('#cmb_phonesearch').click(cb_clicked);
-        }
-
-        function cb_clicked(){
-            var phone = $('#phone_number').val();
-            alert(phone);
-            var url= "/customerInfo/customer_by_phone?phone="+phone;
-            $.get(url,done);
-
-        }
-        function done(data){
-               $('#').val(data); 
-        }
-    </script>
-}

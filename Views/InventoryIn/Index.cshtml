@@ -1,4 +1,5 @@
 @model IEnumerable<sproject.Models.InventoryIn>
+    <h4>Receive Purchaseorder</h4>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -6,16 +7,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.purchaseorder)
+                Purchase order id
+                <!-- @Html.DisplayNameFor(model => model.purchaseorder) -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.productinfo)
+                Product name
+                <!-- @Html.DisplayNameFor(model => model.productinfo) -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.inventoryin_qty)
+                Quantity
+                <!-- @Html.DisplayNameFor(model => model.inventoryin_qty) -->
             </th>
-            
-            <th></th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -32,9 +37,10 @@
             </td>
             
             <td>
-                <a asp-action="Edit" asp-route-id="@item.inventoryin_id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.inventoryin_id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.inventoryin_id">Delete</a>
+                <!-- <a asp-action="Edit" asp-route-id="@item.inventoryin_id">Edit</a> | -->
+                <a asp-controller="PurchaseOrder" asp-action="IDetail" asp-route-id="@item.purchaseorder.purchase_id"> Details</a>
+                <!-- <a asp-action="Details" asp-route-id="@item.inventoryin_id">Details</a> | -->
+                <!-- <a asp-action="Delete" asp-route-id="@item.inventoryin_id">Delete</a> -->
             </td>
         </tr>
 }

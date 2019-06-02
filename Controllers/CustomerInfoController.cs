@@ -54,7 +54,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("customerinfo_id,customer_name,customer_phone")] CustomerInfo customerInfo)
+        public async Task<IActionResult> Create([Bind("customerinfo_id,customer_name,phone_number")] CustomerInfo customerInfo)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("customerinfo_id,customer_name,customer_phone")] CustomerInfo customerInfo)
+        public async Task<IActionResult> Edit(int id, [Bind("customerinfo_id,customer_name,phone_number")] CustomerInfo customerInfo)
         {
             if (id != customerInfo.customerinfo_id)
             {
@@ -149,10 +149,11 @@ namespace sproject.Controllers
         {
             return _context.CustomerInfos.Any(e => e.customerinfo_id == id);
         }
-        public async Task<IActionResult> Customer_by_phone (string phone){
-            var customer = await _context.CustomerInfos.Where(x => x.customer_phone == phone)
+
+        public async Task<IActionResult> customer_by_phone (string phone)
+        {   var customer = await _context.CustomerInfos.Where(x =>x.phone_number == phone)
             .FirstOrDefaultAsync();
-            return Content(customer.customer_name);
+            return Json(new{name = customer.customer_name, id = customer.customerinfo_id});
         }
     }
 }

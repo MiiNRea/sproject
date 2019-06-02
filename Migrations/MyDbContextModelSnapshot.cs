@@ -61,7 +61,7 @@ namespace sproject.Migrations
                     b.Property<string>("customer_name")
                         .IsRequired();
 
-                    b.Property<string>("customer_phone")
+                    b.Property<string>("phone_number")
                         .IsRequired();
 
                     b.HasKey("customerinfo_id");
@@ -81,6 +81,8 @@ namespace sproject.Migrations
                     b.Property<int>("customerorder_qty");
 
                     b.Property<int>("inventory_id");
+
+                    b.Property<string>("phone_number");
 
                     b.Property<int>("product_id");
 
@@ -105,6 +107,8 @@ namespace sproject.Migrations
                     b.Property<int>("invento_qty");
 
                     b.Property<int>("product_id");
+
+                    b.Property<string>("product_name");
 
                     b.HasKey("inventory_id");
 

@@ -1,4 +1,6 @@
 @model sproject.Models.CustomerInfo
+
+
 <h4>CustomerInfo</h4>
 <hr />
 <div class="row">
@@ -11,9 +13,9 @@
                 <span asp-validation-for="customer_name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="customer_phone" class="control-label"></label>
-                <input asp-for="customer_phone" class="form-control" />
-                <span asp-validation-for="customer_phone" class="text-danger"></span>
+                <label asp-for="phone_number" class="control-label"></label>
+                <input asp-for="phone_number" class="form-control" />
+                <span asp-validation-for="phone_number" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

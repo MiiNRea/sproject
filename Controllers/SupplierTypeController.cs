@@ -149,5 +149,6 @@ namespace sproject.Controllers
         {
             return _context.SupplierTypes.Any(e => e.supplier_type_id == id);
         }
+    
     }
 }

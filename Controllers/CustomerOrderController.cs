@@ -61,7 +61,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("customerOrder_id,customerorder_date,customerorder_qty,product_id,customerinfo_id,inventory_id,warranty_time")] CustomerOrder customerOrder)
+        public async Task<IActionResult> Create([Bind("customerOrder_id,customerorder_date,customerorder_qty,product_id,inventory_id,customerinfo_id,phone_number,warranty_time")] CustomerOrder customerOrder)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("customerOrder_id,customerorder_date,customerorder_qty,product_id,customerinfo_id,inventory_id,warranty_time")] CustomerOrder customerOrder)
+        public async Task<IActionResult> Edit(int id, [Bind("customerOrder_id,customerorder_date,customerorder_qty,product_id,inventory_id,customerinfo_id,phone_number,warranty_time")] CustomerOrder customerOrder)
         {
             if (id != customerOrder.customerOrder_id)
             {
