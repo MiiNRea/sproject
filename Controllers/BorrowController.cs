@@ -59,13 +59,6 @@ namespace sproject.Controllers
 
             var result2 = _context.SupplierInfos.Where(x=> result1.Contains(x.supplier_id));
             
-            // var result4 = _context.ProductInfos
-            // .Where(x=>x.supplier_id == parseInt(result2)
-            // .Select(x=>x.product_id)
-            // .ToArray();
-
-            // var result3 = _context.ProductInfos.Where(x => result4.Contains(x.product_id));
-
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
             ViewData["supplier_id"] = new SelectList(result2, "supplier_id", "supplier_name");
             return View();
@@ -80,7 +73,14 @@ namespace sproject.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(borrow);
+                var borrowinfo = new Borrow{	
+                    supplier_id    = borrow.supplier_id,
+                    product_id	   = borrow.product_id,
+                    borrow_qty	   = borrow.borrow_qty,    
+                    borrow_date    = DateTime.Now                                 
+                };
+                _context.Borrows.Add(borrowinfo);
+               
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

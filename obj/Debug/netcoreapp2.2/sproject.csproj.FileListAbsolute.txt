@@ -311,3 +311,8 @@ c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Borrow\Del
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Borrow\Details.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Borrow\Edit.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Borrow\Index.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\Create.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\Delete.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\Details.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\Edit.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\Index.g.cshtml.cs

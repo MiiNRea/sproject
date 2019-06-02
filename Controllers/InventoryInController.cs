@@ -61,8 +61,7 @@ namespace sproject.Controllers
             //query2: purchase order id from the purchase table where the ids are not
             //in the query1
 
-            var result2 = _context.PurchaseOrders.Where(x=>! result1.Contains(x.purchase_id));
-            
+            var result2 = _context.PurchaseOrders.Where(x=>! result1.Contains(x.purchase_id));            
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
             ViewData["purchase_id"] = new SelectList(result2, "purchase_id", "purchase_id");
             ViewData["purchase_type_id"] = new SelectList(_context.PurchaseOrderTypes, "Purchase_type_id", "Purchase_type_name");
@@ -76,52 +75,62 @@ namespace sproject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InventoryInView inventoryInView)
         {
+            //return Json(inventoryInView);
             //กรณีที่เป็น Complete
             //if (inventoryInView.purchase_type_id == 3)
             if (ModelState.IsValid)
             { 
+                //return Content("yes");
                 if (inventoryInView.purchase_type_id == 3){
-                var obj = new InventoryIn{	
-                    purchase_id	        = inventoryInView.purchase_id,
-                    product_id	        = inventoryInView.product_id,
-                    inventoryin_qty	    = inventoryInView.inventoryin_qty,    
-                    manufacturer_week   = inventoryInView.manufacturer_week,
-                    manufacturer_year   = inventoryInView.manufacturer_year,
-                    purchaseItem_id     = inventoryInView.purchaseItem_id,              
-                };
-                _context.InventoryIn.Add(obj);
-                
-                var row = new PActivity{
-                    purchase_type_id =   inventoryInView.purchase_type_id,
-                    purchaseItem_id  =   inventoryInView.purchaseItem_id,
-                    activity_date    =   DateTime.Now 
-                };
-                _context.PActivities.Add(row);               
-            }
-                
-            //กรณีที่เป็น LeadTime
-		//     var po = _context.purchaseorders.where(x=>x.purhcase_id== d1)
-		//              .FirstOrDefault();
-		//         DateTime today = DateTime.Now;
-        //         TimeSpan timeDiff = today - po.purchase_date;
-        //         int num_day = timeDiff.TotalDays;
-        //         int kpi = 0;
-		//         if(num_day >5){
-        //         kip = 1;
-		//         }
-		
-		// use kip to update performance table
-		//         var new_kpi = new {
-		//         leadTime = kpi,
-		// 	    deliver_date = today,
-		// 	    supplier_id = inventoryInView.supplier_id,
-        //         purchaseItem_id = inventoryInView.purchaseItem_id,
-        //         backOrder = 0
-		//     };
-		//     _context.supplierperfomrances.Add(new_kip);
+                    var obj = new InventoryIn{	
+                        purchase_id	        = inventoryInView.purchase_id,
+                        product_id	        = inventoryInView.product_id,
+                        inventoryin_qty	    = inventoryInView.inventoryin_qty,    
+                        manufacturer_week   = inventoryInView.manufacturer_week,
+                        manufacturer_year   = inventoryInView.manufacturer_year,
+                        purchaseItem_id     = inventoryInView.purchaseItem_id,              
+                    };
+                    _context.InventoryIn.Add(obj);
+                    //return Json(obj);
+                    var row = new PActivity{
+                        purchase_type_id =   inventoryInView.purchase_type_id,
+                        purchaseItem_id  =   inventoryInView.purchaseItem_id,
+                        activity_date    =   DateTime.Now 
+                    };
+                    _context.PActivities.Add(row);  
 
+                    //update purchase_type_id into purchase_items table
+                    var found = await _context.PurchaseItems.FirstOrDefaultAsync(x=>x.purchaseItem_id == inventoryInView.purchaseItem_id);
+                    found.purchase_type_id =3;
+                    _context.PurchaseItems.Update(found);
+                    
+                    var po = _context.PurchaseOrders
+                    .Where(x=>x.purchase_id == inventoryInView.purchase_id)
+		             .FirstOrDefault();
+                        DateTime today = DateTime.Now;
+                        TimeSpan timeDiff = today - po.purchase_date;
+                        double num_day = timeDiff.TotalDays;
+                        int i_num_day =(int) Math.Round(num_day);
+                        int kpi = 0;
+                        if(i_num_day >5){
+                            kpi = 1;
+		                }
 
+                        //use kip to update performance table
+                        var new_kpi = new SupplierPerformance{
+                            leadTime = kpi,
+                            deliver_date = today,
+                            supplier_id = inventoryInView.supplier_id,
+                            purchaseItem_id = inventoryInView.purchaseItem_id,
+                            backOrder = 0
+                        };
+                    _context.SupplierPerformances.Add(new_kpi);
+
+                    await _context.SaveChangesAsync();   
+                    return RedirectToAction(nameof(Index));          
+                }
                 
+               
             //     await _context.SaveChangesAsync();
             //     return RedirectToAction(nameof(Index));           
             // }
@@ -142,6 +151,10 @@ namespace sproject.Controllers
                         purchaseItem_id = inventoryInView.purchaseItem_id
                     };
                     _context.BackOrders.Add(bol);
+
+                    var found = await _context.PurchaseItems.FirstOrDefaultAsync(x=>x.purchaseItem_id == inventoryInView.purchaseItem_id);
+                    found.purchase_type_id =2;
+                    _context.PurchaseItems.Update(found);
 
                     await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));  

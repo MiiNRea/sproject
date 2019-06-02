@@ -149,5 +149,10 @@ namespace sproject.Controllers
         {
             return _context.CustomerInfos.Any(e => e.customerinfo_id == id);
         }
+        public async Task<IActionResult> Customer_by_phone (string phone){
+            var customer = await _context.CustomerInfos.Where(x => x.customer_phone == phone)
+            .FirstOrDefaultAsync();
+            return Content(customer.customer_name);
+        }
     }
 }

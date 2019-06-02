@@ -8,12 +8,12 @@
            
             <div class="form-group">
              <label class="control-label">Purchase id</label>
-             <select id="purchase_id" ></select>
+             <select asp-for="purchase_id" id="purchase_id" ></select>
             </div>
 
             <div class="form-group">
              <label class="control-label">Product name</label>
-             <select id="product_id" ></select>
+             <select asp-for="product_id" id="product_id" ></select>
             </div>
             
 
@@ -24,16 +24,16 @@
 
             <div class="form-group">
              <label class="control-label">Purchase item</label>
-             <input readonly class="form-control" id="purchase_item"/>
+             <input asp-for= "purchaseItem_id" readonly class="form-control" id="purchase_item"/>
             </div>
 
             <div class="form-group">
              <label class="control-label">Purchase_qty</label>
-             <input readonly class="form-control" id="qty"/>
+             <input asp-for="inventoryin_qty" readonly class="form-control" id="qty"/>
             </div>
 
             <div class="form-group">
-             <input hidden class="form-control" id="supplier"/>
+             <input asp-for="supplier_id" hidden class="form-control" id="supplier"/>
             </div>
             <div class="form-group">
              <input hidden class="form-control" id="pid"/>
@@ -105,7 +105,7 @@
          });
          if(list.length>0){
              var id = list[0].purchase_id;
-            
+             //todo
              var url = "/purchaseOrder/purchaseitems?id="+id;
              console.log(url);
             $.get(url, get_product_item);   
@@ -120,12 +120,19 @@
                  var tag = '<option value=' + items[i].product_id + '>' + items[i].product_name + '</option>';
                  //console.log(tag);
                  cmb_product.append(tag);                
-             }       
+             } 
+             //zero list
+             if(items.length ==0 ){
+                   //clear purchase item & purhcase _qty
+                   $('#purchase_item').val(''); 
+                   $('#qty').val(''); 
+             }      
         }
 
         function f1(){
             //get selection value
             var purchase_id = cmb_purchase_id.val();
+            //todo
             var url = "/purchaseOrder/purchaseitems?id="+purchase_id;
             $.get(url, get_product_item);
          //search object in the list by product_id

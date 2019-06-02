@@ -233,19 +233,35 @@ namespace sproject.Controllers
 
 
         public IActionResult purchases(){
-            return Json(_context.PurchaseOrders.Select(x=> new { purchase_id= x.purchase_id}).ToList());
+            // var result = _context.PurchaseOrders
+            // .Select(x=> new { purchase_id= x.purchase_id})
+            // .ToList();
+            var result = _context.PurchaseItems.Where(x=>x.purchase_type_id != 3).Select(x=> new { purchase_id= x.purchase_id}).Distinct();
+            return Json(result);
         }
 
         public async Task<IActionResult> purchaseItems(int id){
+            //get all pact that purchas_type_id = 3. as array
+             var result1 = _context.PActivities
+            .Where(x=>x.purchase_type_id == 3)
+            .Select(x=>x.purchaseItem_id)  //select purchase id from Purchase
+            .ToArray();
 
                var result = await _context.PurchaseOrders
                .Where(x=>x.purchase_id == id)
                .Select(x=> new ProductView{
                    purchase_id = x.purchase_id,
-                   purchaseItems = x.purchase_items.Select(y=>new PurchaseItemView{
+                   //filter purchase_items not having 3 as purchase_type_id in pactivity
+
+                   purchaseItems = x.purchase_items
+                        .Where(o =>! result1.Contains(o.purchaseItem_id))
+                        .Select(y=>new PurchaseItemView{
+                  
                        product_id =  y.product_id,
                        product_name = y.productInfo.product_name               
-                   }).ToList()
+                   })
+                
+                   .ToList()
                })
                .FirstAsync();            
                return Json(result);

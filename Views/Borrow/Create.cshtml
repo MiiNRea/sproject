@@ -8,7 +8,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label asp-for="supplier_id" class="control-label"></label>
                 <select id = "supplier_id" asp-for="supplier_id" class ="form-control" asp-items="ViewBag.supplier_id"></select>
             </div>
@@ -16,12 +16,19 @@
             <div class="form-group">
                 <label asp-for="product_id" class="control-label"></label>
                 <select asp-for="product_id" class ="form-control" asp-items="ViewBag.product_id"></select>
-            </div>
+            </div> -->
 
             <div class="form-group">
              <label class="control-label">Partner name</label>
              <select id="partner_name" ></select>
             </div>
+            <table class="table" id="table1">
+                <tr>
+                    <th>Contact person</th>
+                    <th>Phone number</th>
+                    <th>Address</th>
+                </tr>
+            </table>
 
             <div class="form-group">
              <label class="control-label">Product name</label>
@@ -45,6 +52,7 @@
     </div>
 </div>
 
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
@@ -55,12 +63,14 @@
         var list = [];
         var cmb_supplier_id = $('#partner_name');
         var list2 = [];
+        
         $(document).ready(cc);
                                            
         function cc(){
 
             $.get("/supplierInfo/suppliers", supplier_arrived);
             cmb_supplier_id.click(get_list);
+            cmb_supplier_id.click(get_info);
             
         }
 
@@ -73,22 +83,35 @@
                 var tag = '<option value=' + list[i].supplier_id + '>' + list[i].supplier_name + '</option>';
              cmb_supplier_id.append(tag);
          }         
-         $.get("/productinfo/products",get_list)
+         if(list.length>0){
+            var id = list[0].supplier_id;            
+            var url = "/productinfo/getproduct?id="+id;
+            console.log(url);
+            $.get(url, get_product_item);
+         }
         }
 
         function get_list(data){
             //console.log(data);
             var id = parseInt(cmb_supplier_id.val());
             list2 = data;
-            
-            console.log(list2);
-            
-            for(var i=0;i<list2.length;i++) {
-                 var tag = '<option value=' + list2[i].product_id + '>' + list2[i].product_name + '</option>';
+            var url = "/productinfo/getproduct?id="+id;
+            console.log(url);
+            $.get(url, get_product_item);
+            }  
+
+
+             function get_product_item(data){
+                var items = data;
+            console.log(items);
+              cmb_product_name.empty();
+             for(var i=0;i< items.length;i++) {
+                 var tag = '<option value=' + items[i].product_id + '>' + items[i].product_name + '</option>';
                  console.log(tag);
                  cmb_product_name.append(tag);                
-             }       
-        }              
+             }  
+        }     
+                
 
 
     </script>

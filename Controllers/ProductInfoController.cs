@@ -190,5 +190,24 @@ namespace sproject.Controllers
             return Json(_context.ProductInfos.Select(x=> new {product_id = x.product_id, x.supplier_id}).ToList());
         
         }
+
+        [HttpGet]
+        public async Task<IActionResult> getproduct(int id)
+        {
+            var result = await _context.ProductInfos
+            .Where(x=> x.supplier_id==id)
+             .Select(x => new
+             {
+                 product_id = x.product_id,
+                 product_name = x.product_name,
+                 product_series = x.product_series,
+                 product_size = x.product_size,
+                 supplier_id = x.supplierInfo.supplier_id,
+                 supplier_name = x.supplierInfo.supplier_name,
+                 supplier_type_id = x.supplierInfo.supplier_type_id
+             })
+             .ToListAsync();
+             return Json(result);
+        }
     }
 }

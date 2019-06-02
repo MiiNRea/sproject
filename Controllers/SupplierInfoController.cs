@@ -187,10 +187,14 @@ namespace sproject.Controllers
         public IActionResult Suppliers(){
             // var supplierinfo = _context.SupplierInfos.Where(x=>x.supplier_type_id == 2)
             // .FirstOrDefault();
-            return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id, x.supplier_name, x.supplier_type_id}).ToList());
+            return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id, x.supplier_name,x.supplier_person,x.supplier_phone, x.supplier_type_id}).ToList());
         }
 
-
-
+        [HttpGet]
+        public IActionResult Partners(int id){
+            var supplierinfo = _context.SupplierInfos.Where(x=>x.supplier_type_id == id);
+            // .FirstOrDefault();
+            return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id, x.supplier_name, x.supplier_type_id}).ToList());
+        }
     }
 }
