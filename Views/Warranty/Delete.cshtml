@@ -1,0 +1,33 @@
+@model sproject.Models.Warranty
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Warranty</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.customerOrder)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.customerOrder.customerOrder_id)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.problem)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.problem)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.claim_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.claim_date)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="warranty_id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

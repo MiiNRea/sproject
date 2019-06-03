@@ -21,7 +21,8 @@ namespace sproject.Controllers
 
         // GET: PurchaseOrder
         public async Task<IActionResult> Index()
-        {
+        {         
+
             return View("Index",await _context.PurchaseOrders.ToListAsync());
         }
 
@@ -113,13 +114,18 @@ namespace sproject.Controllers
                     };
                     _context.Add(new_activity);
                 }
-                
+
+                // if(){
+
+                // };
+         
 
                 await _context.SaveChangesAsync();
                 return Json(new {
                     newUrl = "/purchaseorder/index"
                 });
             }               
+            
             return View();
         }
 

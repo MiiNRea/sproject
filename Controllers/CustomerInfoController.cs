@@ -155,5 +155,6 @@ namespace sproject.Controllers
             .FirstOrDefaultAsync();
             return Json(new{name = customer.customer_name, id = customer.customerinfo_id});
         }
+
     }
 }

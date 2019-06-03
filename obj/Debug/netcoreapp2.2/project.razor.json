@@ -2844,6 +2844,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Warranty\\Create.cshtml",
+      "TargetPath": "Views\\Warranty\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\CustomerOrder\\Edit.cshtml",
       "TargetPath": "Views\\CustomerOrder\\Edit.cshtml",
       "FileKind": "mvc"
@@ -2851,6 +2856,11 @@
     {
       "FilePath": "Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Warranty\\Delete.cshtml",
+      "TargetPath": "Views\\Warranty\\Delete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2964,6 +2974,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Warranty\\Index.cshtml",
+      "TargetPath": "Views\\Warranty\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Warranty\\Edit.cshtml",
+      "TargetPath": "Views\\Warranty\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\ProductInfo\\Edit.cshtml",
       "TargetPath": "Views\\ProductInfo\\Edit.cshtml",
       "FileKind": "mvc"
@@ -2996,6 +3016,11 @@
     {
       "FilePath": "Views\\SupplierType\\Index.cshtml",
       "TargetPath": "Views\\SupplierType\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Warranty\\Details.cshtml",
+      "TargetPath": "Views\\Warranty\\Details.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -22,7 +22,7 @@ namespace sproject.Controllers
         // GET: CustomerOrder
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.CustomerOrders.Include(c => c.customerInfo).Include(c => c.inventory).Include(c => c.productInfo);
+            var myDbContext = _context.CustomerOrders.Include(c => c.customerInfo).Include(c => c.productInfo);
             return View(await myDbContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace sproject.Controllers
 
             var customerOrder = await _context.CustomerOrders
                 .Include(c => c.customerInfo)
-                .Include(c => c.inventory)
+                //.Include(c => c.inventory)
                 .Include(c => c.productInfo)
                 .FirstOrDefaultAsync(m => m.customerOrder_id == id);
             if (customerOrder == null)
@@ -51,7 +51,7 @@ namespace sproject.Controllers
         public IActionResult Create()
         {
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name");
-            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id");
+            //ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id");
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name");
             return View();
         }
@@ -66,11 +66,28 @@ namespace sproject.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(customerOrder);
+
+                var info = new CustomerOrder{
+                    customerinfo_id     = customerOrder.customerinfo_id,
+                    customerorder_date  = DateTime.Now,
+                    customerorder_qty   = customerOrder.customerorder_qty,
+                    warranty_time       = 365,
+                    phone_number        = customerOrder.phone_number,
+                    product_id          = customerOrder.product_id,
+                };
+                _context.CustomerOrders.Add(info);
+
+                var found = await _context.Inventories
+                .FirstOrDefaultAsync(x=>x.product_id == customerOrder.product_id);
+                    found.invento_qty -= customerOrder.customerorder_qty;
+                    _context.Inventories.Update(found);
+
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name", customerOrder.customerinfo_id);
-            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
+            //ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", customerOrder.product_id);
             return View(customerOrder);
         }
@@ -89,7 +106,7 @@ namespace sproject.Controllers
                 return NotFound();
             }
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name", customerOrder.customerinfo_id);
-            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
+            //ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", customerOrder.product_id);
             return View(customerOrder);
         }
@@ -127,7 +144,7 @@ namespace sproject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name", customerOrder.customerinfo_id);
-            ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
+            //ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", customerOrder.product_id);
             return View(customerOrder);
         }
@@ -142,7 +159,7 @@ namespace sproject.Controllers
 
             var customerOrder = await _context.CustomerOrders
                 .Include(c => c.customerInfo)
-                .Include(c => c.inventory)
+                //.Include(c => c.inventory)
                 .Include(c => c.productInfo)
                 .FirstOrDefaultAsync(m => m.customerOrder_id == id);
             if (customerOrder == null)

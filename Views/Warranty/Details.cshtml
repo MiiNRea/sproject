@@ -1,0 +1,30 @@
+@model sproject.Models.Warranty
+
+<div>
+    <h4>Warranty</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.customerOrder)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.customerOrder.customerOrder_id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.problem)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.problem)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.claim_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.claim_date)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.warranty_id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
