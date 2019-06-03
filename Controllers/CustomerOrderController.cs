@@ -61,19 +61,17 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("customerOrder_id,customerorder_date,customerorder_qty,product_id,inventory_id,customerinfo_id,phone_number,warranty_time")] CustomerOrder customerOrder)
+        public async Task<IActionResult> Create(CustomerOrder customerOrder)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customerOrder);
-
                 var info = new CustomerOrder{
                     customerinfo_id     = customerOrder.customerinfo_id,
                     customerorder_date  = DateTime.Now,
                     customerorder_qty   = customerOrder.customerorder_qty,
                     warranty_time       = 365,
-                    phone_number        = customerOrder.phone_number,
-                    product_id          = customerOrder.product_id,
+                    //phone_number        = customerOrder.phone_number,
+                    product_id          = customerOrder.product_id                    
                 };
                 _context.CustomerOrders.Add(info);
 
@@ -82,14 +80,13 @@ namespace sproject.Controllers
                     found.invento_qty -= customerOrder.customerorder_qty;
                     _context.Inventories.Update(found);
 
-
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["customerinfo_id"] = new SelectList(_context.CustomerInfos, "customerinfo_id", "customer_name", customerOrder.customerinfo_id);
             //ViewData["inventory_id"] = new SelectList(_context.Inventories, "inventory_id", "inventory_id", customerOrder.inventory_id);
             ViewData["product_id"] = new SelectList(_context.ProductInfos, "product_id", "product_name", customerOrder.product_id);
-            return View(customerOrder);
+            return View();
         }
 
         // GET: CustomerOrder/Edit/5
@@ -184,6 +181,22 @@ namespace sproject.Controllers
         private bool CustomerOrderExists(int id)
         {
             return _context.CustomerOrders.Any(e => e.customerOrder_id == id);
+        }
+
+
+        public async Task<IActionResult> customerorder_by_COid (int id)
+        {   var customerorder = await _context.CustomerOrders
+            .Where(x =>x.customerOrder_id == id)
+            .FirstOrDefaultAsync();
+            return Json(new{date = customerorder.customerorder_date, customer = customerorder.warranty_time, cid = customerorder.customerinfo_id});          
+        }
+        
+        
+        public async Task<IActionResult> customerinfo (int cid)
+        {   var info = await _context.CustomerInfos
+            .Where(x =>x.customerinfo_id== cid)
+            .FirstOrDefaultAsync();
+            return Json(new{infoname = info.customer_name, infonum = info.phone_number});            
         }
     }
 }

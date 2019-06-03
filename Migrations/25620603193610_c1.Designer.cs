@@ -9,8 +9,8 @@ using sproject.Data;
 namespace sproject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("25620602195816_c2")]
-    partial class c2
+    [Migration("25620603193610_c1")]
+    partial class c1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,8 +81,6 @@ namespace sproject.Migrations
                     b.Property<DateTime>("customerorder_date");
 
                     b.Property<int>("customerorder_qty");
-
-                    b.Property<string>("phone_number");
 
                     b.Property<int>("product_id");
 

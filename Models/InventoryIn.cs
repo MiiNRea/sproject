@@ -23,6 +23,7 @@ namespace sproject.Models {
 
     public PurchaseItem purchaseItems {get; set;}
     public int purchaseItem_id {get;set;}    
-    //public DateTime manufacturer_date {get; set;}
+    public DateTime CompleteDate {get; set;}
+
     }
 }

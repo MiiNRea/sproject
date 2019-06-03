@@ -279,40 +279,5 @@ namespace sproject.Controllers
         return Json(new {purchase_item_id = purchaseitem.purchaseItem_id, qty = purchaseitem.qty, supplier = purchaseitem.supplier_id, product_id = purchaseitem.product_id});		
         }        
 
-
-
-        public async Task<IActionResult> IDetail(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var purchaseOrder = await _context.PurchaseOrders
-                
-                .Where(m => m.purchase_id == id)
-                .Select(x=> new PurchaseDetailView{
-                    purchase_id = x.purchase_id,
-                    purchase_date = x.purchase_date,
-                    purchaseItems = x.purchase_items.Select(y => new PurchaseItemDetailView{
-                                        supplier_name = y.supplierInfo.supplier_name,
-                                        product_name = y.productInfo.product_name,
-                                        status = y.purchaseorder_type.Purchase_type_name,
-                                        product_qty  = y.qty,
-                                        selling_price = y.selling_price,
-                                        total = y.purchase_cost,
-                    }).ToList()    
-                })
-                .FirstOrDefaultAsync();
-
-            if (purchaseOrder == null)
-            {
-                return NotFound();
-            }
-            return View(purchaseOrder);
-        }
-
-
-
     }
 }

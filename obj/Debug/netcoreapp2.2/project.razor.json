@@ -2889,11 +2889,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\PurchaseOrder\\IDetail.cshtml",
-      "TargetPath": "Views\\PurchaseOrder\\IDetail.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "Views\\Borrow\\Details.cshtml",
       "TargetPath": "Views\\Borrow\\Details.cshtml",
       "FileKind": "mvc"
@@ -3041,6 +3036,11 @@
     {
       "FilePath": "Views\\CustomerInfo\\Create.cshtml",
       "TargetPath": "Views\\CustomerInfo\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\InventoryIn\\IDetail.cshtml",
+      "TargetPath": "Views\\InventoryIn\\IDetail.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -89,7 +89,8 @@ namespace sproject.Controllers
                         inventoryin_qty	    = inventoryInView.inventoryin_qty,    
                         manufacturer_week   = inventoryInView.manufacturer_week,
                         manufacturer_year   = inventoryInView.manufacturer_year,
-                        purchaseItem_id     = inventoryInView.purchaseItem_id,              
+                        purchaseItem_id     = inventoryInView.purchaseItem_id,
+                        CompleteDate        = DateTime.Now              
                     };
                     _context.InventoryIn.Add(obj);
                     //return Json(obj);
@@ -136,12 +137,6 @@ namespace sproject.Controllers
                     return RedirectToAction(nameof(Index));          
                 }
                 
-               
-            //     await _context.SaveChangesAsync();
-            //     return RedirectToAction(nameof(Index));           
-            // }
-
-
             //กรณีที่เป็น BackOrder
             if(inventoryInView.purchase_type_id == 2){
                     var bo = new SupplierPerformance{
@@ -262,7 +257,42 @@ namespace sproject.Controllers
         private bool InventoryInExists(int id)
         {
             return _context.InventoryIns.Any(e => e.inventoryin_id == id);
+        }       
+
+        public async Task<IActionResult> IDetail(int? id)
+        { //todo
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var inventoryIn = await _context.InventoryIns
+                .Include(i => i.productinfo)
+                .Include(i => i.purchaseorder)
+                .FirstOrDefaultAsync(m => m.inventoryin_id == id);
+
+            var purchaseOrder = await _context.PurchaseOrders
+                
+                 .Where(m => m.purchase_id == id)
+                .Select(x=> new PurchaseDetailView{
+                    purchase_id = x.purchase_id,
+                    purchase_date = x.purchase_date,
+                    purchaseItems = x.purchase_items.Select(y => new PurchaseItemDetailView{
+                                        supplier_name = y.supplierInfo.supplier_name,
+                                        product_name = y.productInfo.product_name,
+                                        status = y.purchaseorder_type.Purchase_type_name,
+                                        product_qty  = y.qty,
+                                        selling_price = y.selling_price,
+                                        total = y.purchase_cost,
+                    }).ToList()    
+                })
+                .FirstOrDefaultAsync();
+            if (purchaseOrder == null)
+            {
+                return NotFound();
+            }
+            return View(purchaseOrder);
         }
 
+       
     }
 }

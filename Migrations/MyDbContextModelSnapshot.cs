@@ -80,8 +80,6 @@ namespace sproject.Migrations
 
                     b.Property<int>("customerorder_qty");
 
-                    b.Property<string>("phone_number");
-
                     b.Property<int>("product_id");
 
                     b.Property<int>("warranty_time");
@@ -117,6 +115,8 @@ namespace sproject.Migrations
                 {
                     b.Property<int>("inventoryin_id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CompleteDate");
 
                     b.Property<int>("inventoryin_qty");
 

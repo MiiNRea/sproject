@@ -17,10 +17,10 @@
             </th>
            
             <th>
-                @Html.DisplayNameFor(model => model.customerInfo)
+                Customer name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.phone_number)
+                Phone number
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.warranty_time)
@@ -44,11 +44,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.customerInfo.customer_name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone_number)
+           <td>
+                @Html.DisplayFor(modelItem => item.customerInfo.phone_number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.warranty_time)
+                @Html.DisplayFor(modelItem => item.warranty_time) days
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.customerOrder_id">Edit</a> |

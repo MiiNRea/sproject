@@ -9,8 +9,8 @@ using sproject.Data;
 namespace sproject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("25620602175919_c1")]
-    partial class c1
+    [Migration("25620603200411_c2")]
+    partial class c2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,10 +82,6 @@ namespace sproject.Migrations
 
                     b.Property<int>("customerorder_qty");
 
-                    b.Property<int>("inventory_id");
-
-                    b.Property<string>("phone_number");
-
                     b.Property<int>("product_id");
 
                     b.Property<int>("warranty_time");
@@ -93,8 +89,6 @@ namespace sproject.Migrations
                     b.HasKey("customerOrder_id");
 
                     b.HasIndex("customerinfo_id");
-
-                    b.HasIndex("inventory_id");
 
                     b.HasIndex("product_id");
 
@@ -123,6 +117,8 @@ namespace sproject.Migrations
                 {
                     b.Property<int>("inventoryin_id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CompleteDate");
 
                     b.Property<int>("inventoryin_qty");
 
@@ -349,11 +345,6 @@ namespace sproject.Migrations
                     b.HasOne("sproject.Models.CustomerInfo", "customerInfo")
                         .WithMany()
                         .HasForeignKey("customerinfo_id")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("sproject.Models.Inventory", "inventory")
-                        .WithMany()
-                        .HasForeignKey("inventory_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("sproject.Models.ProductInfo", "productInfo")

@@ -311,7 +311,6 @@ c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerIn
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerInfo\Details.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerInfo\Edit.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerInfo\Index.g.cshtml.cs
-c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\PurchaseOrder\IDetail.g.cshtml.cs
 C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\InventoryIn\BackOrder.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\Create.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\Delete.g.cshtml.cs
@@ -323,3 +322,4 @@ c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Warranty\D
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Warranty\Details.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Warranty\Edit.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Warranty\Index.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\InventoryIn\IDetail.g.cshtml.cs

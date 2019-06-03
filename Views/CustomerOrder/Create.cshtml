@@ -6,24 +6,11 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!-- <div class="form-group">
-                <label asp-for="customerorder_date" class="control-label"></label>
-                <input asp-for="customerorder_date" class="form-control" />
-                <span asp-validation-for="customerorder_date" class="text-danger"></span>
-            </div> -->
-            <!-- <div class="form-group">
-                <label asp-for="customerorder_qty" class="control-label"></label>
-                <input asp-for="customerorder_qty" class="form-control" />
-                <span asp-validation-for="customerorder_qty" class="text-danger"></span>
-            </div> -->
+            
             <div class="form-group">
-                <label asp-for="product_id" class="control-label"></label>
+                <label class="control-label">Product id</label>
                 <select asp-for="product_id" class ="form-control" asp-items="ViewBag.product_id"></select>
             </div>
-            <!-- <div class="form-group">
-                <label asp-for="inventory_id" class="control-label"></label>
-                <select asp-for="inventory_id" class ="form-control" asp-items="ViewBag.inventory_id"></select>
-            </div> -->
 
             <div class="form-group">
                 <label asp-for="customerorder_qty" class="control-label"></label>
@@ -31,26 +18,14 @@
                 <span asp-validation-for="customerorder_qty" class="text-danger"></span>
             </div>
 
-
-            <!-- <div class="form-group">
-                <label asp-for="customerinfo_id" class="control-label"></label>
-                <select asp-for="customerinfo_id" class ="form-control" asp-items="ViewBag.customerinfo_id"></select>
-            </div> -->
-
-            <!-- <div class="form-group">
-                <label asp-for="phone_number" class="control-label"></label>
-                <input asp-for="phone_number" class="form-control" />
-                <span asp-validation-for="phone_number" class="text-danger"></span>
-            </div> -->
-
             <div class="form-group">
              <label class="control-label">Phone number</label>
-             <input class ="form-control" asp-for="phone_number" id="phone_number"/>
-             <button class ="form-control" id="cmb_phonesearch">Search</button>
+             <input class ="form-control" id="phone_number"/>
+             <button type = "button" id="cmb_phonesearch">Search</button>
             </div>
 
             <div class="form-group">
-             <label class="control-label">Customer id</label>
+             <label hidden class="control-label">Customer id</label>
              <input hidden asp-for="customerinfo_id" id="customer_id"/>
             </div>
 
@@ -91,7 +66,7 @@
 
         function done(data){
                txt_cus.val(data.name);
-               $('#customerinfo_id').val(data.id);               
+               $('#customer_id').val(data.id);               
         }
     </script>
 }

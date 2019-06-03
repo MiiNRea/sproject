@@ -18,6 +18,12 @@
                 Quantity
                 <!-- @Html.DisplayNameFor(model => model.inventoryin_qty) -->
             </th>
+            <!-- <th>
+                Manufacturing week
+            </th>
+            <th>
+                Manufacturing year
+            </th> -->
             <th>
 
             </th>
@@ -35,10 +41,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.inventoryin_qty)
             </td>
-            
+            <!-- <td>
+                @Html.DisplayFor(modelItem => item.manufacturer_week)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.manufacturer_year)
+            </td> -->
+                       
             <td>
                 <!-- <a asp-action="Edit" asp-route-id="@item.inventoryin_id">Edit</a> | -->
-                <a asp-controller="PurchaseOrder" asp-action="IDetail" asp-route-id="@item.purchaseorder.purchase_id"> Details</a>
+                <a asp-controller="InventoryIn" asp-action="IDetail" asp-route-id="@item.purchaseorder.purchase_id"> Details</a>
                 <!-- <a asp-action="Details" asp-route-id="@item.inventoryin_id">Details</a> | -->
                 <!-- <a asp-action="Delete" asp-route-id="@item.inventoryin_id">Delete</a> -->
             </td>

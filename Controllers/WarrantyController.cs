@@ -57,10 +57,10 @@ namespace sproject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("warranty_id,customerOrder_id,problem,claim_date")] Warranty warranty)
+        public async Task<IActionResult> Create ([Bind("warranty_id,customerOrder_id,problem,claim_date")] Warranty warranty)
         {
             if (ModelState.IsValid)
-            {
+            { //todo
                 var date = _context.CustomerOrders
                 .Where(x=>x.customerOrder_id == warranty.customerOrder_id)
                 .FirstOrDefault();
@@ -72,6 +72,7 @@ namespace sproject.Controllers
                 if(warrantynum_day > 365){
                     wdate = 0;
                 }
+
                 if(wdate != 0){
                 var i = new Warranty{
                     customerOrder_id = warranty.customerOrder_id,
@@ -80,9 +81,6 @@ namespace sproject.Controllers
                 }; 
                 _context.Warranties.Add(i);
                 
-                // else{
-                //     alert("")
-                //     };
                 }                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
