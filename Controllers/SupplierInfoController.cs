@@ -22,7 +22,7 @@ namespace sproject.Controllers
         // GET: SupplierInfo
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.SupplierInfos.Include(s => s.supplier_type);
+            var myDbContext = _context.SupplierInfos.Include(x => x.supplier_type);
             return View(await myDbContext.ToListAsync());
         }
 

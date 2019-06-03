@@ -27,7 +27,7 @@
 
             <div class="form-group">
                 <label asp-for="customerorder_qty" class="control-label"></label>
-                <input class ="form-control" asp-for="customerorder_qty" class="form-control" />
+                <input class ="form-control" asp-for="customerorder_qty" />
                 <span asp-validation-for="customerorder_qty" class="text-danger"></span>
             </div>
 
@@ -46,7 +46,7 @@
             <div class="form-group">
              <label class="control-label">Phone number</label>
              <input class ="form-control" asp-for="phone_number" id="phone_number"/>
-             <button class ="form-control" id="cmb_phonesearch">Search</button>
+             <button class ="form-control" type="button" id="cmb_phonesearch">Search</button>
             </div>
 
             <div class="form-group">
@@ -74,24 +74,21 @@
 
 @section Scripts{
     <script>
-        var txt_cus = $('#customer_name');
-        $(document).ready(setup);
+        $(document).ready(() => {
 
-        function setup(){
-            $('#cmb_phonesearch').click(cb_clicked);
-        }
 
-        function cb_clicked(){
-            var phone = $('#phone_number').val();
-            //alert(phone);
-            var url= "/customerInfo/customer_by_phone?phone="+phone;
+            $('#cmb_phonesearch').click(() => {
+                var phone = $('#phone_number').val();
+                //alert(phone);
+                var url = "/customerInfo/customer_by_phone?phone=" + phone;
+                $.get(url, data => {
+                    $('#customer_name').val(data.name);
+                    $('#customerinfo_id').val(data.id);
+                });
 
-            $.get(url,done);            
-        }
+            });
 
-        function done(data){
-               txt_cus.val(data.name);
-               $('#customerinfo_id').val(data.id);               
-        }
+        });
+
     </script>
 }
