@@ -109,7 +109,7 @@ namespace sproject.Controllers
             {
                 return NotFound();
             }
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name", supplierInfo.supplier_type_id);
             return View(supplierInfo);
         }
 
@@ -145,7 +145,7 @@ namespace sproject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name", supplierInfo.supplier_type_id);
             return View(supplierInfo);
         }
 
