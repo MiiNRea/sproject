@@ -35,28 +35,31 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductInfo" asp-action="Index">Product</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductInfo" asp-action="Index">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SupplierInfo" asp-action="Index">Supplier</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="SupplierInfo" asp-action="Index">Suppliers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="Index">puchase</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="Index">Puchase Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="InventoryIn" asp-action="Index">Inventory</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="InventoryIn" asp-action="Index">Receive Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CustomerInfo" asp-action="Index">CustometInfo</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CustomerInfo" asp-action="Index">Customers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CustomerOrder" asp-action="Index">CustometOrder</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CustomerOrder" asp-action="Index">Customet Order</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Borrow" asp-action="Index">Borrow</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Warranty" asp-action="Index">Warranty</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Index">Claim</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index">Inventory balance</a>
                         </li>
                     </ul>
                 </div>
@@ -67,6 +70,7 @@
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
+
         </main>
     </div>
 
@@ -95,6 +99,17 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- step 28 -->
+    <!-- date picker -->
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- apex chart -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
 
     @RenderSection("Scripts", required: false)
 </body>

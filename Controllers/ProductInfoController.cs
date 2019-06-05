@@ -82,19 +82,30 @@ namespace sproject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("product_id,product_name,product_series,product_size,supplier_id")] ProductInfo productInfo)
         {
+            //return Json(productInfo);
             if (ModelState.IsValid)
-            {
-                _context.Add(productInfo);
+            {    
+          
+                var product = new ProductInfo{
+                    product_name = productInfo.product_name,
+                    product_series = productInfo.product_series,
+                    product_size = productInfo.product_size,
+                    supplier_id = productInfo.supplier_id
+                };
+                _context.ProductInfos.Add(product);
 
-                var a = new Inventory{        
-                    product_id   = productInfo.product_id,            
+
+                var result = await _context.Inventories.Where(x=>x.product_name == productInfo.product_name).FirstOrDefaultAsync();
+                if(result == null){
+                    var a = new Inventory{        
+                    //product_id   = productInfo.product_id,            
                     product_name = productInfo.product_name,
                     invento_qty = 0
-                };
-                _context.Inventories.Add(a);
-                
-
+                    };
+                    _context.Inventories.Add(a);
+                }
                 await _context.SaveChangesAsync();
+                
                 return RedirectToAction(nameof(Index));
             }
 
@@ -137,6 +148,17 @@ namespace sproject.Controllers
             {
                 try
                 {
+                var result = await _context.Inventories.Where(x=>x.product_name == productInfo.product_name).FirstOrDefaultAsync();
+                if(result == null){
+                    var a = new Inventory{        
+                    //product_id   = productInfo.product_id,            
+                    product_name = productInfo.product_name,
+
+                    };
+                    _context.Inventories.Add(a);
+                }
+                    
+
                     _context.Update(productInfo);
                     await _context.SaveChangesAsync();
                 }
@@ -181,6 +203,7 @@ namespace sproject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            
             var productInfo = await _context.ProductInfos.FindAsync(id);
             _context.ProductInfos.Remove(productInfo);
             await _context.SaveChangesAsync();

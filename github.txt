@@ -4,3 +4,13 @@ git Add .
 git commit -m "first commit"
 //git remote add origin https://github.com/MiiNRea/sproject.git
 git push -u origin master
+
+
+https://github.com/MiiNRea/senior.git
+
+echo "# senior" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/MiiNRea/senior.git
+git push -u origin master

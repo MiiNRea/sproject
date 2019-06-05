@@ -1,0 +1,59 @@
+@model IEnumerable<sproject.Models.Claim>
+<h4>Claim</h4>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Claim id
+            </th>
+            <th>
+                Order id
+            </th>
+            <th>
+              Product name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.problem)
+            </th>
+            <th>
+                Claim date
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerInfo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.claim_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerOrder.customerOrder_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerOrder.Inventory.product_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.problem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.claim_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customerInfo.customer_name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.claim_id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.claim_id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.claim_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

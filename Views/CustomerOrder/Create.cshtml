@@ -1,27 +1,29 @@
 @model sproject.Models.CustomerOrder
 
-<h4>CustomerOrder</h4>
+<h4>Create Customer Orders</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
-            <div class="form-group">
-                <label class="control-label">Product id</label>
-                <select asp-for="product_id" class ="form-control" asp-items="ViewBag.product_id"></select>
+                <div class="form-group">
+             <label class="control-label">Product name</label>
+             <select class ="form-control" asp-for="inventory_id" id="product_id" ></select>
             </div>
 
             <div class="form-group">
-                <label asp-for="customerorder_qty" class="control-label"></label>
-                <input class ="form-control" asp-for="customerorder_qty" class="form-control" />
+                <label asp-for="customerorder_qty" class="control-label">Quantity</label>
+                <input class ="form-control" asp-for="customerorder_qty"/>
                 <span asp-validation-for="customerorder_qty" class="text-danger"></span>
             </div>
 
             <div class="form-group">
              <label class="control-label">Phone number</label>
              <input class ="form-control" id="phone_number"/>
-             <button type = "button" id="cmb_phonesearch">Search</button>
+            </div>
+            <div>
+             <button class="btn btn-primary" type = "button" id="cmb_phonesearch">Search</button>
             </div>
 
             <div class="form-group">
@@ -46,27 +48,39 @@
 </div>
 
 
-
 @section Scripts{
     <script>
+        var cmb_product = $('#product_id');
         var txt_cus = $('#customer_name');
+        var list =[];
+
         $(document).ready(setup);
 
         function setup(){
             $('#cmb_phonesearch').click(cb_clicked);
+                       
+            $.get("/inventory/productget", product_data_arrived);
         }
 
         function cb_clicked(){
             var phone = $('#phone_number').val();
             //alert(phone);
-            var url= "/customerInfo/customer_by_phone?phone="+phone;
-
+            var url= "/customerInfo/customer_by_phone?phone="+phone;                                
             $.get(url,done);            
         }
 
-        function done(data){
-               txt_cus.val(data.name);
-               $('#customer_id').val(data.id);               
+        function done(data){                        
+               txt_cus.val(data.name); 
+               $('#customer_id').val(data.id);
         }
+
+       function product_data_arrived(data) {
+         console.log(data); 
+         list = data;
+         $.each(list, function (key, item) {
+             cmb_product.append('<option value=' + item.inventory_id + '>' + item.product_name + '</option>');
+         });
+    }
+
     </script>
 }

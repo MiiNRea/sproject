@@ -64,6 +64,24 @@ namespace sproject.Controllers
             return View(supplierInfo);
         }
 
+         public async Task<IActionResult> BDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var supplierInfo = await _context.SupplierInfos
+                .Include(s => s.supplier_type)
+                .FirstOrDefaultAsync(m => m.supplier_id == id);
+            if (supplierInfo == null)
+            {
+                return NotFound();
+            }
+
+            return View(supplierInfo);
+        }
+
         // GET: SupplierInfo/Create
         public IActionResult Create()
         {
@@ -120,17 +138,21 @@ namespace sproject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("supplier_id,supplier_name,supplier_person,supplier_phone,supplier_address,supplier_type_id")] SupplierInfo supplierInfo)
         {
+            //return Json(supplierInfo);
             if (id != supplierInfo.supplier_id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
+                    
                     _context.Update(supplierInfo);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                         
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -144,9 +166,10 @@ namespace sproject.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name", supplierInfo.supplier_type_id);
-            return View(supplierInfo);
+            //}
+            ViewData["supplier_type_id"] = new SelectList(_context.SupplierTypes, "supplier_type_id", "supplier_type_name");
+           var result = await  _context.SupplierInfos.Include(x=>x.supplier_type).Where(x=>x.supplier_id ==id).FirstOrDefaultAsync();
+            return View(result);
         }
 
         // GET: SupplierInfo/Delete/5

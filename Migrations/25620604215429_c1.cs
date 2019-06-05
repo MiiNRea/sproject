@@ -23,6 +23,20 @@ namespace sproject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Inventories",
+                columns: table => new
+                {
+                    inventory_id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    product_name = table.Column<string>(nullable: true),
+                    invento_qty = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventories", x => x.inventory_id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchaseOrders",
                 columns: table => new
                 {
@@ -62,6 +76,35 @@ namespace sproject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CustomerOrders",
+                columns: table => new
+                {
+                    customerOrder_id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    customerorder_date = table.Column<DateTime>(nullable: false),
+                    customerorder_qty = table.Column<int>(nullable: false),
+                    inventory_id = table.Column<int>(nullable: false),
+                    customerinfo_id = table.Column<int>(nullable: false),
+                    warranty_time = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerOrders", x => x.customerOrder_id);
+                    table.ForeignKey(
+                        name: "FK_CustomerOrders_CustomerInfos_customerinfo_id",
+                        column: x => x.customerinfo_id,
+                        principalTable: "CustomerInfos",
+                        principalColumn: "customerinfo_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerOrders_Inventories_inventory_id",
+                        column: x => x.inventory_id,
+                        principalTable: "Inventories",
+                        principalColumn: "inventory_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SupplierInfos",
                 columns: table => new
                 {
@@ -81,6 +124,34 @@ namespace sproject.Migrations
                         column: x => x.supplier_type_id,
                         principalTable: "SupplierTypes",
                         principalColumn: "supplier_type_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Claims",
+                columns: table => new
+                {
+                    claim_id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    customerOrder_id = table.Column<int>(nullable: false),
+                    problem = table.Column<string>(nullable: true),
+                    claim_date = table.Column<DateTime>(nullable: false),
+                    customerinfo_id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Claims", x => x.claim_id);
+                    table.ForeignKey(
+                        name: "FK_Claims_CustomerOrders_customerOrder_id",
+                        column: x => x.customerOrder_id,
+                        principalTable: "CustomerOrders",
+                        principalColumn: "customerOrder_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Claims_CustomerInfos_customerinfo_id",
+                        column: x => x.customerinfo_id,
+                        principalTable: "CustomerInfos",
+                        principalColumn: "customerinfo_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -135,56 +206,6 @@ namespace sproject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerOrders",
-                columns: table => new
-                {
-                    customerOrder_id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    customerorder_date = table.Column<DateTime>(nullable: false),
-                    customerorder_qty = table.Column<int>(nullable: false),
-                    product_id = table.Column<int>(nullable: false),
-                    customerinfo_id = table.Column<int>(nullable: false),
-                    warranty_time = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerOrders", x => x.customerOrder_id);
-                    table.ForeignKey(
-                        name: "FK_CustomerOrders_CustomerInfos_customerinfo_id",
-                        column: x => x.customerinfo_id,
-                        principalTable: "CustomerInfos",
-                        principalColumn: "customerinfo_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerOrders_ProductInfos_product_id",
-                        column: x => x.product_id,
-                        principalTable: "ProductInfos",
-                        principalColumn: "product_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Inventories",
-                columns: table => new
-                {
-                    inventory_id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    product_id = table.Column<int>(nullable: false),
-                    product_name = table.Column<string>(nullable: true),
-                    invento_qty = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inventories", x => x.inventory_id);
-                    table.ForeignKey(
-                        name: "FK_Inventories_ProductInfos_product_id",
-                        column: x => x.product_id,
-                        principalTable: "ProductInfos",
-                        principalColumn: "product_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PurchaseItems",
                 columns: table => new
                 {
@@ -228,27 +249,6 @@ namespace sproject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Warranties",
-                columns: table => new
-                {
-                    warranty_id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    customerOrder_id = table.Column<int>(nullable: false),
-                    problem = table.Column<string>(nullable: true),
-                    claim_date = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Warranties", x => x.warranty_id);
-                    table.ForeignKey(
-                        name: "FK_Warranties_CustomerOrders_customerOrder_id",
-                        column: x => x.customerOrder_id,
-                        principalTable: "CustomerOrders",
-                        principalColumn: "customerOrder_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BackOrders",
                 columns: table => new
                 {
@@ -278,7 +278,8 @@ namespace sproject.Migrations
                     inventoryin_qty = table.Column<int>(nullable: false),
                     manufacturer_week = table.Column<int>(nullable: false),
                     manufacturer_year = table.Column<int>(nullable: false),
-                    purchaseItem_id = table.Column<int>(nullable: false)
+                    purchaseItem_id = table.Column<int>(nullable: false),
+                    CompleteDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -375,19 +376,24 @@ namespace sproject.Migrations
                 column: "supplier_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Claims_customerOrder_id",
+                table: "Claims",
+                column: "customerOrder_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Claims_customerinfo_id",
+                table: "Claims",
+                column: "customerinfo_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CustomerOrders_customerinfo_id",
                 table: "CustomerOrders",
                 column: "customerinfo_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerOrders_product_id",
+                name: "IX_CustomerOrders_inventory_id",
                 table: "CustomerOrders",
-                column: "product_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inventories_product_id",
-                table: "Inventories",
-                column: "product_id");
+                column: "inventory_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InventoryIn_product_id",
@@ -453,11 +459,6 @@ namespace sproject.Migrations
                 name: "IX_SupplierPerformances_supplier_id",
                 table: "SupplierPerformances",
                 column: "supplier_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Warranties_customerOrder_id",
-                table: "Warranties",
-                column: "customerOrder_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -469,7 +470,7 @@ namespace sproject.Migrations
                 name: "Borrows");
 
             migrationBuilder.DropTable(
-                name: "Inventories");
+                name: "Claims");
 
             migrationBuilder.DropTable(
                 name: "InventoryIn");
@@ -481,25 +482,25 @@ namespace sproject.Migrations
                 name: "SupplierPerformances");
 
             migrationBuilder.DropTable(
-                name: "Warranties");
+                name: "CustomerOrders");
 
             migrationBuilder.DropTable(
                 name: "PurchaseItems");
 
             migrationBuilder.DropTable(
-                name: "CustomerOrders");
+                name: "CustomerInfos");
+
+            migrationBuilder.DropTable(
+                name: "Inventories");
+
+            migrationBuilder.DropTable(
+                name: "ProductInfos");
 
             migrationBuilder.DropTable(
                 name: "PurchaseOrders");
 
             migrationBuilder.DropTable(
                 name: "PurchaseOrderTypes");
-
-            migrationBuilder.DropTable(
-                name: "CustomerInfos");
-
-            migrationBuilder.DropTable(
-                name: "ProductInfos");
 
             migrationBuilder.DropTable(
                 name: "SupplierInfos");

@@ -10,6 +10,7 @@
              <label class="control-label">supplier </label>
              <select class="form-group" id="supplier_names" ></select>
          </div>
+         <div class="col-sm-15">
         <h5>Product info</h5>
          <table class="table" id="table2">
              <tr>
@@ -19,6 +20,7 @@
                  <th>size</th>
              </tr>
          </table>
+         </div>
            <!-- <div class="form-group">
              <label class="control-label">purchase order type</label>
              <select id="purchase_type" >
@@ -32,13 +34,14 @@
          </div>
          <div class="form-group">
              Quantity <input class="form-control" id="txt_qty"/>
-             <button id="cmd_inc">+</button>
-             <button id="cmd_dec">-</button>
+             <button id="cmd_inc"class="btn btn-success"> +</button>
+             <button id="cmd_dec"class="btn btn-danger"> -</button>
          </div>
          <div class="form-group">
-             <button id="cmd_add">add</button>
+             <button id="cmd_add" class="btn btn-primary" >Add</button>
          </div>
-
+         <div class="col-sm-30">
+             <h5>Order detail</h5>
          <table class="table" id="table1">
              <tr>
                  <th>Product id</th>
@@ -51,7 +54,8 @@
                  <th>Operation</th>
              </tr>
          </table>
-         <button id="cmd_confirm">confirm</button>
+         </div>
+         <button id="cmd_confirm" class="btn btn-primary" >Confirm</button>
      </div>
  </div>
  <div>
@@ -196,7 +200,7 @@
      }
 
      function button(id, data) {
-         return '<button  onclick="cb_removes_clicked(this)" data-id="' + id + '">' + data + '</button>';
+         return '<button  class="btn btn-danger"  onclick="cb_removes_clicked(this)" data-id="' + id + '">' + data + '</button>';
      }
 
      function updateTable() {
@@ -216,6 +220,7 @@
 
      }
 
+
      //product data arrived from server
      function product_data_arrived(data) {
          console.log('yes'); 
@@ -234,8 +239,7 @@
              console.log(url);
             $.get(url, cb_product_names_change);
          }
-         $.get("/productInfo/products", cb_show_productinfo);
-         txt_qty.val("1");
+         txt_qty.val('1');
     } //ef
 
      function cb_product_names_change() {
@@ -255,8 +259,7 @@
              $.each(founds, function (key, item) {
                  cmb_supplier_names.append('<option value=' + item.supplier_id + '>' + item.supplier_name + '</option>');
              }); 
-             //update table with supplier in the combobo->cmb_supplier_names
-             
+             //update table with supplier in the combobo->cmb_supplier_names             
              cb_show_productinfo();
         }
     }

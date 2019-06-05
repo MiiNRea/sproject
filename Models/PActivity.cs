@@ -11,7 +11,10 @@ namespace sproject.Models{
 
         public PurchaseItem purchaseItem {get; set;}//FK
         public int purchaseItem_id {get; set;}
+        
 
+        [Display(Name = "Purchase_Date")]//Show in table only
+        [DataType(DataType.Date)]
         public DateTime activity_date {get; set;}
     }
 }

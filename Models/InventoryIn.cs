@@ -22,7 +22,10 @@ namespace sproject.Models {
     public int manufacturer_year {get; set;}
 
     public PurchaseItem purchaseItems {get; set;}
-    public int purchaseItem_id {get;set;}    
+    public int purchaseItem_id {get;set;}  
+
+    [Display(Name = "Purchase_Date")]//Show in table only
+    [DataType(DataType.Date)]  
     public DateTime CompleteDate {get; set;}
 
     }

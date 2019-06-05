@@ -7,7 +7,7 @@
     <thead>
         <tr>
             <th>
-                Purchase order id
+                Purchase id
                 <!-- @Html.DisplayNameFor(model => model.purchaseorder) -->
             </th>
             <th>
@@ -18,12 +18,16 @@
                 Quantity
                 <!-- @Html.DisplayNameFor(model => model.inventoryin_qty) -->
             </th>
-            <!-- <th>
+            <th>
                 Manufacturing week
             </th>
             <th>
                 Manufacturing year
-            </th> -->
+            </th>
+            <th>
+                Completed date
+            </th>
+            
             <th>
 
             </th>
@@ -41,12 +45,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.inventoryin_qty)
             </td>
-            <!-- <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.manufacturer_week)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.manufacturer_year)
-            </td> -->
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompleteDate)
+            </td>
+            
                        
             <td>
                 <!-- <a asp-action="Edit" asp-route-id="@item.inventoryin_id">Edit</a> | -->
@@ -58,3 +66,8 @@
 }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+    </script>
+}

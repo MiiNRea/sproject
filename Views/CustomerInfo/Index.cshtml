@@ -1,5 +1,5 @@
 @model IEnumerable<sproject.Models.CustomerInfo>
-
+<h4>Customer Informations</h4>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -7,10 +7,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.customer_name)
+                Customer name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.phone_number)
+                Customer phone number
             </th>
             <th></th>
         </tr>

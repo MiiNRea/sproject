@@ -151,9 +151,10 @@ namespace sproject.Controllers
         }
 
         public async Task<IActionResult> customer_by_phone (string phone)
-        {   var customer = await _context.CustomerInfos.Where(x =>x.phone_number == phone)
+        {   
+            var customer = await _context.CustomerInfos.Where(x =>x.phone_number == phone)
             .FirstOrDefaultAsync();
-            return Json(new{name = customer.customer_name, id = customer.customerinfo_id});
+            return Json(new{name = customer.customer_name, id = customer.customerinfo_id});   
         }
 
     }

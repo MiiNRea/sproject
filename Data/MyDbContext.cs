@@ -22,7 +22,7 @@ namespace sproject.Data{
         public DbSet<sproject.Models.InventoryIn> InventoryIn {get; set;}
 
         public DbSet<Borrow> Borrows {get; set;}
-        public DbSet<Warranty> Warranties {get; set;}
+        public DbSet<Claim> Claims {get; set;}
         public DbSet<BackOrder> BackOrders {get; set;}
         
         public DbSet<CustomerOrder> CustomerOrders {get; set;}

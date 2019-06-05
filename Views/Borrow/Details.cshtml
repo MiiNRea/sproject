@@ -1,42 +1,28 @@
 @model sproject.Models.Borrow
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-
 <div>
     <h4>Borrow</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.supplierInfo)
+            Partner name
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.supplierInfo.supplier_name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.productInfo)
+            Product name
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.productInfo.product_name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.borrow_qty)
+            Quantity
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.borrow_qty)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.borrow_date)
+           Date
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.borrow_date)
@@ -47,5 +33,3 @@
     <a asp-action="Edit" asp-route-id="@Model.borrow_id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
-</body>
-</html>

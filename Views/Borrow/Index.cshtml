@@ -1,22 +1,24 @@
 @model IEnumerable<sproject.Models.Borrow>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <h4>Borrowing List</h4>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.supplierInfo)
+                Purchase id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.productInfo)
+                Partner name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.borrow_qty)
+                Product
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.borrow_date)
+                Quantity
+            </th>
+            <th>
+                Date
             </th>
             <th></th>
         </tr>
@@ -25,8 +27,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.supplierInfo.supplier_name)
+                @Html.DisplayFor(modelItem => item.purchase_id)
             </td>
+            <td>
+            <a asp-controller="SupplierInfo" asp-action="BDetails" asp-route-id="@item.supplier_id">
+                    @Html.DisplayFor(modelItem => item.supplierInfo.supplier_name)
+                </a>
             <td>
                 @Html.DisplayFor(modelItem => item.productInfo.product_name)
             </td>
@@ -37,8 +43,8 @@
                 @Html.DisplayFor(modelItem => item.borrow_date)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.borrow_id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.borrow_id">Details</a> |
+                <!-- <a asp-action="Edit" asp-route-id="@item.borrow_id">Edit</a> | -->
+                <!-- <a asp-action="Details" asp-route-id="@item.borrow_id">Details</a> | -->
                 <a asp-action="Delete" asp-route-id="@item.borrow_id">Delete</a>
             </td>
         </tr>

@@ -14,6 +14,7 @@ namespace sproject.Controllers
         {
             return View();
         }
+        
 
         public IActionResult Privacy()
         {

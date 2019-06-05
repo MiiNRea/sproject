@@ -98,6 +98,22 @@ namespace sproject.Controllers
                        qty              = item.qty
                     };
                     list1.Add(new_purchase_item);
+                    
+                    //todo
+                    //check type of supplier , if supplier type == part then also add borrow item in borrow table  
+                    var supplier = await _context.SupplierInfos.Where(x=>x.supplier_id == item.supplier_id).FirstOrDefaultAsync(); 
+                    if(supplier.supplier_type_id == 2){
+                        //create borrow object and add it here 
+                         var borrow = new Borrow{
+                             supplier_id = supplier.supplier_id,
+                             product_id = item.id,
+                             borrow_qty = item.qty,
+                             borrow_date = DateTime.Now,
+                             purchase_id = new_order.purchase_id
+                             
+                         };  
+                         _context.Borrows.Add(borrow);                       
+                    }
                 }//end loop
                 //assign cartitem list 
                 new_order.purchase_items = list1;
@@ -114,11 +130,6 @@ namespace sproject.Controllers
                     };
                     _context.Add(new_activity);
                 }
-
-                // if(){
-
-                // };
-         
 
                 await _context.SaveChangesAsync();
                 return Json(new {

@@ -1,6 +1,6 @@
 @model sproject.Models.CustomerInfo
 
-<h4>CustomerInfo</h4>
+<h4>Edit Customer Informations</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -8,12 +8,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="customerinfo_id" />
             <div class="form-group">
-                <label asp-for="customer_name" class="control-label"></label>
+                <label asp-for="customer_name" class="control-label">Customer name</label>
                 <input asp-for="customer_name" class="form-control" />
                 <span asp-validation-for="customer_name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="phone_number" class="control-label"></label>
+                <label asp-for="phone_number" class="control-label">Phone number</label>
                 <input asp-for="phone_number" class="form-control" />
                 <span asp-validation-for="phone_number" class="text-danger"></span>
             </div>

@@ -1,0 +1,92 @@
+@model sproject.Models.Claim
+<h4>Claim</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+             <label class="control-label">Customer purchase id</label>
+             <input class ="form-control" asp-for="customerOrder_id" id="customerorder_id"/>
+             <button type = "button" class="btn btn-primary" id="cmb_orsearch">Search</button>
+             </div>
+            <div>
+             <label class="control-label">Purchase Date</label><br>
+             <input class ="form-control" readonly id="pd"/><br>
+             </div>
+           
+
+            <div class="form-group">
+             <label class="control-label">Product name</label>
+             <input class ="form-control" id="pname"/>
+            </div>
+             
+             <!-- <label class="control-label">Warranty status</label>
+             
+             @if(@ViewBag.error == 1){
+                 <p>Expired</p>
+             }
+
+             @if(@ViewBag.error == 2){
+                 <p>Available</p>
+             } -->
+         <hr>
+         <div class="form-group">
+             <label hidden class="control-label">Customer id</label>
+             <input hidden asp-for="customerinfo_id"  id="customer_id"/>
+            </div>
+
+            <div class="form-group">
+             <label class="control-label">Customer name</label>
+             <input class ="form-control" id="customer_name"/>
+            </div>
+            <div class="form-group">
+             <label class="control-label">Phone</label>
+             <input class ="form-control" id="phone"/>
+            </div>
+            <hr>
+
+            <div class="form-group">
+                <label asp-for="problem" class="control-label"></label>
+                <textarea asp-for="problem" class="form-control"></textarea>
+                <span asp-validation-for="problem" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(setup);
+
+        function setup(){
+            $('#cmb_orsearch').click(cb_clicked);
+            //$('#customerorder_id').change(done2);
+        }
+
+        function cb_clicked(){
+            var id = $('#customerorder_id').val();
+            var url= "/customerorder/customerorder_by_COid?id="+id;
+            $.get(url,done);            
+        }        
+
+        function done(data){
+            $('#pd').val(data.date);
+            $('#customer_id').val(data.cid);    
+            $('#customer_name').val(data.name);     
+            $('#phone').val(data.phone);  
+            $('#pname').val(data.pname);    
+
+        }
+
+    </script>
+}

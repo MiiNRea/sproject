@@ -73,14 +73,6 @@ namespace sproject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var borrowinfo = new Borrow{	
-                    supplier_id    = borrow.supplier_id,
-                    product_id	   = borrow.product_id,
-                    borrow_qty	   = borrow.borrow_qty,    
-                    borrow_date    = DateTime.Now                                 
-                };
-                _context.Borrows.Add(borrowinfo);
-               
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -106,8 +106,9 @@ namespace sproject.Controllers
                     found.purchase_type_id =3;
                     _context.PurchaseItems.Update(found);
 
+                    var pproduct = await _context.ProductInfos.Where(x=>x.product_id == inventoryInView.product_id).FirstOrDefaultAsync();
                     var found2 = await _context.Inventories
-                    .FirstOrDefaultAsync(x=>x.product_id == inventoryInView.product_id);
+                    .FirstOrDefaultAsync(x=>x.product_name == pproduct.product_name);
                     found2.invento_qty += inventoryInView.inventoryin_qty;
                     _context.Inventories.Update(found2);
                     
@@ -133,6 +134,7 @@ namespace sproject.Controllers
                         };
                     _context.SupplierPerformances.Add(new_kpi);
 
+                        
                     await _context.SaveChangesAsync();   
                     return RedirectToAction(nameof(Index));          
                 }

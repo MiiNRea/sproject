@@ -1,5 +1,6 @@
 @model IEnumerable<sproject.Models.CustomerOrder>
 
+<h4>Customer Orders</h4>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -7,23 +8,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.customerorder_date)
+                Order id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.customerorder_qty)
+                Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.productInfo)
+                Quantity
             </th>
-           
+            <th>
+                Product name
+            </th>
             <th>
                 Customer name
             </th>
             <th>
-                Phone number
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.warranty_time)
+                Warranty time
             </th>
             <th></th>
         </tr>
@@ -32,26 +32,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.customerOrder_id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.customerorder_date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.customerorder_qty)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.productInfo.product_name)
+                @Html.DisplayFor(modelItem => item.Inventory.product_name)
             </td>
-            
             <td>
                 @Html.DisplayFor(modelItem => item.customerInfo.customer_name)
-            </td>
-           <td>
-                @Html.DisplayFor(modelItem => item.customerInfo.phone_number)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.warranty_time) days
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.customerOrder_id">Edit</a> |
+                <!-- <a asp-action="Edit" asp-route-id="@item.customerOrder_id">Edit</a> | -->
                 <a asp-action="Details" asp-route-id="@item.customerOrder_id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.customerOrder_id">Delete</a>
             </td>

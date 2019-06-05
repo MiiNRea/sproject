@@ -1,0 +1,46 @@
+@model sproject.Models.Claim
+
+<h4>Edit Claim Infomations</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="claim_id" />
+
+            <div class="form-group">
+                <label asp-for="claim_date" class="control-label">Claim id</label>
+                <input readonly asp-for="claim_id" class="form-control" />
+                <span asp-validation-for="claim_date" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="customerOrder_id" class="control-label">Customer order id</label>
+                <input readonly asp-for="customerOrder_id" class="form-control" asp-items="ViewBag.customerOrder_id"/>
+                <span asp-validation-for="customerOrder_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="problem" class="control-label">Problem</label>
+                <textarea asp-for="problem" class="form-control"></textarea>
+                <span asp-validation-for="problem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="claim_date" class="control-label">Claim date</label>
+                <input readonly asp-for="claim_date" class="form-control" />
+                <span asp-validation-for="claim_date" class="text-danger"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="customerinfo_id" class="control-label"></label>
+                <select readonly  asp-for="customerinfo_id" class="form-control" asp-items="ViewBag.customerinfo_id"></select>
+                <span asp-validation-for="customerinfo_id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

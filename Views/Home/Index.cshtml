@@ -4,5 +4,59 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="text-center">
+    <img src="\Desktop\logo.jpg" class="rounded" alt="Responsive image">
+    </div>
 </div>
+
+ <h4 class="text-danger" >Alert!</h4>
+ 
+         <div class="col-sm-15">
+        <h5 class="text-danger" >Product quantity below 8</h5>
+
+         <table class="table" id="table">
+             <tr>
+                 <th>Product name</th>
+                 <th>Quantity</th>                 
+             </tr>
+         </table>
+         </div>
+
+
+ @section Scripts{
+ <script>
+     var list = [];
+     var show = [];
+     var tbl = $('#table');
+     $(document).ready(cb);
+
+
+     function cb() {
+         $.get("/inventory/producta", showtable);
+     }
+     
+     function tr(data) {
+         return '<tr>' + data + '</tr>';
+     }
+
+     function td(data) {
+         return '<td>' + data + '</td>';
+     }
+
+     function showtable(data) {
+         console.log("info",data);   
+         list = data;     
+         table(data);
+     }
+
+     function table(list){
+            for (var i = 0; i < list.length; i++) {
+            var row = tr(td(list[i].product_name)+ td(list[i].qty));
+            console.log(row);
+            tbl.append(row);
+            }
+            //tbl.append(row);
+        }
+
+ </script>
+ }

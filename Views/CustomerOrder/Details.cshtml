@@ -1,37 +1,35 @@
 @model sproject.Models.CustomerOrder
 
 <div>
-    <h4>CustomerOrder</h4>
+    <h4>Customer Order Details</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.customerorder_date)
+            Date
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.customerorder_date)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.customerorder_qty)
+            Product
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Inventory.product_name)
+        </dd>
+        <dt class = "col-sm-2">
+            Quantity
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.customerorder_qty)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.productInfo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.productInfo.product_name)
-        </dd>
-        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.customerInfo)
+            Customer name
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.customerInfo.customer_name)
         </dd>
-        
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.warranty_time)
+            Warranty time
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.warranty_time)
