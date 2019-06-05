@@ -14,8 +14,13 @@ namespace sproject.Controllers
         {
             return View();
         }
-        
 
+        public IActionResult Report()
+        {
+            return View();
+        }
+
+        
         public IActionResult Privacy()
         {
             return View();

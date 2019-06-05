@@ -1,19 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    
-    </div>
-    <button type="button" class="btn btn-default"><a asp-action="Report">Management Reports</a></button><br>
-    
-    <br>
-
- <h4 class="text-danger" >Alert!</h4>
- 
+@model sproject.Models.Inventory
+  
          <div class="col-sm-15">
-        <h5 class="text-danger" >Product quantity below 8</h5>
+        <h3 class="text-danger" >Out of Stock Report</h3>
 
          <table class="table" id="table">
              <tr>
@@ -22,6 +10,7 @@
              </tr>
          </table>
          </div>
+         <a  asp-controller="Home" asp-action="Report"> Back to Management Reports</a>
 
 
 
@@ -34,7 +23,7 @@
 
 
      function cb() {
-         $.get("/inventory/producta", showtable);
+         $.get("/inventory/productpoh", showtable);
      }
      
      function tr(data) {

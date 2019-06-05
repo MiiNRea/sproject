@@ -2794,8 +2794,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Inventory\\ReportOST.cshtml",
+      "TargetPath": "Views\\Inventory\\ReportOST.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\InventoryIn\\Index.cshtml",
       "TargetPath": "Views\\InventoryIn\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Home\\Report.cshtml",
+      "TargetPath": "Views\\Home\\Report.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2886,6 +2896,11 @@
     {
       "FilePath": "Views\\SupplierInfo\\Create.cshtml",
       "TargetPath": "Views\\SupplierInfo\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Inventory\\ReportSOH.cshtml",
+      "TargetPath": "Views\\Inventory\\ReportSOH.cshtml",
       "FileKind": "mvc"
     },
     {

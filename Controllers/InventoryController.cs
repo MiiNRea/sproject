@@ -155,16 +155,44 @@ namespace sproject.Controllers
             // .FirstOrDefault();
            var result = _context.Inventories.Where(x=>x.invento_qty > 0)
            .Select(x=> new { product_name = x.product_name, inventory_id = x.inventory_id}).Distinct();
-            return Json(result);
-        
+            return Json(result);        
         }
 
         public IActionResult producta(){
             // var supplierinfo = _context.SupplierInfos.Where(x=>x.supplier_type_id == 2)
             // .FirstOrDefault();
-           var result2 = _context.Inventories.Where(x=>x.invento_qty < 8)
+           var result2 = _context.Inventories.Where(x=>x.invento_qty <= 8)
            .Select(x=> new { product_name = x.product_name, inventory_id = x.inventory_id, qty = x.invento_qty}).Distinct();
             return Json(result2);
     }
+
+    public IActionResult productpoh(){
+            // var supplierinfo = _context.SupplierInfos.Where(x=>x.supplier_type_id == 2)
+            // .FirstOrDefault();
+           var result2 = _context.Inventories.Where(x=>x.invento_qty <= 0)
+           .Select(x=> new { product_name = x.product_name, inventory_id = x.inventory_id, qty = x.invento_qty}).Distinct();
+            return Json(result2);
+    }
+
+    public IActionResult productsoh(){
+            // var supplierinfo = _context.SupplierInfos.Where(x=>x.supplier_type_id == 2)
+            // .FirstOrDefault();
+           var result2 = _context.Inventories.Where(x=>x.invento_qty > 0)
+           .Select(x=> new { product_name = x.product_name, inventory_id = x.inventory_id, qty = x.invento_qty}).Distinct();
+            return Json(result2);
+    }
+
+    public IActionResult ReportOST()
+        {
+            return View();
+        }
+
+
+    public IActionResult ReportSOH()
+        {
+            return View();
+        }
+        
+
     }
 }
