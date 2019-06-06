@@ -1,7 +1,6 @@
-
- @model IEnumerable<sproject.Models.COReport>
+ @model IEnumerable<sproject.Models.PBReport>
      
-     <h2>Units sold Report</h2>
+     <h2>Problems Report</h2>
      <div class="container">                 <!-- create a container to hold date time picker div-->   
          <div class="row">
              <div class="col-4">
@@ -21,16 +20,20 @@
          <tr>
              <td>ID</td>
              <td>Date</td>
-             <td>Product</td>
-             <td>Total</td>
+             <td>Customerorder id</td>
+             <td>Product name</td>
+             <td>Problem</td>
+             <td>customer_name</td>
          </tr>
 
-         @foreach(var item in @Model){      
+         @foreach(var item in @Model){
          <tr>
-             <td>@item.id</td>
-             <td>@item.date</td>
-             <td>@item.product_id</td>
-             <td>@item.total</td>
+             <td>@item.claim_id</td>
+             <td>@item.claim_date</td>
+             <td>@item.customerOrder_id</td>
+             <td>@item.product_name</td>
+             <td>@item.problem</td>
+             <td>@item.customer_name</td>
               
          </tr>
          }
@@ -58,7 +61,7 @@
          function cmd_select_date_clicked() {
              var start_date = $('#startDate').val();
              var end_date = $('#endDate').val();
-             var url = "/customerorder/ReportPS";
+             var url = "/customerorder/ReportPB";
              url += "?d1=" + start_date;
              url += "&d2=" + end_date;
              window.location.href = url;

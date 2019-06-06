@@ -220,10 +220,58 @@ namespace sproject.Controllers
             return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id, x.supplier_name, x.supplier_type_id}).ToList());
         }
 
-        public IActionResult getsup(){                        
-            return Json(_context.SupplierInfos.Select(x=> new {supplier = x.supplier_id, leadtime = x.leadtime, backorder = x.backorder,
-            name = x.supplier_name}).ToList());     
+        [HttpGet]
+        public async Task<IActionResult> ReportPFM (string d1, string d2){
+            var set1 = _context.SupplierPerformances
+            .Include(x=>x.supplierInfo)
+            .Select(x=>x);
+
+            if(d1 != null && d2 != null){
+                DateTime date1 = Convert.ToDateTime(d1);
+                DateTime date2 = Convert.ToDateTime(d2);
+                set1 = set1.Where(x => x.deliver_date >= date1 && x.deliver_date <= date2);
+            }
+            var result = set1
+
+            .Select(x=> new PFMReport{   
+                date = x.deliver_date,
+                supplier_name = x.supplierInfo.supplier_name,
+                leadtime = x.leadTime,
+                backorder = x.backOrder
+                });       
+
+            var data= set1
+            .Select(x=> new
+                {date= x.deliver_date, //.ToShortDateString(), //note time is not included just date
+                total = x.leadTime + x.backOrder
+                })
+
+            .GroupBy(x => x.date)
+
+            .Select(g=> new {
+                date = g.Key,
+                total = g.Sum(x=>x.total)
+            });
+
+           var x_data = data.Select(x=>x.date).ToArray();
+           var y_data = data.Select(x=>x.total).ToArray();
+         
+           ViewBag.x_data = string.Join(",", x_data);
+           ViewBag.y_data = string.Join(",", y_data);
+             
+            //step26: open Index View (View>Cart>Index.cshtml) and attach result to the Model
+           //return View("Index",result);
+
+         
+           return View("ReportPFM",result);
         }
+        public IActionResult PFMReport(DateTime day){
+            var result = _context.SupplierPerformances
+            .Where(x=>x.deliver_date <= day)
+            .Include(x=>x.supplierInfo)
+           .Select(x=> new { product_name = x.supplierInfo.supplier_name, leadtime = x.leadTime, backorder=x.backOrder,total = x.leadTime+x.backOrder }).Distinct();
+            return Json(result);
+    }
 
         
     }

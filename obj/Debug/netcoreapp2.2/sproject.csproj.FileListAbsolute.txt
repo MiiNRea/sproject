@@ -329,8 +329,10 @@ c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Claim\Deta
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Claim\Edit.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Claim\Index.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\SupplierInfo\BDetails.g.cshtml.cs
-c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\ReportPS.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Inventory\ReportOST.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Home\Report.g.cshtml.cs
 C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Inventory\ReportSOH.g.cshtml.cs
-c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Home\supplierreport.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\SupplierInfo\ReportPFM.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\ReportPR.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\ReportUS.g.cshtml.cs
+c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Claim\ReportPB.g.cshtml.cs

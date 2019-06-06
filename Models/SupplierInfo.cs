@@ -17,8 +17,6 @@ namespace sproject.Models{
         [Required]
         public SupplierType supplier_type {get; set;}
         public int supplier_type_id {get; set;} //partner,supplier
-        public int leadtime {get; set;}
-        public int backorder {get; set;}
 
         // public ProductInfo productInfo {get; set;} //FK
         // public int product_id {get; set;}

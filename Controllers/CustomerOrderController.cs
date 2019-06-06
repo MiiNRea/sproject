@@ -206,7 +206,7 @@ namespace sproject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ReportPS (string d1, string d2){
+        public async Task<IActionResult> ReportUS (string d1, string d2){
             var set1 = _context.CustomerOrders
             .Include(x=>x.Inventory)
             .Select(x=>x);
@@ -244,11 +244,7 @@ namespace sproject.Controllers
            ViewBag.x_data = string.Join(",", x_data);
            ViewBag.y_data = string.Join(",", y_data);
              
-            //step26: open Index View (View>Cart>Index.cshtml) and attach result to the Model
-           //return View("Index",result);
-
-         
-           return View("ReportPS",result);
+           return View("ReportUS",result);
         }
 
 
@@ -257,7 +253,7 @@ namespace sproject.Controllers
             var result = _context.CustomerOrders
             .Where(x=>x.customerorder_date <= day)
             .Include(x=>x.Inventory)
-           .Select(x=> new { product_name = x.Inventory.product_name, qty = x.customerorder_qty}).Distinct();
+           .Select(x=> new { product_id = x.Inventory.product_name, total = x.customerorder_qty}).Distinct();
             return Json(result);
     }
 

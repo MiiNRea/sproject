@@ -184,10 +184,71 @@ namespace sproject.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool ClaimExists(int id)
         {
             return _context.Claims.Any(e => e.claim_id == id);
         }
+
+                public async Task<IActionResult> customerorder_by_COid (int id)
+        {   var customerorder = await _context.CustomerOrders
+            .Where(x =>x.customerOrder_id == id)
+            .Include(x=>x.customerInfo)
+            .Include(x=>x.Inventory)
+            .FirstOrDefaultAsync();
+            return Json(new{date = customerorder.customerorder_date.ToShortDateString(), 
+            cid = customerorder.customerinfo_id, 
+            name = customerorder.customerInfo.customer_name, 
+            phone = customerorder.customerInfo.phone_number,
+            pname = customerorder.Inventory.product_name, 
+            });   
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ReportPB (string d1, string d2){
+            var set1 = _context.Claims
+            .Include(x=>x.customerInfo)
+            .Include(x=>x.customerOrder)
+            .Select(x=>x);
+
+            if(d1 != null && d2 != null){
+                DateTime date1 = Convert.ToDateTime(d1);
+                DateTime date2 = Convert.ToDateTime(d2);
+                set1 = set1.Where(x => x.claim_date >= date1 && x.claim_date <= date2);
+            }
+            var result = set1
+
+            .Select(x=> new PBReport            
+            {   claim_id = x.claim_id,
+                claim_date = x.claim_date,
+                customerOrder_id = x.customerOrder_id,
+                customer_name = x.customerInfo.customer_name,
+                problem = x.problem,
+                product_name = x.customerOrder.Inventory.product_name
+                });       
+
+            // var data= set1
+            // .Select(x=> new
+            //     {date= x.claim_date, //.ToShortDateString(), //note time is not included just date
+            //     total = x.
+            //     })
+
+            //.GroupBy(x => x.date)
+
+        //     .Select(g=> new {
+        //         date = g.Key,
+        //         total = g.Sum(x=>x.total)
+        //     });
+
+        //    var x_data = data.Select(x=>x.date).ToArray();
+        //    var y_data = data.Select(x=>x.total).ToArray();
+         
+        //    ViewBag.x_data = string.Join(",", x_data);
+        //    ViewBag.y_data = string.Join(",", y_data);
+             
+           return View("ReportPB",result);
+        }
+
+
     }
 }

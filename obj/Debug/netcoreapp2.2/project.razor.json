@@ -2849,6 +2849,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\SupplierInfo\\ReportPFM.cshtml",
+      "TargetPath": "Views\\SupplierInfo\\ReportPFM.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\InventoryIn\\Delete.cshtml",
       "TargetPath": "Views\\InventoryIn\\Delete.cshtml",
       "FileKind": "mvc"
@@ -2879,6 +2884,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\CustomerOrder\\ReportUS.cshtml",
+      "TargetPath": "Views\\CustomerOrder\\ReportUS.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Claim\\Index.cshtml",
       "TargetPath": "Views\\Claim\\Index.cshtml",
       "FileKind": "mvc"
@@ -2886,11 +2896,6 @@
     {
       "FilePath": "Views\\SupplierInfo\\Delete.cshtml",
       "TargetPath": "Views\\SupplierInfo\\Delete.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\CustomerOrder\\ReportPS.cshtml",
-      "TargetPath": "Views\\CustomerOrder\\ReportPS.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2959,6 +2964,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\CustomerOrder\\ReportPR.cshtml",
+      "TargetPath": "Views\\CustomerOrder\\ReportPR.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\PurchaseOrderType\\Details.cshtml",
       "TargetPath": "Views\\PurchaseOrderType\\Details.cshtml",
       "FileKind": "mvc"
@@ -2971,11 +2981,6 @@
     {
       "FilePath": "Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Home\\SupplierReport.cshtml",
-      "TargetPath": "Views\\Home\\SupplierReport.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3106,6 +3111,11 @@
     {
       "FilePath": "Views\\Borrow\\Edit.cshtml",
       "TargetPath": "Views\\Borrow\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Claim\\ReportPB.cshtml",
+      "TargetPath": "Views\\Claim\\ReportPB.cshtml",
       "FileKind": "mvc"
     },
     {
