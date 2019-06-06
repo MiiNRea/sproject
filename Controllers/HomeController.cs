@@ -20,6 +20,11 @@ namespace sproject.Controllers
             return View();
         }
 
+        public IActionResult SupplierReport()
+        {
+            return View();
+        }
+
         
         public IActionResult Privacy()
         {

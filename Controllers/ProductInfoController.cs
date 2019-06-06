@@ -147,17 +147,7 @@ namespace sproject.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
-                var result = await _context.Inventories.Where(x=>x.product_name == productInfo.product_name).FirstOrDefaultAsync();
-                if(result == null){
-                    var a = new Inventory{        
-                    //product_id   = productInfo.product_id,            
-                    product_name = productInfo.product_name,
-
-                    };
-                    _context.Inventories.Add(a);
-                }
-                    
+                {                                  
 
                     _context.Update(productInfo);
                     await _context.SaveChangesAsync();
@@ -202,9 +192,12 @@ namespace sproject.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            
+        {   
             var productInfo = await _context.ProductInfos.FindAsync(id);
+            var fn = _context.Inventories.Where(x=>x.product_name == productInfo.product_name).FirstOrDefault();
+            _context.Inventories.Remove(fn);
+
+            //var productInfo = await _context.ProductInfos.FindAsync(id);
             _context.ProductInfos.Remove(productInfo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

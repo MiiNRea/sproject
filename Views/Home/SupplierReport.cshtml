@@ -1,0 +1,61 @@
+@model sproject.Models.SupplierPerformance
+  
+         <div class="col-sm-15">
+        <h3 class="text-danger" >Top Suppliers and performance</h3>
+
+         <table id="table" class="table" cellspacing="0" width="100%">
+             <tr>
+                 <th>Supplier id</th>
+                 <th>Supplier name</th>
+                 <th>Lead time</th>  
+                 <th>Back order</th>   
+                 <th>Total</th>             
+             </tr>
+         </table>
+         </div>
+         <a  asp-controller="Home" asp-action="Report"> Back to Management Reports</a>
+
+
+
+ @section Scripts{
+ <script>
+     var list = [];
+     var show = [];
+     var tbl = $('#table');
+     $(document).ready(cb);
+
+
+
+     function cb() {
+         $.get("/supplierinfo/getsup", getsup);
+     }
+
+     function tr(data) {
+         return '<tr>' + data + '</tr>';
+     }
+
+     function td(data) {
+         return '<td>' + data + '</td>';
+     }
+
+     function getsup(data) {
+         console.log("info",data);   
+         list = data;     
+         table(data);
+     }
+
+     function table(list){
+          total = 0;
+            
+            for (var i = 0; i < list.length; i++) {
+                //total = (list[i].backorder + list[i].leadtime);
+                
+            var row = tr(td(list[i].supplier)+td(list[i].name)+ td(list[i].leadtime) + td(list[i].backorder)+td(list[i].backorder + list[i].leadtime));
+            console.log(row);
+            tbl.append(row);
+            }
+            //tbl.append(row);
+        }
+
+    </script>
+ }

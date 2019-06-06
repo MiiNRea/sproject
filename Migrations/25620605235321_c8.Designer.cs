@@ -9,8 +9,8 @@ using sproject.Data;
 namespace sproject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("25620604221857_c2")]
-    partial class c2
+    [Migration("25620605235321_c8")]
+    partial class c8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

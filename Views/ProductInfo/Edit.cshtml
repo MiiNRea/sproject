@@ -8,7 +8,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="product_id" />
             <div class="form-group">
-                <label asp-for="product_name" class="control-label">Product Name</label>
+                <label readonly asp-for="product_name" class="control-label">Product Name</label>
                 <input asp-for="product_name" class="form-control" />
                 <span asp-validation-for="product_name" class="text-danger"></span>
             </div>

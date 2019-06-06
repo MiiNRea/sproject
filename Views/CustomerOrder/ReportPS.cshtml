@@ -1,8 +1,7 @@
 
  @model IEnumerable<sproject.Models.COReport>
      
-     <h2>Product sale Report</h2>
-     <a href="/customerorder/creates">new cart</a>
+     <h2>Units sold Report</h2>
      <div class="container">                 <!-- create a container to hold date time picker div-->   
          <div class="row">
              <div class="col-4">
@@ -26,7 +25,6 @@
              <td>Total</td>
          </tr>
 
-         <!-- loop through item in the Model , the Model contains a list of cartView objects --> 
          @foreach(var item in @Model){      
          <tr>
              <td>@item.id</td>

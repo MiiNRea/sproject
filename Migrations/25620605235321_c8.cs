@@ -2,7 +2,7 @@
 
 namespace sproject.Migrations
 {
-    public partial class c4 : Migration
+    public partial class c8 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

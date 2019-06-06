@@ -2974,6 +2974,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Home\\SupplierReport.cshtml",
+      "TargetPath": "Views\\Home\\SupplierReport.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\InventoryIn\\Details.cshtml",
       "TargetPath": "Views\\InventoryIn\\Details.cshtml",
       "FileKind": "mvc"

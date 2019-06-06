@@ -134,7 +134,10 @@ namespace sproject.Controllers
                         };
                     _context.SupplierPerformances.Add(new_kpi);
 
-                        
+                    var p = await _context.SupplierInfos.Where(x=>x.supplier_id == inventoryInView.supplier_id).FirstOrDefaultAsync();
+                    p.leadtime += kpi;
+                    _context.SupplierInfos.Update(p);
+
                     await _context.SaveChangesAsync();   
                     return RedirectToAction(nameof(Index));          
                 }
@@ -149,6 +152,10 @@ namespace sproject.Controllers
                         backOrder = 1
                     };
                     _context.SupplierPerformances.Add(bo);
+
+                    var p = await _context.SupplierInfos.Where(x=>x.supplier_id == inventoryInView.supplier_id).FirstOrDefaultAsync();
+                    p.backorder += 1;
+                    _context.SupplierInfos.Update(p);
 
                     var bol = new BackOrder{
                         purchaseItem_id = inventoryInView.purchaseItem_id

@@ -252,7 +252,7 @@ namespace sproject.Controllers
         }
 
 
-
+//COReport ทำหน้า Units sold
         public IActionResult COReport(DateTime day){
             var result = _context.CustomerOrders
             .Where(x=>x.customerorder_date <= day)

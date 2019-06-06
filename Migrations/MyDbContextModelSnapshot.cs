@@ -267,6 +267,10 @@ namespace sproject.Migrations
                     b.Property<int>("supplier_id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("backorder");
+
+                    b.Property<int>("leadtime");
+
                     b.Property<string>("supplier_address");
 
                     b.Property<string>("supplier_name")

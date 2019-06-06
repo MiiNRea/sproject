@@ -9,8 +9,8 @@ using sproject.Data;
 namespace sproject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("25620605164336_c3")]
-    partial class c3
+    [Migration("25620606013209_c2")]
+    partial class c2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -268,6 +268,10 @@ namespace sproject.Migrations
                 {
                     b.Property<int>("supplier_id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("backorder");
+
+                    b.Property<int>("leadtime");
 
                     b.Property<string>("supplier_address");
 

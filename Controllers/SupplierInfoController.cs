@@ -219,5 +219,12 @@ namespace sproject.Controllers
             // .FirstOrDefault();
             return Json(_context.SupplierInfos.Select(x=> new {supplier_id= x.supplier_id, x.supplier_name, x.supplier_type_id}).ToList());
         }
+
+        public IActionResult getsup(){                        
+            return Json(_context.SupplierInfos.Select(x=> new {supplier = x.supplier_id, leadtime = x.leadtime, backorder = x.backorder,
+            name = x.supplier_name}).ToList());     
+        }
+
+        
     }
 }
