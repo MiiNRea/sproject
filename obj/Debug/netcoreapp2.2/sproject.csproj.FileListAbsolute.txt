@@ -333,6 +333,5 @@ c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Inventory\
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Home\Report.g.cshtml.cs
 C:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Inventory\ReportSOH.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\SupplierInfo\ReportPFM.g.cshtml.cs
-c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\ReportPR.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\CustomerOrder\ReportUS.g.cshtml.cs
 c:\Users\MiiNRea\Desktop\sproject\obj\Debug\netcoreapp2.2\Razor\Views\Claim\ReportPB.g.cshtml.cs

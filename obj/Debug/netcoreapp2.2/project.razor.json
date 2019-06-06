@@ -2964,11 +2964,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\CustomerOrder\\ReportPR.cshtml",
-      "TargetPath": "Views\\CustomerOrder\\ReportPR.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "Views\\PurchaseOrderType\\Details.cshtml",
       "TargetPath": "Views\\PurchaseOrderType\\Details.cshtml",
       "FileKind": "mvc"
