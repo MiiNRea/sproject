@@ -1,6 +1,14 @@
  @model IEnumerable<sproject.Models.PBReport>
+
+     <div>
+     <h2>Nawamin Auto Tyre</h2>
+     <h6>15/82 soi nawamin 94, <br>
+     street nawamin road, Khwaeng Nuanchan, <br>
+     Khet Bueng Kum, Bangkok, Thailand, 10230<br>
+     Phone: 086-5709-601</h6></div>
+     <h3 class="text-danger">Problems Report</h3><br>
      
-     <h2>Problems Report</h2>
+
      <div class="container">                 <!-- create a container to hold date time picker div-->   
          <div class="row">
              <div class="col-4">
@@ -40,6 +48,7 @@
 
      </table>
 
+<a  asp-controller="Home" asp-action="Report"> Back to Management Reports</a>
 
      @section Scripts{
      <script>
